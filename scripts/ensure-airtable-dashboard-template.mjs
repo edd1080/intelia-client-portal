@@ -33,10 +33,16 @@ const REQUIRED_FIELDS = {
     { name: 'Es actual', type: 'checkbox', options: CHECKBOX_OPTIONS },
     { name: 'Necesita acción del cliente', type: 'checkbox', options: CHECKBOX_OPTIONS },
     { name: 'Acción requerida', type: 'multilineText' },
+    { name: 'Fecha inicio Gantt', type: 'date', options: DATE_OPTIONS },
+    { name: 'Fecha fin Gantt', type: 'date', options: DATE_OPTIONS },
+    { name: 'Progreso Gantt %', type: 'number', options: { precision: 0 } },
+    { name: 'Orden Gantt', type: 'number', options: { precision: 0 } },
+    { name: 'Dependencias Gantt', type: 'multilineText' },
   ],
   Hitos: [
     { name: 'Descripción cliente', type: 'multilineText' },
     { name: 'Criterio de aceptación', type: 'multilineText' },
+    { name: 'Orden Gantt', type: 'number', options: { precision: 0 } },
   ],
   Preguntas: [
     { name: 'Requiere decisión de cliente', type: 'checkbox', options: CHECKBOX_OPTIONS },
