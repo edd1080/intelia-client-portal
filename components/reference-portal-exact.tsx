@@ -162,15 +162,21 @@ export function ReferencePortalExact() {
     };
 
     const mobileMenu = root.querySelector<HTMLElement>("[data-mobile-menu]");
-    mobileMenu?.addEventListener("click", () => {
-      const aside = root.querySelector<HTMLElement>("aside");
-      if (!aside) return;
-      aside.classList.remove("hidden");
-      aside.classList.add("flex", "fixed", "inset-y-6", "left-6");
-    });
+    if (mobileMenu) {
+      mobileMenu.onclick = () => {
+        const aside = root.querySelector<HTMLElement>("aside");
+        if (!aside) return;
+        if (!aside.classList.contains("hidden")) {
+          closeMobileMenu();
+          return;
+        }
+        aside.classList.remove("hidden");
+        aside.classList.add("flex", "fixed", "inset-y-6", "left-6");
+      };
+    }
 
     root.querySelectorAll<HTMLElement>(".nav-link").forEach((link) => {
-      link.addEventListener("click", () => closeMobileMenu());
+      link.addEventListener("click", () => closeMobileMenu(), { once: false });
     });
 
     root.querySelector<HTMLElement>("[data-support]")?.addEventListener("click", (event) => {
