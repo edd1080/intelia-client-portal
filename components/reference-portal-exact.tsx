@@ -3,13 +3,67 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
+import type { ClientPortalData } from "@/lib/airtable";
 
-export function ReferencePortalExact() {
+type ReferencePortalExactProps = {
+  data?: ClientPortalData;
+  token?: string;
+  authRequired?: boolean;
+};
+
+function escapeHtml(value: unknown) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function statusLabel(status?: string) {
+  const normalized = String(status || "en curso").toLowerCase();
+  if (normalized.includes("riesgo")) return "En riesgo";
+  if (normalized.includes("atras")) return "Atrasado";
+  if (normalized.includes("paus")) return "Pausado";
+  if (normalized.includes("complet")) return "Completado";
+  return "En curso";
+}
+
+function buildMarkup(data?: ClientPortalData, authRequired = true) {
+  if (!data) return authRequired ? markup : markup.replace(/<div id="auth-screen"[\s\S]*$/, "");
+  const progress = Math.max(0, Math.min(100, Math.round(data.project.progress || 60)));
+  const phase = data.project.currentPhase || data.project.nextMilestone || "Fase de Desarrollo Core";
+  const lastUpdated = data.lastUpdated.date ? data.lastUpdated.date : "Hoy";
+  const updatedBy = data.lastUpdated.by || "Intelia";
+  const next = data.project.nextMilestone || "Siguiente hito por confirmar";
+  const signal = data.project.clientSignal || (data.project.status?.toLowerCase().includes("riesgo") ? "atención" : "tranquilo");
+  const clientMessage = data.project.clientMessage || "El proyecto tiene un siguiente paso identificado y el equipo Intelia mantiene la visibilidad operativa del avance.";
+  const remaining = data.project.remainingExplanation || `El ${100 - progress}% restante corresponde a los próximos hitos y validaciones antes del cierre.`;
+  const clientAction = data.tasks.find((task) => task.needsClientAction)?.requiredAction
+    || data.questions.find((question) => question.requiresClientDecision)?.message
+    || "No hay decisiones pendientes del cliente en este momento.";
+  return markup
+    .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
+    .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
+    .replaceAll("Actualizado: Hoy, 10:45 AM", `Actualizado: ${escapeHtml(lastUpdated)} • ${escapeHtml(updatedBy)}`)
+    .replaceAll("Fase de Desarrollo Core", escapeHtml(phase))
+    .replaceAll("STATUS OFICIAL", signal === "tranquilo" ? "STATUS OFICIAL" : "REQUIERE ATENCIÓN")
+    .replaceAll(">60\n                    </span>", `>${progress}\n                    </span>`)
+    .replaceAll("w-[60%]", `w-[${progress}%]`)
+    .replaceAll("Hemos completado exitosamente la fase de\n                  <strong class=\"text-slate-900\">\n                    Setup de Infraestructura\n                  </strong>\n                  y la ingesta de datos. Actualmente estamos avanzando de forma\n                  fluida en el\n                  <strong class=\"text-slate-900\">Entrenamiento del LLM</strong>\n                  .", escapeHtml(data.project.executiveSummary))
+    .replaceAll("El 40% restante corresponde a las pruebas de integración en\n                    entorno Staging (30%) y el despliegue a Producción (10%),\n                    programados para completarse en las próximas 3 semanas.", escapeHtml(remaining))
+    .replaceAll("Siguiente hito definido", escapeHtml(next))
+    .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
+    .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
+    .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
+}
+
+export function ReferencePortalExact({ data, token = "demo", authRequired = true }: ReferencePortalExactProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    root.dataset.portalToken = token;
 
     const canvas = root.querySelector<HTMLCanvasElement>("#webgl-canvas");
     let renderer: THREE.WebGLRenderer | undefined;
@@ -231,11 +285,28 @@ export function ReferencePortalExact() {
     const emailButton = root.querySelector<HTMLElement>("[data-auth-email]");
     const codeButton = root.querySelector<HTMLElement>("[data-auth-code]");
     const resetButton = root.querySelector<HTMLElement>("[data-auth-reset]");
-    emailButton?.addEventListener("click", () => {
+    emailButton?.addEventListener("click", async () => {
       const emailInput = root.querySelector<HTMLInputElement>("#auth-email");
       const email = emailInput?.value.trim() || "";
       if (!email || !email.includes("@")) {
         emailInput?.classList.add("border-red-400", "focus:border-red-500", "focus:ring-red-500/20");
+        return;
+      }
+      emailButton.setAttribute("disabled", "true");
+      emailButton.textContent = "Enviando...";
+      try {
+        if (token !== "demo") {
+          const response = await fetch("/api/portal-auth/request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, email }),
+          });
+          if (!response.ok) throw new Error("request failed");
+        }
+      } catch {
+        emailInput?.classList.add("border-red-400", "focus:border-red-500", "focus:ring-red-500/20");
+        emailButton.removeAttribute("disabled");
+        emailButton.textContent = "Continuar";
         return;
       }
       root.querySelector("#auth-step-1")?.classList.add("hidden");
@@ -245,9 +316,27 @@ export function ReferencePortalExact() {
       const display = root.querySelector("#auth-email-display");
       if (display) display.textContent = email;
     });
-    codeButton?.addEventListener("click", () => {
+    codeButton?.addEventListener("click", async () => {
       const codeInput = root.querySelector<HTMLInputElement>("#auth-code");
-      if (codeInput?.value.trim() === "123456") {
+      const code = codeInput?.value.trim() || "";
+      let valid = token === "demo" ? code === "123456" : false;
+      if (token !== "demo") {
+        codeButton.setAttribute("disabled", "true");
+        codeButton.textContent = "Verificando...";
+        try {
+          const response = await fetch("/api/portal-auth/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, code }),
+          });
+          valid = response.ok;
+        } catch {
+          valid = false;
+        }
+        codeButton.removeAttribute("disabled");
+        codeButton.textContent = "Verificar y Entrar";
+      }
+      if (valid) {
         const authScreen = root.querySelector<HTMLElement>("#auth-screen");
         if (authScreen) {
           authScreen.style.opacity = "0";
@@ -274,7 +363,7 @@ export function ReferencePortalExact() {
     };
   }, []);
 
-  return <div ref={rootRef} className="reference-exact-root" dangerouslySetInnerHTML={{ __html: markup }} />;
+  return <div ref={rootRef} className="reference-exact-root" dangerouslySetInnerHTML={{ __html: buildMarkup(data, authRequired) }} />;
 }
 
 const markup = String.raw`
@@ -635,6 +724,31 @@ const markup = String.raw`
                 </div>
               </div>
             </div>
+          </div>
+          <div class="md:col-span-1 lg:col-span-1 bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
+            <div class="flex items-center gap-2 mb-4">
+              <iconify-icon icon="solar:map-arrow-right-linear" class="text-xl text-emerald-500" stroke-width="1.5"></iconify-icon>
+              <h3 class="text-xl font-semibold tracking-tight text-slate-800">
+                Qué sigue
+              </h3>
+            </div>
+            <p class="text-xs font-mono font-semibold text-emerald-700 uppercase tracking-wider mb-3">
+              Siguiente hito definido
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">
+              Mensaje ejecutivo para el cliente
+            </p>
+          </div>
+          <div class="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-[#eef7f5] to-white rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
+            <div class="flex items-center gap-2 mb-4">
+              <iconify-icon icon="solar:shield-warning-linear" class="text-xl text-emerald-500" stroke-width="1.5"></iconify-icon>
+              <h3 class="text-xl font-semibold tracking-tight text-slate-800">
+                Atención requerida
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">
+              Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.
+            </p>
           </div>
         </div>
         <div id="screen-tareas" class="screen-section hidden max-w-7xl mx-auto space-y-6 pb-12">

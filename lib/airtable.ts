@@ -26,9 +26,14 @@ export type ClientPortalData = {
     code: string;
     token: string;
     status: ProjectStatus;
+    currentPhase?: string;
+    progress?: number;
     startDate?: string;
     targetEndDate?: string;
     executiveSummary: string;
+    remainingExplanation?: string;
+    clientSignal?: string;
+    clientMessage?: string;
     nextMilestone?: string;
     nextMilestoneDate?: string;
     enabledSections: string[];
@@ -43,11 +48,11 @@ export type ClientPortalData = {
   source: { masterRecordId: string; baseId: string };
 };
 
-export type Task = { id: string; name: string; status: string; dueDate?: string; milestone?: string; visibleToClient: boolean; isCurrent: boolean };
-export type Milestone = { id: string; name: string; estimatedDate?: string; actualDate?: string; status: string };
-export type ActivityItem = { id: string; date?: string; type?: string; description: string; origin?: string };
-export type Question = { id: string; author: string; message: string; date?: string; status: string; answer?: string; answeredAt?: string };
-export type DeliverableFile = { id: string; name: string; url: string; date?: string; category?: string };
+export type Task = { id: string; name: string; status: string; dueDate?: string; milestone?: string; visibleToClient: boolean; isCurrent: boolean; description?: string; priority?: string; needsClientAction?: boolean; requiredAction?: string };
+export type Milestone = { id: string; name: string; estimatedDate?: string; actualDate?: string; status: string; description?: string; acceptanceCriteria?: string };
+export type ActivityItem = { id: string; date?: string; type?: string; title?: string; description: string; clientMeaning?: string; origin?: string; visibleToClient?: boolean };
+export type Question = { id: string; author: string; message: string; date?: string; status: string; answer?: string; answeredAt?: string; requiresClientDecision?: boolean };
+export type DeliverableFile = { id: string; name: string; url: string; date?: string; category?: string; status?: string; description?: string; visibleToClient?: boolean };
 export type ImpactMetric = { label: string; value: string; note?: string };
 
 type MasterClient = { recordId: string; clientName: string; baseId: string; status: string };
@@ -127,6 +132,13 @@ function list(fields: Record<string, unknown>, names: string[]) {
   if (Array.isArray(value)) return value.map(String);
   if (typeof value === "string") return value.split(",").map((item) => item.trim()).filter(Boolean);
   return [];
+}
+
+function numberValue(fields: Record<string, unknown>, names: string[], fallback = 0) {
+  const value = field<unknown>(fields, names, fallback);
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  const parsed = Number(String(value ?? "").replace("%", "").trim());
+  return Number.isFinite(parsed) ? parsed : fallback;
 }
 
 function linkedTo(record: AirtableRecord, fieldName: string, linkedRecordId: string) {
@@ -235,7 +247,11 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
         dueDate: text(record.fields, ["Fecha estimada", "Fecha"], ""),
         milestone: milestonesById.get(list(record.fields, ["Hito relacionado"])[0] ?? ""),
         visibleToClient: field<boolean>(record.fields, ["Visible al cliente"], false),
-        isCurrent: isTaskCurrent(status),
+        isCurrent: field<boolean>(record.fields, ["Es actual"], isTaskCurrent(status)),
+        description: text(record.fields, ["Descripción cliente", "Descripcion cliente", "Descripción", "Notas internas"], ""),
+        priority: text(record.fields, ["Prioridad"], ""),
+        needsClientAction: field<boolean>(record.fields, ["Necesita acción del cliente"], false),
+        requiredAction: text(record.fields, ["Acción requerida", "Accion requerida"], ""),
       };
     });
   const activity = activityRecords
@@ -244,8 +260,11 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
       id: record.id,
       date: text(record.fields, ["Fecha"], ""),
       type: text(record.fields, ["Tipo"], "nota"),
+      title: text(record.fields, ["Título", "Titulo", "Nombre"], ""),
       description: text(record.fields, ["Descripción", "Descripcion", "Descripción en lenguaje plano"], ""),
+      clientMeaning: text(record.fields, ["Qué significa para el cliente", "Que significa para el cliente"], ""),
       origin: text(record.fields, ["Origen"], ""),
+      visibleToClient: field<boolean>(record.fields, ["Visible al cliente"], true),
     }))
     .sort((a, b) => new Date(`${b.date}T00:00:00`).getTime() - new Date(`${a.date}T00:00:00`).getTime());
 
@@ -264,9 +283,14 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
       code: text(projectRecord.fields, ["Código", "Codigo", "Código corto", "Codigo corto", "Código del proyecto"]),
       token: text(accessRecord?.fields ?? projectRecord.fields, ["Token", "Token de acceso"]),
       status: text(projectRecord.fields, ["Estado general", "Estado"], "en curso"),
+      currentPhase: text(projectRecord.fields, ["Fase actual"], ""),
+      progress: numberValue(projectRecord.fields, ["Progreso %", "Progreso", "Avance %"], 0),
       startDate: text(projectRecord.fields, ["Fecha de inicio"], ""),
       targetEndDate: text(projectRecord.fields, ["Fecha estimada de cierre", "Fecha cierre estimada"], ""),
       executiveSummary: text(projectRecord.fields, ["Resumen ejecutivo"], "El proyecto avanza conforme al plan y el siguiente paso ya está identificado."),
+      remainingExplanation: text(projectRecord.fields, ["Explicación del avance restante", "Explicacion del avance restante"], ""),
+      clientSignal: text(projectRecord.fields, ["Semáforo cliente", "Semaforo cliente"], ""),
+      clientMessage: text(projectRecord.fields, ["Mensaje para cliente"], ""),
       nextMilestone: text(projectRecord.fields, ["Próximo hito", "Proximo hito"], ""),
       nextMilestoneDate: text(projectRecord.fields, ["Fecha próximo hito", "Fecha proximo hito", "Fecha del próximo hito"], ""),
       enabledSections: list(projectRecord.fields, ["Secciones habilitadas"]),
@@ -280,6 +304,8 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
         estimatedDate: text(record.fields, ["Fecha estimada"], ""),
         actualDate: text(record.fields, ["Fecha real"], ""),
         status: text(record.fields, ["Estado"], "pendiente"),
+        description: text(record.fields, ["Descripción cliente", "Descripcion cliente", "Descripción"], ""),
+        acceptanceCriteria: text(record.fields, ["Criterio de aceptación", "Criterio de aceptacion"], ""),
       })),
     activity,
     questions: questionRecords
@@ -292,6 +318,7 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
         status: text(record.fields, ["Estado"], "sin responder"),
         answer: text(record.fields, ["Respuesta"], ""),
         answeredAt: text(record.fields, ["Fecha de respuesta"], ""),
+        requiresClientDecision: field<boolean>(record.fields, ["Requiere decisión de cliente"], false),
       })),
     files: fileRecords
       .filter((record) => linkedTo(record, "Proyecto", projectId))
@@ -301,6 +328,9 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
         url: text(record.fields, ["URL", "Url", "Link", "url"]),
         date: text(record.fields, ["Fecha"], ""),
         category: text(record.fields, ["Categoría", "Categoria"], ""),
+        status: text(record.fields, ["Estado"], "disponible"),
+        description: text(record.fields, ["Descripción", "Descripcion"], ""),
+        visibleToClient: field<boolean>(record.fields, ["Visible al cliente"], true),
       })),
     impactMetrics: parseImpactMetrics(projectRecord.fields),
     lastUpdated: latestActivityUpdate(activity, text(projectRecord.fields, ["Última actualización", "Ultima actualización", "Fecha de actualización", "Fecha actualizacion"], "")),
