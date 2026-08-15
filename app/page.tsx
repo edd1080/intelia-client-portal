@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function Home() {
   return (
     <main className="portal-home-shell">
@@ -15,9 +13,6 @@ export default function Home() {
           <span className="portal-home-dot" />
           <span>Si ya tienes tu enlace de proyecto, ábrelo directamente para ver el avance más reciente.</span>
         </div>
-        <Link className="portal-home-link" href="/p/demo">
-          Ver demo visual
-        </Link>
       </section>
     </main>
   );

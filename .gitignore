@@ -18,6 +18,7 @@
 *.pem
 .agents/
 .claude/
+project-portal-links.csv
 
 # debug
 npm-debug.log*

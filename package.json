@@ -1,1 +1,30 @@
-{"scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"next lint","airtable:ensure-links":"node scripts/ensure-airtable-links.mjs","airtable:ensure-access":"node scripts/ensure-airtable-access-table.mjs","airtable:create-client-bases":"node scripts/create-client-bases.mjs","airtable:verify":"node scripts/verify-airtable-setup.mjs","airtable:seed-bia-hn-compras":"node scripts/seed-bia-honduras-compras.mjs","airtable:seed-bia-gt-talenthub":"node scripts/seed-bia-guatemala-talenthub.mjs","airtable:ensure-dashboard-template":"node scripts/ensure-airtable-dashboard-template.mjs"},"dependencies":{"@types/node":"latest","@types/react":"latest","@types/react-dom":"latest","@types/three":"^0.185.4","eslint":"latest","eslint-config-next":"latest","gsap":"^3.15.0","next":"latest","react":"latest","react-dom":"latest","three":"^0.185.1","typescript":"latest"}}
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "airtable:ensure-links": "node scripts/ensure-airtable-links.mjs",
+    "airtable:ensure-access": "node scripts/ensure-airtable-access-table.mjs",
+    "airtable:create-client-bases": "node scripts/create-client-bases.mjs",
+    "airtable:verify": "node scripts/verify-airtable-setup.mjs",
+    "airtable:seed-bia-hn-compras": "node scripts/seed-bia-honduras-compras.mjs",
+    "airtable:seed-bia-gt-talenthub": "node scripts/seed-bia-guatemala-talenthub.mjs",
+    "airtable:ensure-dashboard-template": "node scripts/ensure-airtable-dashboard-template.mjs",
+    "airtable:seed-project-shells": "node scripts/seed-project-shells.mjs"
+  },
+  "dependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/three": "^0.185.4",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "gsap": "^3.15.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "three": "^0.185.1",
+    "typescript": "latest"
+  }
+}
