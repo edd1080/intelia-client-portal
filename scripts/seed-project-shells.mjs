@@ -33,7 +33,7 @@ const PROJECTS = [
     aliases: ['TalentHub', 'BIA-TALENT-OS'],
     status: 'en progreso',
     phase: 'Actualización de información del portal',
-    stakeholders: ['mdavila@biafoods.com', 'lorellana@biafoods.com'],
+    stakeholders: ['mdavila@biafoods.com', 'lorellana@biafoods.com', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.gt,
@@ -44,7 +44,7 @@ const PROJECTS = [
     code: 'BIA-GT-ONBOARDING-VIDEOS',
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['mdavila@biafoods.com', 'lorellana@biafoods.com'],
+    stakeholders: ['mdavila@biafoods.com', 'lorellana@biafoods.com', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.gt,
@@ -55,7 +55,7 @@ const PROJECTS = [
     code: 'BIA-GT-DATAHUB',
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['dzepeda@biafoods.com', 'lorellana@biafoods.com'],
+    stakeholders: ['dzepeda@biafoods.com', 'lorellana@biafoods.com', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.gt,
@@ -66,7 +66,7 @@ const PROJECTS = [
     code: 'BIA-GT-PORTAL-VACACIONES',
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['mreyes@biafoods.com', 'lorellana@biafoods.com'],
+    stakeholders: ['mreyes@biafoods.com', 'lorellana@biafoods.com', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.gt,
@@ -77,7 +77,7 @@ const PROJECTS = [
     code: 'BIA-GT-PORTAL-BENEFICIOS',
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['mreyes@biafoods.com', 'lorellana@biafoods.com'],
+    stakeholders: ['mreyes@biafoods.com', 'lorellana@biafoods.com', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.hn,
@@ -89,7 +89,7 @@ const PROJECTS = [
     aliases: ['Fase 1 - Solicitud de Compras', 'BIA-COM-2026'],
     status: 'en riesgo',
     phase: 'Actualización de información del portal',
-    stakeholders: ['lmatute@biabrands.co', 'gsalguero@biafoods.com', 'dpiox@biabrands.co'],
+    stakeholders: ['lmatute@biabrands.co', 'gsalguero@biafoods.com', 'dpiox@biabrands.co', 'edgarcalderon@outlook.com', 'edgar@intelia.pro'],
   },
   {
     baseId: BASES.hn,
@@ -100,7 +100,7 @@ const PROJECTS = [
     code: 'BIA-HN-MKT-INTELLIGENCE-CORE',
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['nchahin@biabrands.co', 'danielam@biabrands.co', 'mduque@biabrands.co', 'gsalguero@biafoods.com', 'dpiox@biabrands.co'],
+    stakeholders: ['nchahin@biabrands.co', 'danielam@biabrands.co', 'mduque@biabrands.co', 'gsalguero@biafoods.com', 'dpiox@biabrands.co', 'edgarcalderon@outlook.com', 'edgar@intelia.pro', 'aisolis@gmail.com', 'alder@intelia.pro'],
   },
   {
     baseId: BASES.mx,
@@ -112,7 +112,7 @@ const PROJECTS = [
     aliases: ['Plataforma HR'],
     status: 'en curso',
     phase: 'Shell inicial pendiente de carga detallada',
-    stakeholders: ['agomex@biafoods.com', 'dulces@cafepuntadelcielo.co'],
+    stakeholders: ['agomex@biafoods.com', 'dulces@cafepuntadelcielo.co', 'edgarcalderon@outlook.com', 'edgar@intelia.pro', 'floresmauricio@outlook.com', 'mauricio@intelia.pro'],
   },
 ];
 
