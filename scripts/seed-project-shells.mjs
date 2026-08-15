@@ -199,12 +199,15 @@ async function findProject(project) {
 
 async function ensureProject(project, clientRecord) {
   const existing = await findProject(project);
-  const fields = {
+  const identityFields = {
     Nombre: project.name,
     Código: project.code,
     Cliente: [clientRecord.id],
     'Estado general': project.status,
     'Fase actual': project.phase,
+  };
+  const shellFields = {
+    ...identityFields,
     'Progreso %': 0,
     'Resumen ejecutivo': 'Proyecto agregado al portal de clientes Intelia. La información detallada se cargará desde la plantilla oficial de actualización del proyecto.',
     'Explicación del avance restante': 'Pendiente de cargar avance real, próximos hitos, tareas y entregables desde Airtable.',
@@ -215,8 +218,8 @@ async function ensureProject(project, clientRecord) {
     'Actualizado por': 'Hermes',
     'Secciones habilitadas': ['kanban', 'hitos', 'actividad', 'preguntas', 'archivos', 'metricas'],
   };
-  if (existing) return patchRecord(project.baseId, TABLES.projects, existing.id, fields);
-  return create(project.baseId, TABLES.projects, fields);
+  if (existing) return patchRecord(project.baseId, TABLES.projects, existing.id, identityFields);
+  return create(project.baseId, TABLES.projects, shellFields);
 }
 
 async function ensureAccess(project, projectRecord, email) {
