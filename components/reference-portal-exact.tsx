@@ -356,7 +356,7 @@ const markup = String.raw`
       <main class="flex-1 overflow-y-auto p-6 md:p-8 scroll-smooth">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12 screen-section" id="screen-resumen">
           <!-- RESUMEN -->
-          <div class="md:col-span-2 lg:col-span-3 bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 md:p-8 flex flex-col md:flex-row gap-8">
+          <div class="md:col-span-2 lg:col-span-2 bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 md:p-8 flex flex-col md:flex-row gap-8">
             <div class="flex-1 pr-0 md:pr-4 flex flex-col justify-center">
               <div class="flex items-center gap-2 mb-4">
                 <div class="bg-emerald-100/80 px-3 py-1.5 rounded-full shadow-sm border border-emerald-200 inline-flex items-center gap-2">
