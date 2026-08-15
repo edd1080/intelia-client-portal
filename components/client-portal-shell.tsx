@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import gsap from "gsap";
 import { QuestionForm } from "@/components/question-form";
+import { WebGLBackground } from "@/components/webgl-background";
 import { ClientPortalData, Task } from "@/lib/airtable";
 
 type SectionId = "resumen" | "actividad" | "tareas" | "roadmap" | "preguntas" | "archivos" | "metricas";
@@ -55,13 +57,13 @@ function percent(done: number, total: number) {
 
 export function ClientPortalShell({ data, token }: { data: ClientPortalData; token: string }) {
   const [active, setActive] = useState<SectionId>("resumen");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const tone = statusTone(data.project.status);
   const tasksDone = data.tasks.filter((task) => task.status.toLowerCase().includes("complet")).length;
   const currentTasks = data.tasks.filter((task) => task.isCurrent);
   const visibleTasks = data.tasks.filter((task) => task.visibleToClient).length;
   const progress = percent(tasksDone, data.tasks.length);
   const groups = useMemo(() => groupTasks(data.tasks), [data.tasks]);
-  const initials = data.client.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
 
   const allNav: { id: SectionId; label: string; icon: string; enabled: boolean }[] = [
     { id: "resumen", label: "Resumen", icon: "✦", enabled: true },
@@ -74,16 +76,44 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
   ];
   const nav = allNav.filter((item) => item.enabled);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".top-glass", { autoAlpha: 0, y: -18 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out" });
+      gsap.fromTo(
+        ".dashboard-card",
+        { autoAlpha: 0, scale: 0.88, y: 46, rotateY: -8, transformPerspective: 900 },
+        { autoAlpha: 1, scale: 1, y: 0, rotateY: 0, duration: 1.2, stagger: 0.08, ease: "power4.out" }
+      );
+      gsap.to(".main-dot", { scale: 1.35, transformOrigin: "center", duration: 1.5, yoyo: true, repeat: -1, ease: "sine.inOut" });
+      gsap.to("#main-path", { strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut" });
+    });
+    const onMove = (event: MouseEvent) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 2;
+      const y = (event.clientY / window.innerHeight - 0.5) * 2;
+      gsap.to(".screen-grid", { rotateY: x * 2.6, rotateX: -y * 1.5, duration: 1.5, ease: "power2.out", transformPerspective: 1200 });
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      ctx.revert();
+    };
+  }, [active]);
+
+  const chooseSection = (section: SectionId) => {
+    setActive(section);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <main className="client-app" style={{ "--brand": data.client.brandColor || "#10b981" } as React.CSSProperties}>
-      <div className="aurora-field" aria-hidden="true" />
+      <WebGLBackground />
       <div className="noise-layer" aria-hidden="true" />
 
       <aside className="side-dock" aria-label="Navegación del portal">
-        <div className="dock-logo">{initials || "IN"}</div>
+        <div className="dock-logo" role="img" aria-label="Intelia" />
         <nav>
           {nav.map((item) => (
-            <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => setActive(item.id)}>
+            <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => chooseSection(item.id)}>
               <span>{item.icon}</span>
               <small>{item.label}</small>
             </button>
@@ -94,6 +124,11 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
 
       <section className="portal-workspace">
         <header className="top-glass">
+          <div className="desktop-logo-row"><div className="intelia-wordmark" role="img" aria-label="Intelia" /></div>
+          <div className="mobile-brand-row">
+            <button className="mobile-menu-trigger" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menú de módulos">☰</button>
+            <div className="intelia-wordmark" role="img" aria-label="Intelia" />
+          </div>
           <div>
             <p className="micro-label">{data.project.code}</p>
             <h1>{data.project.name}</h1>
@@ -108,12 +143,35 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
         </header>
 
         <div className="mobile-nav" aria-label="Navegación móvil">
-          {nav.map((item) => <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => setActive(item.id)}>{item.label}</button>)}
+          <button className="mobile-menu-pill" onClick={() => setMobileMenuOpen(true)}>Módulos del dashboard</button>
+          {nav.map((item) => <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => chooseSection(item.id)}>{item.label}</button>)}
         </div>
+
+        {mobileMenuOpen && (
+          <div className="mobile-menu-backdrop" role="dialog" aria-modal="true" aria-label="Seleccionar módulo">
+            <button className="mobile-menu-scrim" aria-label="Cerrar menú" onClick={() => setMobileMenuOpen(false)} />
+            <div className="mobile-menu-panel">
+              <div className="mobile-menu-head">
+                <div className="intelia-wordmark" role="img" aria-label="Intelia" />
+                <button onClick={() => setMobileMenuOpen(false)} aria-label="Cerrar menú">×</button>
+              </div>
+              <p className="micro-label">Módulos</p>
+              <h2>Selecciona qué revisar</h2>
+              <div className="mobile-menu-list">
+                {nav.map((item) => (
+                  <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => chooseSection(item.id)}>
+                    <span>{item.icon}</span>
+                    <strong>{item.label}</strong>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {active === "resumen" && (
           <section className="screen-grid enter-screen">
-            <article className="glass-card hero-summary wide-card">
+            <article className="glass-card dashboard-card hero-summary wide-card">
               <div>
                 <p className="pill-label">Status oficial</p>
                 <h2>Estado ejecutivo del proyecto</h2>
@@ -124,11 +182,18 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
                 <span>{progress}%</span>
                 <p>Progreso por tareas</p>
                 <div className="progress-track"><i style={{ width: `${progress}%` }} /></div>
+                <div className="metric-sparkline" aria-hidden="true">
+                  <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                    <path d="M0,35 Q20,35 40,25 T70,15 T100,5" fill="none" stroke="rgba(16,185,129,0.18)" strokeWidth="2" />
+                    <path id="main-path" d="M0,35 Q20,35 40,25 T70,15 T100,5" fill="none" stroke="#10b981" strokeWidth="2" strokeDasharray="120" strokeDashoffset="120" />
+                    <circle cx="100" cy="5" r="3" fill="white" stroke="#10b981" strokeWidth="1.5" className="main-dot" />
+                  </svg>
+                </div>
                 <small>{tasksDone} de {data.tasks.length} tareas completadas · {currentTasks.length} activas</small>
               </div>
             </article>
 
-            <article className="gradient-card green-card">
+            <article className="gradient-card dashboard-card green-card">
               <h3>Tareas</h3>
               <p>Distribución viva del trabajo visible e interno.</p>
               <div className="stat-rows">
@@ -138,13 +203,13 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
               </div>
             </article>
 
-            <article className="gradient-card slate-card">
+            <article className="gradient-card dashboard-card slate-card">
               <h3>Próximo hito</h3>
               <p>{data.project.nextMilestone || "Por definir"}</p>
               <small>{formatDate(data.project.nextMilestoneDate)}</small>
             </article>
 
-            <article className="glass-card activity-preview wide-card soft-dark">
+            <article className="glass-card dashboard-card activity-preview wide-card soft-dark">
               <div className="section-title"><span>Actividad reciente</span><h3>Lo último que cambió</h3></div>
               <div className="update-cards compact">
                 {data.activity.slice(0, 3).map((item) => (
@@ -215,7 +280,7 @@ export function ClientPortalShell({ data, token }: { data: ClientPortalData; tok
 
         {active === "preguntas" && (
           <section className="enter-screen split-screen">
-            <div className="glass-card"><div className="section-title"><span>Preguntas</span><h2>Dudas y respuestas</h2><p>Escribe una pregunta; Intelia responde aquí mismo.</p></div><QuestionForm token={token} /></div>
+            <div className="glass-card dashboard-card"><div className="section-title"><span>Preguntas</span><h2>Dudas y respuestas</h2><p>Escribe una pregunta; Intelia responde aquí mismo.</p></div><QuestionForm token={token} /></div>
             <div className="qa-panel">
               {data.questions.map((question) => <article key={question.id}><p>{question.message}</p>{question.answer ? <strong>{question.answer}</strong> : <span>Pendiente de respuesta</span>}</article>)}
             </div>

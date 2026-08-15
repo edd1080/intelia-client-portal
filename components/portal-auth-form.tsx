@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { WebGLBackground } from "@/components/webgl-background";
 
 export function PortalAuthForm({ token }: { token: string }) {
   const [email, setEmail] = useState("");
@@ -52,12 +53,12 @@ export function PortalAuthForm({ token }: { token: string }) {
 
   return (
     <main className="auth-stage">
-      <div className="aurora-field" aria-hidden="true" />
+      <WebGLBackground />
       <div className="noise-layer" aria-hidden="true" />
       <section className="auth-card">
         <div className="auth-glow auth-glow-a" />
         <div className="auth-glow auth-glow-b" />
-        <div className="auth-mark">in</div>
+        <div className="auth-mark" role="img" aria-label="Intelia" />
         <p className="auth-kicker">Portal seguro de cliente</p>
         <h1>Acceso con código temporal</h1>
         <p className="auth-copy">Ingresa el correo autorizado para este proyecto. Te enviaremos un código de 6 dígitos antes de mostrar la información.</p>
