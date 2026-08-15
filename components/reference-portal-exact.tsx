@@ -142,6 +142,73 @@ export function ReferencePortalExact() {
         showScreen(link.getAttribute("data-screen") || "resumen");
       };
     });
+    const showToast = (message: string) => {
+      root.querySelector("[data-action-toast]")?.remove();
+      const toast = document.createElement("div");
+      toast.setAttribute("data-action-toast", "true");
+      toast.className = "fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] bg-slate-800 text-white text-sm px-5 py-3 rounded-2xl shadow-xl border border-slate-700 transition-opacity duration-300";
+      toast.textContent = message;
+      root.appendChild(toast);
+      window.setTimeout(() => {
+        toast.style.opacity = "0";
+        window.setTimeout(() => toast.remove(), 320);
+      }, 2800);
+    };
+
+    const closeMobileMenu = () => {
+      const aside = root.querySelector<HTMLElement>("aside");
+      aside?.classList.add("hidden");
+      aside?.classList.remove("flex", "fixed", "inset-y-6", "left-6");
+    };
+
+    const mobileMenu = root.querySelector<HTMLElement>("[data-mobile-menu]");
+    mobileMenu?.addEventListener("click", () => {
+      const aside = root.querySelector<HTMLElement>("aside");
+      if (!aside) return;
+      aside.classList.remove("hidden");
+      aside.classList.add("flex", "fixed", "inset-y-6", "left-6");
+    });
+
+    root.querySelectorAll<HTMLElement>(".nav-link").forEach((link) => {
+      link.addEventListener("click", () => closeMobileMenu());
+    });
+
+    root.querySelector<HTMLElement>("[data-support]")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.location.href = "mailto:edgar@intelia.pro?subject=Soporte%20Portal%20de%20Cliente%20Intelia";
+    });
+
+    const listButton = root.querySelector<HTMLElement>("[data-view-list]");
+    const kanbanButton = root.querySelector<HTMLElement>("[data-view-kanban]");
+    const taskBoard = root.querySelector<HTMLElement>("[data-task-board]");
+    const setTaskView = (view: "list" | "kanban") => {
+      if (!taskBoard || !listButton || !kanbanButton) return;
+      if (view === "list") {
+        taskBoard.classList.remove("md:grid-cols-3");
+        taskBoard.classList.add("md:grid-cols-1");
+        taskBoard.querySelectorAll<HTMLElement>(":scope > div").forEach((lane) => lane.classList.add("md:flex-row"));
+        listButton.className = "px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all";
+        kanbanButton.className = "px-4 py-2 bg-white/60 backdrop-blur-md rounded-xl text-sm font-medium text-slate-700 shadow-sm border border-white/60 hover:bg-white/80 transition-all";
+      } else {
+        taskBoard.classList.add("md:grid-cols-3");
+        taskBoard.classList.remove("md:grid-cols-1");
+        taskBoard.querySelectorAll<HTMLElement>(":scope > div").forEach((lane) => lane.classList.remove("md:flex-row"));
+        listButton.className = "px-4 py-2 bg-white/60 backdrop-blur-md rounded-xl text-sm font-medium text-slate-700 shadow-sm border border-white/60 hover:bg-white/80 transition-all";
+        kanbanButton.className = "px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all";
+      }
+    };
+    listButton?.addEventListener("click", () => setTaskView("list"));
+    kanbanButton?.addEventListener("click", () => setTaskView("kanban"));
+
+    root.querySelector<HTMLElement>("[data-upload-readonly]")?.addEventListener("click", () => {
+      showToast("Portal de lectura: los archivos los publica Intelia desde Airtable.");
+    });
+    root.querySelectorAll<HTMLElement>("[data-file-card]").forEach((card) => {
+      card.addEventListener("click", () => showToast("Archivo disponible desde el repositorio de entregables del proyecto."));
+    });
+    root.querySelectorAll<HTMLElement>("[data-resource-card]").forEach((card) => {
+      card.addEventListener("click", () => showScreen("archivos"));
+    });
 
     const topHeader = root.querySelector("#top-header");
     if (topHeader) gsap.to(topHeader, { autoAlpha: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.3 });
@@ -233,7 +300,7 @@ const markup = String.raw`
         </a>
       </nav>
       <div class="mt-auto flex flex-col items-center w-full px-2">
-        <a href="#" class="w-14 h-14 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform group relative border border-slate-700">
+        <a href="#" data-support="true" class="w-14 h-14 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform group relative border border-slate-700">
           <iconify-icon icon="solar:help-circle-bold-duotone" class="text-2xl text-emerald-400"></iconify-icon>
           <div class="absolute left-16 bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl border border-slate-700 z-50">
             Soporte Técnico
@@ -244,7 +311,7 @@ const markup = String.raw`
     <div class="flex-1 flex flex-col h-full relative z-10 overflow-hidden">
       <header id="top-header" class="w-auto mx-6 mt-6 mb-2 p-4 md:px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 backdrop-blur-xl border border-white/60 rounded-[2rem] bg-white/70 shadow-[0_4px_20px_rgba(0,0,0,0.03)] opacity-0 z-20 relative">
         <div class="flex items-center gap-4">
-          <button class="md:hidden p-2.5 bg-white/60 rounded-xl border border-white/60 shadow-sm text-slate-700 flex items-center justify-center hover:bg-white/80 transition-colors">
+          <button data-mobile-menu="true" class="md:hidden p-2.5 bg-white/60 rounded-xl border border-white/60 shadow-sm text-slate-700 flex items-center justify-center hover:bg-white/80 transition-colors">
             <iconify-icon icon="solar:hamburger-menu-linear" class="text-xl"></iconify-icon>
           </button>
           <div class="">
@@ -440,7 +507,7 @@ const markup = String.raw`
               <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">
                 Entregables
               </p>
-              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm">
+              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm resource-card" data-resource-card="true">
                 <div class="bg-blue-500/10 p-1.5 rounded-lg text-blue-600">
                   <iconify-icon icon="solar:document-text-linear" stroke-width="1.5"></iconify-icon>
                 </div>
@@ -451,7 +518,7 @@ const markup = String.raw`
                   <p class="text-[10px] text-slate-500">2.4 MB</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm">
+              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm resource-card" data-resource-card="true">
                 <div class="bg-emerald-500/10 p-1.5 rounded-lg text-emerald-600">
                   <iconify-icon icon="solar:file-check-linear" stroke-width="1.5"></iconify-icon>
                 </div>
@@ -563,15 +630,15 @@ const markup = String.raw`
               Tareas
             </h2>
             <div class="flex gap-2">
-              <button class="px-4 py-2 bg-white/60 backdrop-blur-md rounded-xl text-sm font-medium text-slate-700 shadow-sm border border-white/60 hover:bg-white/80 transition-all">
+              <button data-view-list="true" class="px-4 py-2 bg-white/60 backdrop-blur-md rounded-xl text-sm font-medium text-slate-700 shadow-sm border border-white/60 hover:bg-white/80 transition-all">
                 Vista Lista
               </button>
-              <button class="px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all">
+              <button data-view-kanban="true" class="px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all">
                 Vista Kanban
               </button>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div data-task-board="true" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm flex flex-col gap-4">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-semibold text-slate-700">Por Hacer</h3>
@@ -756,13 +823,13 @@ const markup = String.raw`
             <h2 class="text-2xl font-semibold tracking-tight text-slate-800">
               Archivos
             </h2>
-            <button class="px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center gap-2">
+            <button data-upload-readonly="true" class="px-4 py-2 bg-emerald-500 rounded-xl text-sm font-medium text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center gap-2">
               <iconify-icon icon="solar:upload-linear" class="text-lg"></iconify-icon>
               Subir Archivo
             </button>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3">
+            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 file-card" data-file-card="true">
               <div class="bg-blue-500/10 h-24 rounded-xl flex items-center justify-center text-blue-600 text-4xl">
                 <iconify-icon icon="solar:document-text-linear"></iconify-icon>
               </div>
@@ -773,7 +840,7 @@ const markup = String.raw`
                 <p class="text-xs text-slate-500 mt-1">2.4 MB • Hace 2 días</p>
               </div>
             </div>
-            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3">
+            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 file-card" data-file-card="true">
               <div class="bg-emerald-500/10 h-24 rounded-xl flex items-center justify-center text-emerald-600 text-4xl">
                 <iconify-icon icon="solar:file-check-linear"></iconify-icon>
               </div>
@@ -784,7 +851,7 @@ const markup = String.raw`
                 <p class="text-xs text-slate-500 mt-1">842 KB • Hace 1 sem</p>
               </div>
             </div>
-            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3">
+            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 file-card" data-file-card="true">
               <div class="bg-purple-500/10 h-24 rounded-xl flex items-center justify-center text-purple-600 text-4xl">
                 <iconify-icon icon="solar:gallery-linear"></iconify-icon>
               </div>
@@ -795,7 +862,7 @@ const markup = String.raw`
                 <p class="text-xs text-slate-500 mt-1">4.1 MB • Hoy</p>
               </div>
             </div>
-            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3">
+            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 file-card" data-file-card="true">
               <div class="bg-amber-500/10 h-24 rounded-xl flex items-center justify-center text-amber-600 text-4xl">
                 <iconify-icon icon="solar:presentation-linear"></iconify-icon>
               </div>
