@@ -68,6 +68,11 @@ Solo tareas client-facing o agrupaciones entendibles. Evitar tareas internas tip
 | Dueño Intelia | Texto/persona | Interno o visible opcional |
 | Necesita acción del cliente | Checkbox | Para decisiones pendientes |
 | Acción requerida | Long text | Si aplica |
+| Fecha inicio Gantt | Fecha | Inicio visual de la barra Gantt |
+| Fecha fin Gantt | Fecha | Final visual de la barra Gantt |
+| Progreso Gantt % | Número 0-100 | Progreso dentro de la barra |
+| Orden Gantt | Número | Orden vertical en la gráfica |
+| Dependencias Gantt | Long text | Tareas/hitos previos relevantes |
 
 ## Tabla: Hitos
 
@@ -80,6 +85,7 @@ Solo tareas client-facing o agrupaciones entendibles. Evitar tareas internas tip
 | Fecha real | Fecha | Cierre real |
 | Estado | Select: alcanzado, actual, pendiente, en riesgo, bloqueado | Timeline |
 | Criterio de aceptación | Long text | Qué significa completado |
+| Orden Gantt | Número | Orden relativo si el hito aparece como referencia temporal |
 
 ## Tabla: Preguntas
 
@@ -140,6 +146,11 @@ Tareas actualizadas:
   Descripción cliente:
   Necesita acción del cliente: sí/no
   Acción requerida:
+  Fecha inicio Gantt:
+  Fecha fin Gantt:
+  Progreso Gantt %:
+  Orden Gantt:
+  Dependencias Gantt:
 
 Riesgos / bloqueos / decisiones:
 - Riesgo:

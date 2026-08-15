@@ -48,7 +48,7 @@ export type ClientPortalData = {
   source: { masterRecordId: string; baseId: string };
 };
 
-export type Task = { id: string; name: string; status: string; dueDate?: string; milestone?: string; visibleToClient: boolean; isCurrent: boolean; description?: string; priority?: string; needsClientAction?: boolean; requiredAction?: string };
+export type Task = { id: string; name: string; status: string; dueDate?: string; milestone?: string; visibleToClient: boolean; isCurrent: boolean; description?: string; priority?: string; needsClientAction?: boolean; requiredAction?: string; ganttStart?: string; ganttEnd?: string; ganttProgress?: number; ganttOrder?: number; ganttDependencies?: string };
 export type Milestone = { id: string; name: string; estimatedDate?: string; actualDate?: string; status: string; description?: string; acceptanceCriteria?: string };
 export type ActivityItem = { id: string; date?: string; type?: string; title?: string; description: string; clientMeaning?: string; origin?: string; visibleToClient?: boolean };
 export type Question = { id: string; author: string; message: string; date?: string; status: string; answer?: string; answeredAt?: string; requiresClientDecision?: boolean };
@@ -252,6 +252,11 @@ async function getPortalData(masterClient: MasterClient, projectRecord: Airtable
         priority: text(record.fields, ["Prioridad"], ""),
         needsClientAction: field<boolean>(record.fields, ["Necesita acción del cliente"], false),
         requiredAction: text(record.fields, ["Acción requerida", "Accion requerida"], ""),
+        ganttStart: text(record.fields, ["Fecha inicio Gantt", "Fecha de inicio", "Fecha"], ""),
+        ganttEnd: text(record.fields, ["Fecha fin Gantt", "Fecha estimada", "Fecha"], ""),
+        ganttProgress: numberValue(record.fields, ["Progreso Gantt %"], status.toLowerCase().includes("complet") ? 100 : isTaskCurrent(status) ? 50 : 0),
+        ganttOrder: numberValue(record.fields, ["Orden Gantt"], 999),
+        ganttDependencies: text(record.fields, ["Dependencias Gantt"], ""),
       };
     });
   const activity = activityRecords

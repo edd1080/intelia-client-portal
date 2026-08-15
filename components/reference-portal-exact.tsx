@@ -28,6 +28,73 @@ function statusLabel(status?: string) {
   return "En curso";
 }
 
+function parseDate(value?: string) {
+  if (!value) return undefined;
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime()) ? undefined : date;
+}
+
+function formatShortDate(date: Date) {
+  return new Intl.DateTimeFormat("es", { day: "2-digit", month: "short" }).format(date);
+}
+
+function buildGanttHtml(data: ClientPortalData) {
+  const tasks = data.tasks
+    .filter((task) => task.visibleToClient !== false)
+    .map((task) => ({
+      ...task,
+      start: parseDate(task.ganttStart || task.dueDate || data.project.startDate),
+      end: parseDate(task.ganttEnd || task.dueDate || data.project.targetEndDate || task.ganttStart),
+    }))
+    .filter((task) => task.start && task.end)
+    .sort((a, b) => (a.ganttOrder ?? 999) - (b.ganttOrder ?? 999) || a.start!.getTime() - b.start!.getTime())
+    .slice(0, 8);
+
+  if (!tasks.length) return "";
+
+  const min = new Date(Math.min(...tasks.map((task) => task.start!.getTime())));
+  const max = new Date(Math.max(...tasks.map((task) => task.end!.getTime())));
+  if (max.getTime() <= min.getTime()) max.setDate(min.getDate() + 28);
+  const total = Math.max(1, max.getTime() - min.getTime());
+  const periods = Array.from({ length: 4 }, (_, index) => {
+    const date = new Date(min.getTime() + (total * index) / 3);
+    return `<div>${escapeHtml(formatShortDate(date))}</div>`;
+  }).join("");
+
+  const rows = tasks.map((task) => {
+    const startPct = Math.max(0, Math.min(96, ((task.start!.getTime() - min.getTime()) / total) * 100));
+    const widthPct = Math.max(8, Math.min(100 - startPct, ((task.end!.getTime() - task.start!.getTime()) / total) * 100));
+    const progress = Math.max(0, Math.min(100, Math.round(task.ganttProgress ?? 0)));
+    const complete = progress >= 100;
+    const bar = complete ? "bg-emerald-200 border border-emerald-300" : progress > 0 ? "bg-emerald-500 shadow-sm shadow-emerald-500/20" : "bg-slate-200 border border-slate-300";
+    const textColor = complete ? "text-emerald-700" : progress > 0 ? "text-white" : "text-slate-500";
+    return `
+                <div class="grid grid-cols-12 gap-2 items-center">
+                  <div class="col-span-3 text-sm font-medium text-slate-700 truncate">
+                    ${escapeHtml(task.name)}
+                  </div>
+                  <div class="col-span-9 relative h-6 bg-white/40 rounded-md border border-white/50 overflow-hidden">
+                    <div class="absolute top-0 h-full ${bar} rounded-md" style="left:${startPct}%;width:${widthPct}%">
+                      <span class="absolute inset-0 flex items-center justify-center text-[10px] font-semibold ${textColor}">
+                        ${progress}%
+                      </span>
+                    </div>
+                  </div>
+                </div>`;
+  }).join("");
+
+  return `<div class="min-w-[800px]">
+              <div class="grid grid-cols-12 gap-2 mb-4 text-xs font-semibold text-slate-500 border-b border-slate-200 pb-2">
+                <div class="col-span-3">Tarea</div>
+                <div class="col-span-9 grid grid-cols-4 gap-2 text-center">
+                  ${periods}
+                </div>
+              </div>
+              <div class="space-y-4">${rows}
+              </div>
+            </div>`;
+}
+
 function buildMarkup(data?: ClientPortalData, authRequired = true) {
   if (!data) return authRequired ? markup : markup.replace(/<div id="auth-screen"[\s\S]*$/, "");
   const progress = Math.max(0, Math.min(100, Math.round(data.project.progress || 60)));
@@ -41,6 +108,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
   const clientAction = data.tasks.find((task) => task.needsClientAction)?.requiredAction
     || data.questions.find((question) => question.requiresClientDecision)?.message
     || "No hay decisiones pendientes del cliente en este momento.";
+  const ganttHtml = buildGanttHtml(data);
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
@@ -54,6 +122,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Siguiente hito definido", escapeHtml(next))
     .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
     .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
+    .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
 }
 
@@ -898,51 +967,7 @@ const markup = String.raw`
             Gráfica Gantt
           </h2>
           <div class="bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 overflow-x-auto">
-            <div class="min-w-[800px]">
-              <div class="grid grid-cols-12 gap-2 mb-4 text-xs font-semibold text-slate-500 border-b border-slate-200 pb-2">
-                <div class="col-span-3">Tarea</div>
-                <div class="col-span-9 grid grid-cols-4 gap-2 text-center">
-                  <div>Semana 1</div>
-                  <div>Semana 2</div>
-                  <div>Semana 3</div>
-                  <div>Semana 4</div>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <div class="grid grid-cols-12 gap-2 items-center">
-                  <div class="col-span-3 text-sm font-medium text-slate-700">
-                    Setup Infraestructura
-                  </div>
-                  <div class="col-span-9 grid grid-cols-4 gap-2 relative">
-                    <div class="col-start-1 col-span-1 h-6 bg-emerald-200 rounded-md border border-emerald-300 relative group">
-                      <span class="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-emerald-700">
-                        100%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid grid-cols-12 gap-2 items-center">
-                  <div class="col-span-3 text-sm font-medium text-slate-700">
-                    Entrenamiento LLM
-                  </div>
-                  <div class="col-span-9 grid grid-cols-4 gap-2 relative">
-                    <div class="col-start-2 col-span-2 h-6 bg-emerald-500 rounded-md shadow-sm shadow-emerald-500/20 relative">
-                      <span class="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-white">
-                        60%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid grid-cols-12 gap-2 items-center">
-                  <div class="col-span-3 text-sm font-medium text-slate-700">
-                    Integración UI
-                  </div>
-                  <div class="col-span-9 grid grid-cols-4 gap-2 relative">
-                    <div class="col-start-3 col-span-2 h-6 bg-slate-200 rounded-md border border-slate-300 relative"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- GANTT_DYNAMIC -->
           </div>
         </div>
         <div id="screen-archivos" class="screen-section hidden max-w-7xl mx-auto space-y-6 pb-12">
