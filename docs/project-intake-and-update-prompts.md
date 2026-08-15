@@ -2,6 +2,10 @@
 
 Usar estas plantillas para convertir información de cliente, reuniones o sesiones de trabajo en registros Airtable consistentes para el portal.
 
+Para pedirle a agentes de desarrollo como Claude Code/OpenCode/Codex que generen el bloque que luego Hermes consume, usar también:
+
+- `docs/dev-agent-airtable-handoff-prompts.md`
+
 ## 1) Prompt maestro: crear proyecto nuevo
 
 ```text
