@@ -159,10 +159,15 @@ export function ReferencePortalExact() {
       const aside = root.querySelector<HTMLElement>("aside");
       aside?.classList.add("hidden");
       aside?.classList.remove("flex", "fixed", "inset-y-6", "left-6");
+      const icon = root.querySelector<HTMLElement>("[data-mobile-menu] iconify-icon");
+      icon?.setAttribute("icon", "solar:hamburger-menu-linear");
     };
 
     const mobileMenu = root.querySelector<HTMLElement>("[data-mobile-menu]");
     if (mobileMenu) {
+      // Keep the thumb-reachable mobile trigger outside the blurred header;
+      // backdrop-filter creates a containing block for fixed children on mobile.
+      if (mobileMenu.parentElement !== root) root.appendChild(mobileMenu);
       mobileMenu.onclick = () => {
         const aside = root.querySelector<HTMLElement>("aside");
         if (!aside) return;
@@ -172,6 +177,8 @@ export function ReferencePortalExact() {
         }
         aside.classList.remove("hidden");
         aside.classList.add("flex", "fixed", "inset-y-6", "left-6");
+        const icon = root.querySelector<HTMLElement>("[data-mobile-menu] iconify-icon");
+        icon?.setAttribute("icon", "solar:close-circle-linear");
       };
     }
 
