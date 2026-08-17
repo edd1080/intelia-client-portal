@@ -55,20 +55,6 @@ body {
   display: inline-block;
 }
 
-.reference-exact-root .sidebar-svg-icon {
-  width: 22px;
-  height: 22px;
-  display: block;
-  color: currentColor;
-  flex: 0 0 auto;
-}
-
-.reference-exact-root [data-support="true"] .sidebar-svg-icon {
-  width: 24px;
-  height: 24px;
-  color: rgb(52 211 153);
-}
-
 .portal-home-shell {
   min-height: 100svh;
   display: grid;

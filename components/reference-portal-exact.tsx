@@ -38,19 +38,6 @@ function formatShortDate(date: Date) {
   return new Intl.DateTimeFormat("es", { day: "2-digit", month: "short" }).format(date);
 }
 
-function sidebarIcon(name: "resumen" | "tareas" | "roadmap" | "gantt" | "archivos" | "soporte") {
-  const common = "sidebar-svg-icon group-hover:scale-110 transition-transform";
-  const paths = {
-    resumen: '<rect x="4" y="4" width="6" height="6" rx="2" fill="currentColor"/><rect x="14" y="4" width="6" height="6" rx="2" fill="currentColor" opacity="0.82"/><rect x="4" y="14" width="6" height="6" rx="2" fill="currentColor" opacity="0.82"/><rect x="14" y="14" width="6" height="6" rx="2" fill="currentColor"/>',
-    tareas: '<rect x="4" y="5" width="16" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5l2 2 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 15h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    roadmap: '<path d="M5 17c3.5-6 10.5-4 14-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 7h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="17" r="2" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor" opacity="0.75"/>',
-    gantt: '<rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 16V9M12 16V7M16 16v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    archivos: '<path d="M4 8.5A3.5 3.5 0 0 1 7.5 5H10l2 2h4.5A3.5 3.5 0 0 1 20 10.5v5A3.5 3.5 0 0 1 16.5 19h-9A3.5 3.5 0 0 1 4 15.5v-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
-    soporte: '<circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.2 2.1c-.7.35-1 .8-1 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.8" r="1" fill="currentColor"/>',
-  } satisfies Record<string, string>;
-  return `<svg aria-hidden="true" viewBox="0 0 24 24" class="${common}" fill="none" xmlns="http://www.w3.org/2000/svg">${paths[name]}</svg>`;
-}
-
 function buildGanttHtml(data: ClientPortalData) {
   const tasks = data.tasks
     .filter((task) => task.visibleToClient !== false)
@@ -250,7 +237,7 @@ export function ReferencePortalExact({ data, token = "demo", authRequired = true
       root.querySelectorAll(".nav-link").forEach((link) => {
         link.classList.remove("bg-white/80", "text-slate-800", "shadow-sm", "border-white/60", "font-semibold");
         link.classList.add("text-slate-600", "hover:bg-white/50", "font-medium");
-        const icon = link.querySelector("iconify-icon, .sidebar-svg-icon");
+        const icon = link.querySelector("iconify-icon");
         if (icon) {
           icon.classList.remove("text-emerald-500");
           const current = icon.getAttribute("icon") || "";
@@ -463,29 +450,29 @@ const markup = String.raw`
       </div>
       <nav class="flex-1 flex flex-col items-center space-y-4 w-full px-2">
         <a href="#" onclick="showScreen('resumen')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 bg-white/80 text-slate-800 shadow-sm border border-white/60 font-semibold">
-          ${sidebarIcon("resumen")}
+          <iconify-icon icon="solar:widget-5-bold-duotone" class="text-[22px] text-emerald-500 group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Resumen</span>
         </a>
         <a href="#" onclick="showScreen('tareas')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
-          ${sidebarIcon("tareas")}
+          <iconify-icon icon="solar:checklist-minimalistic-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Tareas</span>
         </a>
         <a href="#" onclick="showScreen('roadmap')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
-          ${sidebarIcon("roadmap")}
+          <iconify-icon icon="solar:route-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Roadmap</span>
         </a>
         <a href="#" onclick="showScreen('gantt')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
-          ${sidebarIcon("gantt")}
+          <iconify-icon icon="solar:chart-square-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Gantt</span>
         </a>
         <a href="#" onclick="showScreen('archivos')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
-          ${sidebarIcon("archivos")}
+          <iconify-icon icon="solar:folder-with-files-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Archivos</span>
         </a>
       </nav>
       <div class="mt-auto flex flex-col items-center w-full px-2">
         <a href="#" data-support="true" class="w-14 h-14 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform group relative border border-slate-700">
-          ${sidebarIcon("soporte")}
+          <iconify-icon icon="solar:help-circle-bold-duotone" class="text-2xl text-emerald-400"></iconify-icon>
           <div class="absolute left-16 bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl border border-slate-700 z-50">
             Soporte Técnico
           </div>
