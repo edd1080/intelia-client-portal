@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import { ReferencePortalExact } from "@/components/reference-portal-exact";
 import { resolveProjectByToken } from "@/lib/airtable";
 import { isPortalSessionValid } from "@/lib/portal-auth";
@@ -14,6 +15,8 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
   const data = await resolveProjectByToken(token);
   if (!data) notFound();
 
-  const authRequired = token !== "demo" && !(await isPortalSessionValid(token));
+  const host = (await headers()).get("host") ?? "";
+  const isLocalDemo = host.startsWith("localhost:") || host.startsWith("127.0.0.1:");
+  const authRequired = token !== "demo" && !isLocalDemo && !(await isPortalSessionValid(token));
   return <ReferencePortalExact data={data} token={token} authRequired={authRequired} />;
 }
