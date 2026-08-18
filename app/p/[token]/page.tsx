@@ -18,5 +18,6 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
   const host = (await headers()).get("host") ?? "";
   const isLocalDemo = host.startsWith("localhost:") || host.startsWith("127.0.0.1:");
   const authRequired = token !== "demo" && !isLocalDemo && !(await isPortalSessionValid(token));
+  if (authRequired) return <ReferencePortalExact token={token} authRequired />;
   return <ReferencePortalExact data={data} token={token} authRequired={authRequired} />;
 }

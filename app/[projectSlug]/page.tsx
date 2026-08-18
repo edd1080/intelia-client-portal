@@ -22,5 +22,6 @@ export default async function FriendlyProjectPage({ params }: FriendlyProjectPag
   const host = (await headers()).get("host") ?? "";
   const isLocalDemo = host.startsWith("localhost:") || host.startsWith("127.0.0.1:");
   const authRequired = !isLocalDemo && !(await isPortalSessionValid(projectSlug));
+  if (authRequired) return <ReferencePortalExact token={projectSlug} authRequired />;
   return <ReferencePortalExact data={data} token={projectSlug} authRequired={authRequired} />;
 }
