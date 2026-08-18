@@ -119,6 +119,40 @@ body {
     border: 1px solid rgb(255 255 255 / 0.6) !important;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.05) !important;
   }
+
+  .reference-exact-root main > .screen-section {
+    width: 100% !important;
+    max-width: 80rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .reference-exact-root #screen-resumen {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+
+  .reference-exact-root #screen-resumen.hidden {
+    display: none !important;
+  }
+
+  .reference-exact-root .dashboard-summary-card,
+  .reference-exact-root .dashboard-task-card {
+    height: min(36rem, calc(100vh - 12rem)) !important;
+    min-height: 30rem !important;
+    overflow: hidden !important;
+  }
+
+  .reference-exact-root .dashboard-summary-card > div:first-child,
+  .reference-exact-root .dashboard-summary-side-panel {
+    min-height: 0 !important;
+  }
+
+  .reference-exact-root .dashboard-summary-copy {
+    max-height: 14rem !important;
+    overflow-y: auto !important;
+  }
 }
 
 .portal-home-shell {

@@ -38,6 +38,45 @@ function formatShortDate(date: Date) {
   return new Intl.DateTimeFormat("es", { day: "2-digit", month: "short" }).format(date);
 }
 
+function buildTaskOverviewPanel(data: ClientPortalData) {
+  const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
+  const currentTasks = visibleTasks.filter((task) => task.isCurrent || task.status.toLowerCase().includes("progreso") || task.status.toLowerCase().includes("revisión")).slice(0, 4);
+  const tasks = (currentTasks.length ? currentTasks : visibleTasks).slice(0, 4);
+
+  const rows = tasks.map((task) => {
+    const status = task.status || "pendiente";
+    const due = task.dueDate ? formatShortDate(new Date(`${task.dueDate}T00:00:00`)) : "Sin fecha";
+    const tone = status.toLowerCase().includes("complet")
+      ? "bg-emerald-100 text-emerald-700"
+      : status.toLowerCase().includes("bloque") || status.toLowerCase().includes("riesgo")
+        ? "bg-amber-100 text-amber-700"
+        : "bg-slate-100 text-slate-600";
+    return `<div class="rounded-2xl border border-white/70 bg-white/60 p-3 shadow-sm">
+                  <div class="flex items-start justify-between gap-3">
+                    <p class="text-xs font-semibold leading-snug text-slate-800">${escapeHtml(task.name)}</p>
+                    <span class="shrink-0 rounded-full px-2 py-1 text-[9px] font-bold uppercase tracking-wider ${tone}">${escapeHtml(status)}</span>
+                  </div>
+                  <div class="mt-2 flex items-center justify-between gap-3 text-[10px] font-medium text-slate-500">
+                    <span>${escapeHtml(task.milestone || "Tarea del proyecto")}</span>
+                    <span class="font-mono">${escapeHtml(due)}</span>
+                  </div>
+                </div>`;
+  }).join("");
+
+  return `<div class="dashboard-summary-side-panel md:w-80 bg-gradient-to-b from-white/80 to-white/30 rounded-[1.5rem] border border-white/60 p-6 relative overflow-hidden flex flex-col shadow-inner">
+              <div class="flex items-center justify-between gap-3 text-slate-700 mb-4">
+                <div>
+                  <span class="block font-medium text-xs uppercase tracking-wider text-slate-500">Overview de tareas</span>
+                  <span class="mt-1 block text-sm font-semibold text-slate-800">Trabajo actual</span>
+                </div>
+                <span class="font-mono text-xl font-semibold text-emerald-500">${visibleTasks.length}</span>
+              </div>
+              <div class="space-y-3 flex-1 overflow-hidden">
+                ${rows || `<div class="rounded-2xl border border-white/70 bg-white/60 p-4 text-xs font-medium text-slate-500 shadow-sm">No hay tareas visibles cargadas todavía.</div>`}
+              </div>
+            </div>`;
+}
+
 function buildGanttHtml(data: ClientPortalData) {
   const tasks = data.tasks
     .filter((task) => task.visibleToClient !== false)
@@ -122,6 +161,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Siguiente hito definido", escapeHtml(next))
     .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
     .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
+    .replaceAll("<!-- TASK_OVERVIEW_PANEL -->", buildTaskOverviewPanel(data))
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
 }
@@ -514,7 +554,7 @@ const markup = String.raw`
       <main class="flex-1 overflow-y-auto p-6 md:p-8 scroll-smooth">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12 screen-section" id="screen-resumen">
           <!-- RESUMEN -->
-          <div class="md:col-span-2 lg:col-span-2 bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 md:p-8 flex flex-col md:flex-row gap-8">
+          <div class="dashboard-summary-card md:col-span-2 lg:col-span-2 bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 md:p-8 flex flex-col md:flex-row gap-8">
             <div class="flex-1 pr-0 md:pr-4 flex flex-col justify-center">
               <div class="flex items-center gap-2 mb-4">
                 <div class="bg-emerald-100/80 px-3 py-1.5 rounded-full shadow-sm border border-emerald-200 inline-flex items-center gap-2">
@@ -550,7 +590,7 @@ const markup = String.raw`
                   </div>
                 </div>
               </div>
-              <div class="bg-white/50 rounded-2xl p-5 border border-white/60 shadow-sm">
+              <div class="dashboard-summary-copy bg-white/50 rounded-2xl p-5 border border-white/60 shadow-sm">
                 <p class="text-sm text-slate-700 leading-relaxed font-medium">
                   Hemos completado exitosamente la fase de
                   <strong class="text-slate-900">
@@ -571,25 +611,11 @@ const markup = String.raw`
                 </div>
               </div>
             </div>
-            <div class="md:w-80 bg-gradient-to-b from-white/80 to-white/30 rounded-[1.5rem] border border-white/60 p-6 relative overflow-hidden flex flex-col justify-center shadow-inner">
-              <div class="flex justify-between items-center text-slate-700 mb-4">
-                <span class="font-medium text-xs">Precisión (Test)</span>
-                <span class="font-mono text-xl font-semibold text-emerald-500">
-                  87.4%
-                </span>
-              </div>
-              <div class="relative h-20 w-full mt-2">
-                <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 40" preserveAspectRatio="none">
-                  <path d="M0,35 Q20,35 40,25 T70,15 T100,5" fill="none" stroke="rgba(16,185,129,0.2)" stroke-width="2"></path>
-                  <path id="main-path" d="M0,35 Q20,35 40,25 T70,15 T100,5" fill="none" stroke="#10b981" stroke-width="2" class="stroke-draw drop-shadow-sm" style="stroke-dashoffset: 0px;"></path>
-                  <circle cx="100" cy="5" r="3" fill="white" stroke="#10b981" stroke-width="1.5" class="main-dot" style=" transform-origin: 0px 0px;" data-svg-origin="100 5" transform="matrix(1.4,0,0,1.4,-40,-2)"></circle>
-                </svg>
-              </div>
-            </div>
+            <!-- TASK_OVERVIEW_PANEL -->
           </div>
 
           <!-- TAREAS -->
-          <div class="bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[2rem] p-6 text-white/90 shadow-lg shadow-emerald-500/10 border border-white/30 flex flex-col hover:shadow-xl transition-shadow">
+          <div class="dashboard-task-card bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[2rem] p-6 text-white/90 shadow-lg shadow-emerald-500/10 border border-white/30 flex flex-col hover:shadow-xl transition-shadow">
             <div class="flex items-center gap-2 mb-4">
               <iconify-icon icon="solar:checklist-minimalistic-linear" class="text-xl text-white/80" stroke-width="1.5"></iconify-icon>
               <h3 class="text-xl font-semibold tracking-tight text-white">
