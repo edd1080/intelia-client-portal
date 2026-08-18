@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-08-18T01:34:33.948Z",
+  "projects": [
+    {
+      "key": "bia-hn-compras-ai-5cVRh5",
+      "id": "rec5cVRh50tcuE3Kt",
+      "baseId": "appM9RFgoYSE9AiPM",
+      "clientName": "BIA Honduras",
+      "projectName": "Proyecto Solicitud de Compras AI",
+      "code": "BIA-HN-COMPRAS-AI"
+    },
+    {
+      "key": "bia-hn-mkt-intelligence-core-tzxbKF",
+      "id": "rectzxbKFBWaL58V8",
+      "baseId": "appM9RFgoYSE9AiPM",
+      "clientName": "BIA Honduras",
+      "projectName": "Proyecto Intelligence Core Dashboard",
+      "code": "BIA-HN-MKT-INTELLIGENCE-CORE"
+    },
+    {
+      "key": "bia-gt-datahub-I00mA5",
+      "id": "recI00mA5slS0ot3Q",
+      "baseId": "appNcnN6leXDGTHu3",
+      "clientName": "BIA Corporativo Guatemala",
+      "projectName": "DataHub",
+      "code": "BIA-GT-DATAHUB"
+    },
+    {
+      "key": "bia-gt-portal-vacaciones-JkploK",
+      "id": "recJkploKymkZk7qF",
+      "baseId": "appNcnN6leXDGTHu3",
+      "clientName": "BIA Corporativo Guatemala",
+      "projectName": "Portal Vacaciones",
+      "code": "BIA-GT-PORTAL-VACACIONES"
+    },
+    {
+      "key": "bia-gt-talenthub-reYeVk",
+      "id": "recreYeVkqWMun34e",
+      "baseId": "appNcnN6leXDGTHu3",
+      "clientName": "BIA Corporativo Guatemala",
+      "projectName": "TalentHub",
+      "code": "BIA-GT-TALENTHUB"
+    },
+    {
+      "key": "bia-gt-onboarding-videos-sC7fmj",
+      "id": "recsC7fmjFRL2aTXE",
+      "baseId": "appNcnN6leXDGTHu3",
+      "clientName": "BIA Corporativo Guatemala",
+      "projectName": "Onboarding Digital (Videos)",
+      "code": "BIA-GT-ONBOARDING-VIDEOS"
+    },
+    {
+      "key": "bia-gt-portal-beneficios-yUJHkT",
+      "id": "recyUJHkTyraGqtn2",
+      "baseId": "appNcnN6leXDGTHu3",
+      "clientName": "BIA Corporativo Guatemala",
+      "projectName": "Portal Beneficios",
+      "code": "BIA-GT-PORTAL-BENEFICIOS"
+    },
+    {
+      "key": "bia-mx-bia-one-hr-3ggCjC",
+      "id": "rec3ggCjCIc143mBp",
+      "baseId": "appsMPwrBUsQTVU49",
+      "clientName": "BIA México",
+      "projectName": "BIA One (Plataforma HR)",
+      "code": "BIA-MX-BIA-ONE-HR"
+    }
+  ],
+  "accessCount": 40
+}

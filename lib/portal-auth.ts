@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
-import { isEmailAuthorizedForAccess, touchPortalAccess } from "@/lib/airtable";
+import { isEmailAuthorizedForSnapshotAccess } from "@/lib/portal-snapshots";
 
 const CHALLENGE_COOKIE = "intelia_portal_challenge";
 const SESSION_COOKIE = "intelia_portal_session";
@@ -88,7 +88,7 @@ async function sendCodeEmail(email: string, code: string) {
 
 export async function requestPortalCode(token: string, emailInput: string) {
   const email = normalizeEmail(emailInput);
-  const ok = await isEmailAuthorizedForAccess(token, email);
+  const ok = isEmailAuthorizedForSnapshotAccess(token, email);
   if (!ok) {
     // Generic response so a visitor cannot enumerate valid emails.
     return { ok: true, sent: false };
@@ -133,6 +133,5 @@ export async function verifyPortalCode(token: string, codeInput: string) {
     maxAge: SESSION_TTL_SECONDS,
   });
   jar.delete(CHALLENGE_COOKIE);
-  await touchPortalAccess(token).catch((error) => console.warn("Unable to update portal last use", error));
   return true;
 }

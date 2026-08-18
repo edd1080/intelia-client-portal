@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClientQuestion } from "@/lib/airtable";
+import { createClientQuestionFromSnapshot } from "@/lib/portal-questions";
 import { isPortalSessionValid } from "@/lib/portal-auth";
 
 export async function POST(request: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Sesión inválida" }, { status: 401 });
     }
 
-    await createClientQuestion(token, message.trim());
+    await createClientQuestionFromSnapshot(token, message.trim());
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error(error);

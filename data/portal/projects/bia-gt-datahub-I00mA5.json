@@ -1,0 +1,48 @@
+{
+  "client": {
+    "id": "recF70tbVGOQIIoqC",
+    "name": "BIA Corporativo Guatemala",
+    "brandColor": "#2558D8",
+    "contactName": "Lorena Orellana / Mario Reyes",
+    "contactEmail": "lorellana@biafoods.com"
+  },
+  "project": {
+    "id": "recI00mA5slS0ot3Q",
+    "name": "DataHub",
+    "code": "BIA-GT-DATAHUB",
+    "token": "",
+    "status": "en curso",
+    "currentPhase": "Shell inicial pendiente de carga detallada",
+    "progress": 0,
+    "startDate": "",
+    "targetEndDate": "",
+    "executiveSummary": "Proyecto agregado al portal de clientes Intelia. La información detallada se cargará desde la plantilla oficial de actualización del proyecto.",
+    "remainingExplanation": "Pendiente de cargar avance real, próximos hitos, tareas y entregables desde Airtable.",
+    "clientSignal": "atención",
+    "clientMessage": "Este portal ya está creado. El equipo Intelia está actualizando la información visible para mostrar estado, próximos pasos y decisiones pendientes.",
+    "nextMilestone": "Cargar información oficial del proyecto",
+    "nextMilestoneDate": "",
+    "enabledSections": [
+      "kanban",
+      "hitos",
+      "actividad",
+      "preguntas",
+      "archivos",
+      "metricas"
+    ]
+  },
+  "tasks": [],
+  "milestones": [],
+  "activity": [],
+  "questions": [],
+  "files": [],
+  "impactMetrics": [],
+  "lastUpdated": {
+    "date": "2026-08-15",
+    "by": "Intelia"
+  },
+  "source": {
+    "masterRecordId": "recwfzRxnyrW3mWEQ",
+    "baseId": "appNcnN6leXDGTHu3"
+  }
+}

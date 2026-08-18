@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { ReferencePortalExact } from "@/components/reference-portal-exact";
-import { resolveProjectByToken } from "@/lib/airtable";
+import { resolveProjectByTokenFromSnapshot } from "@/lib/portal-snapshots";
 import { isPortalSessionValid } from "@/lib/portal-auth";
 
 export const revalidate = 60;
@@ -12,7 +12,7 @@ type ClientPortalPageProps = {
 
 export default async function ClientPortalPage({ params }: ClientPortalPageProps) {
   const { token } = await params;
-  const data = await resolveProjectByToken(token);
+  const data = resolveProjectByTokenFromSnapshot(token);
   if (!data) notFound();
 
   const host = (await headers()).get("host") ?? "";

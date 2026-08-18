@@ -1,0 +1,275 @@
+{
+  "client": {
+    "id": "recF70tbVGOQIIoqC",
+    "name": "BIA Corporativo Guatemala",
+    "brandColor": "#2558D8",
+    "contactName": "Lorena Orellana / Mario Reyes",
+    "contactEmail": "lorellana@biafoods.com"
+  },
+  "project": {
+    "id": "recreYeVkqWMun34e",
+    "name": "TalentHub",
+    "code": "BIA-GT-TALENTHUB",
+    "token": "legacy-bia-talent-os",
+    "status": "en progreso",
+    "currentPhase": "Actualización de información del portal",
+    "progress": 0,
+    "startDate": "2025-12-31",
+    "targetEndDate": "",
+    "executiveSummary": "BIA Foods está desarrollando una plataforma propietaria de reclutamiento y selección, exclusiva para su operación. La solución elimina la dependencia de plataformas externas y centraliza el ciclo de talento: aplicación móvil del candidato, análisis de CVs con inteligencia artificial, aprobación de ternas, evaluación, negociación salarial y onboarding digital.\n\nEl sistema ya completó los módulos base de reclutamiento, selección y onboarding. En esta etapa se trabaja sobre refinamientos importantes: ajustes al diseño visual corporativo, mejoras de precisión de la IA para interpretar información en currículums y flujos de comunicación institucional, incluyendo notificaciones por correo y automatizaciones relacionadas con la preselección de candidatos.\n\nEl foco actual es hacer que la experiencia se sienta más alineada a BIA, sea más clara para líderes y reclutadores, y reduzca trabajo manual en decisiones recurrentes del proceso de talento.",
+    "remainingExplanation": "Pendiente de cargar avance real, próximos hitos, tareas y entregables desde Airtable.",
+    "clientSignal": "atención",
+    "clientMessage": "Este portal ya está creado. El equipo Intelia está actualizando la información visible para mostrar estado, próximos pasos y decisiones pendientes.",
+    "nextMilestone": "Optimizaciones de IA y flujo de notificaciones institucionales",
+    "nextMilestoneDate": "",
+    "enabledSections": [
+      "kanban",
+      "hitos",
+      "actividad",
+      "preguntas",
+      "archivos",
+      "metricas"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "recSEHQNTFxqPvXEw",
+      "name": "Segundo resumen de candidato estructurado por IA",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Crear un extracto rápido del perfil con grado académico, última experiencia laboral, inglés, salario, habilidades generales y únicamente fortalezas.",
+      "priority": "",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 999,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "rechnRZrqQAeWRsL9",
+      "name": "Rediseño visual del portal de Onboarding",
+      "status": "en revisión",
+      "dueDate": "",
+      "milestone": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Aplicación del nuevo sistema de diseño, manteniendo colores categóricos y limpiando las tarjetas de progreso.",
+      "priority": "",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 999,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "reckxFjJGZWpuTh9D",
+      "name": "Unificación del generador de PDFs para propuestas",
+      "status": "completado",
+      "dueDate": "",
+      "milestone": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "visibleToClient": false,
+      "isCurrent": false,
+      "description": "Integración técnica de la librería pdfme para unificar la generación de reportes y documentos a lo largo de toda la app.",
+      "priority": "",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 100,
+      "ganttOrder": 999,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "recmEBzsx4NMzQKVM",
+      "name": "Ajuste de IA para estandarizar análisis de inglés",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "visibleToClient": false,
+      "isCurrent": false,
+      "description": "Ajustar system prompt de GPT-4o para que analice formatos no estructurados en CVs: porcentajes, barras gráficas y puntos.",
+      "priority": "",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 999,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "recySDa5WgPK7GX3u",
+      "name": "Automatizar correo de introducción al preseleccionar",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Integrar el nuevo template institucional de correo cuando el candidato cambie de estado a preselección.",
+      "priority": "",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 999,
+      "ganttDependencies": ""
+    }
+  ],
+  "milestones": [
+    {
+      "id": "rec6xwiAeb3CQvMNY",
+      "name": "Fase 10: Onboarding Quick Wins",
+      "estimatedDate": "",
+      "actualDate": "2026-02-09",
+      "status": "alcanzado",
+      "description": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "recF3l51Sofk3EHr8",
+      "name": "Fases 11-12: Onboarding Operations & Analytics",
+      "estimatedDate": "",
+      "actualDate": "2026-02-24",
+      "status": "alcanzado",
+      "description": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "recGw6DhlMxMEmE03",
+      "name": "Fase 0-9: Reclutamiento & Selección",
+      "estimatedDate": "",
+      "actualDate": "2025-12-31",
+      "status": "alcanzado",
+      "description": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "recM2digUHEP19Cnz",
+      "name": "Rediseño Corporativo BIA y Optimizaciones (Fase actual)",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "en progreso",
+      "description": "",
+      "acceptanceCriteria": ""
+    }
+  ],
+  "activity": [
+    {
+      "id": "recll7fuwFLAkiSBw",
+      "date": "2026-08-07",
+      "type": "nota",
+      "title": "Fix validación correos duplicados",
+      "description": "Corrección de un problema técnico de validación de correos electrónicos duplicados al editar perfiles de candidatos.",
+      "clientMeaning": "",
+      "origin": "sesión",
+      "visibleToClient": true
+    },
+    {
+      "id": "recenmlvHZDKRgc5P",
+      "date": "2026-08-04",
+      "type": "nota",
+      "title": "Mejoras visuales y negociaciones salariales",
+      "description": "Implementación de mejoras visuales en los portales públicos y desarrollo del registro histórico de negociaciones en ofertas salariales.",
+      "clientMeaning": "",
+      "origin": "sesión",
+      "visibleToClient": true
+    },
+    {
+      "id": "recl11ItRm7QyJFVe",
+      "date": "2026-08-04",
+      "type": "nota",
+      "title": "Unificación motor PDF",
+      "description": "Unificación técnica del motor de creación de documentos PDF.",
+      "clientMeaning": "",
+      "origin": "sesión",
+      "visibleToClient": true
+    }
+  ],
+  "questions": [
+    {
+      "id": "reciNLXItbktOr09X",
+      "author": "cliente",
+      "message": "¿Cómo podemos mejorar el sistema de IA para que pueda interpretar y estandarizar el nivel de inglés cuando los candidatos usan diseños con porcentajes, puntos o barras en sus currículums?",
+      "date": "",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": false
+    },
+    {
+      "id": "recnCkyYdy3JQz2PU",
+      "author": "cliente",
+      "message": "Necesitamos cambiar el proceso actual para que, en el momento que se preseleccione a una persona, se le envíe un correo de presentación sobre BIA Foods de forma automática.",
+      "date": "",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": false
+    },
+    {
+      "id": "recvARIEu8tislfvo",
+      "author": "cliente",
+      "message": "Necesitamos que la herramienta de IA genere un segundo resumen enfocado puramente en datos duros: último grado académico, experiencia más reciente, inglés, pretensión salarial, habilidades y exclusivamente las fortalezas.",
+      "date": "",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": false
+    }
+  ],
+  "files": [
+    {
+      "id": "recGP1YG23W57CZlD",
+      "name": "Plan de Desarrollo V2 (Hitos)",
+      "url": "",
+      "date": "2026-02-24",
+      "category": "Documento",
+      "status": "disponible",
+      "description": "",
+      "visibleToClient": true
+    },
+    {
+      "id": "recJhZh8fYMaG6eRS",
+      "name": "Visión del Producto y Estructura (README)",
+      "url": "",
+      "date": "2026-08-10",
+      "category": "Documento",
+      "status": "disponible",
+      "description": "",
+      "visibleToClient": true
+    },
+    {
+      "id": "recYhoItKaNTJ82qx",
+      "name": "Bitácora de Cambios (Changelog Histórico)",
+      "url": "",
+      "date": "2026-08-10",
+      "category": "Documento",
+      "status": "disponible",
+      "description": "",
+      "visibleToClient": true
+    }
+  ],
+  "impactMetrics": [
+    {
+      "label": "Desarrollo Core (Módulos Base)",
+      "value": "100%",
+      "note": "Las fases operativas principales de reclutamiento y onboarding se completaron según el plan base inicial. El proyecto está en refinamiento de experiencia e IA."
+    }
+  ],
+  "lastUpdated": {
+    "date": "2026-08-07",
+    "by": "Sesión de trabajo"
+  },
+  "source": {
+    "masterRecordId": "recwfzRxnyrW3mWEQ",
+    "baseId": "appNcnN6leXDGTHu3"
+  }
+}

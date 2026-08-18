@@ -1,0 +1,48 @@
+{
+  "client": {
+    "id": "recAuWLd0vUYBl1Ap",
+    "name": "BIA México",
+    "brandColor": "#2558D8",
+    "contactName": "BIA México HR",
+    "contactEmail": "agomex@biafoods.com"
+  },
+  "project": {
+    "id": "rec3ggCjCIc143mBp",
+    "name": "BIA One (Plataforma HR)",
+    "code": "BIA-MX-BIA-ONE-HR",
+    "token": "",
+    "status": "en curso",
+    "currentPhase": "Shell inicial pendiente de carga detallada",
+    "progress": 0,
+    "startDate": "",
+    "targetEndDate": "",
+    "executiveSummary": "Proyecto agregado al portal de clientes Intelia. La información detallada se cargará desde la plantilla oficial de actualización del proyecto.",
+    "remainingExplanation": "Pendiente de cargar avance real, próximos hitos, tareas y entregables desde Airtable.",
+    "clientSignal": "atención",
+    "clientMessage": "Este portal ya está creado. El equipo Intelia está actualizando la información visible para mostrar estado, próximos pasos y decisiones pendientes.",
+    "nextMilestone": "Cargar información oficial del proyecto",
+    "nextMilestoneDate": "",
+    "enabledSections": [
+      "kanban",
+      "hitos",
+      "actividad",
+      "preguntas",
+      "archivos",
+      "metricas"
+    ]
+  },
+  "tasks": [],
+  "milestones": [],
+  "activity": [],
+  "questions": [],
+  "files": [],
+  "impactMetrics": [],
+  "lastUpdated": {
+    "date": "",
+    "by": "Intelia"
+  },
+  "source": {
+    "masterRecordId": "reczVVi5KbBFWCrYf",
+    "baseId": "appsMPwrBUsQTVU49"
+  }
+}
