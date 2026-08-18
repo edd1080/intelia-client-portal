@@ -1,8 +1,10 @@
-# Prompts para agentes de desarrollo → handoff oficial a Hermes/Airtable
+# Documento oficial — Prompts para agentes de desarrollo → Hermes/Airtable
 
 Estos prompts son para usarlos con Claude Code, OpenCode, Codex u otro agente dentro del repositorio donde se esté desarrollando un proyecto de Intelia.
 
-Objetivo: que el agente revise el contexto real del proyecto y devuelva un bloque estándar que Hermes pueda consumir después para crear o actualizar registros en Airtable del portal cliente.
+Objetivo: que el agente revise el contexto real del proyecto y devuelva un bloque estándar que Hermes pueda consumir después para crear o actualizar registros en Airtable y publicar snapshots del portal cliente.
+
+Este es el documento oficial para prompts de agentes externos. Mantener aquí tanto el prompt de **creación** como el de **actualización**; no crear documentos paralelos de updates para evitar duplicados.
 
 ## Cómo usarlos
 
@@ -354,5 +356,17 @@ INTELIA_PROJECT_UPDATE_END
 Si el agente ya conoce todo el contexto y solo querés pedirle el cierre rápido:
 
 ```text
-Cierra esta sesión generando el bloque `INTELIA_PROJECT_UPDATE_START` / `INTELIA_PROJECT_UPDATE_END` para el Portal Cliente Intelia. Revisa lo trabajado hoy, cambios reales, archivos/commits/tests, pendientes, riesgos, decisiones del cliente y Gantt. No inventes nada; marca pendiente lo que no esté confirmado. Devuelve solo el bloque oficial, sin explicación adicional.
+Cierra esta sesión generando el bloque `INTELIA_PROJECT_UPDATE_START` / `INTELIA_PROJECT_UPDATE_END` para el Portal Cliente Intelia.
+
+Actúa como Technical Project Analyst para Intelia. Revisa lo trabajado hoy y el estado real del repo/proyecto: cambios realizados, archivos modificados, commits, tests/build/lint ejecutados, bugs encontrados, entregables, pendientes, riesgos, decisiones del cliente, tareas visibles, Gantt y roadmap.
+
+Reglas estrictas:
+- No sigas desarrollando; solo genera el handoff.
+- No inventes avances, fechas, porcentajes, entregables ni decisiones.
+- Si algo no está verificado por código, test, commit, archivo, screenshot, demo o decisión documentada, marca `pendiente` o `no verificado`.
+- Escribe en español claro, ejecutivo y apto para cliente.
+- No incluyas secretos, tokens, API keys, passwords, connection strings ni detalles internos sensibles.
+- Convierte detalles técnicos a impacto de negocio/cliente.
+- Incluye un roadmap completo; no respondas solo con 2–3 hitos genéricos.
+- Devuelve únicamente el bloque oficial, sin explicación adicional.
 ```
