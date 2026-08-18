@@ -87,6 +87,22 @@ function slug(value) {
 function uniqueProjectKey(baseId, projectRecord) {
   return `${slug(text(projectRecord.fields, ['Código', 'Codigo', 'Nombre', 'Proyecto'], projectRecord.id))}-${projectRecord.id.slice(3, 9)}`;
 }
+
+function publicProjectSlug(projectRecord) {
+  const code = text(projectRecord.fields, ['Código', 'Codigo', 'Código corto', 'Codigo corto', 'Código del proyecto'], '').toUpperCase();
+  const byCode = {
+    'BIA-GT-TALENTHUB': 'talenthub',
+    'BIA-GT-DATAHUB': 'datahub',
+    'BIA-GT-PORTAL-VACACIONES': 'portal-vacaciones',
+    'BIA-GT-PORTAL-BENEFICIOS': 'portal-beneficios',
+    'BIA-GT-ONBOARDING-VIDEOS': 'onboarding-digital',
+    'BIA-HN-COMPRAS-AI': 'compras-ai',
+    'BIA-HN-MKT-INTELLIGENCE-CORE': 'intelligence-core',
+    'BIA-MX-BIA-ONE-HR': 'bia-one',
+  };
+  if (byCode[code]) return byCode[code];
+  return slug(text(projectRecord.fields, ['Nombre', 'Proyecto'], projectRecord.id));
+}
 function normalizeEmail(value) {
   return String(value || '').trim().toLowerCase();
 }
@@ -249,10 +265,11 @@ for (const masterClient of masterClients) {
   const projectKeyById = new Map();
   for (const projectRecord of projectRecords) {
     const key = uniqueProjectKey(masterClient.baseId, projectRecord);
+    const publicSlug = publicProjectSlug(projectRecord);
     projectKeyById.set(projectRecord.id, key);
     const data = buildPortalData(masterClient, projectRecord, tables);
     writeFileSync(path.join(OUT_DIR, 'projects', `${key}.json`), `${JSON.stringify(data, null, 2)}\n`);
-    projects.push({ key, id: projectRecord.id, baseId: masterClient.baseId, clientName: data.client.name, projectName: data.project.name, code: data.project.code });
+    projects.push({ key, publicSlug, id: projectRecord.id, baseId: masterClient.baseId, clientName: data.client.name, projectName: data.project.name, code: data.project.code });
   }
   for (const accessRecord of accessRecords) {
     if (String(accessRecord.fields.Estado || '').toLowerCase() !== 'activo') continue;
@@ -268,6 +285,7 @@ for (const masterClient of masterClients) {
         email,
         stakeholder: text(accessRecord.fields, ['Stakeholder', 'Nombre'], ''),
         projectKey,
+        publicSlug: project?.publicSlug,
         projectId,
         baseId: masterClient.baseId,
         accessRecordId: accessRecord.id,

@@ -1,4 +1,4 @@
-import { resolveProjectByTokenFromSnapshot } from "@/lib/portal-snapshots";
+import { resolveProjectByPublicIdentifierFromSnapshot } from "@/lib/portal-snapshots";
 
 const API_ROOT = "https://api.airtable.com/v0";
 const QUESTIONS_TABLE = "Preguntas";
@@ -10,7 +10,7 @@ function airtableToken() {
 }
 
 export async function createClientQuestionFromSnapshot(accessToken: string, message: string) {
-  const data = resolveProjectByTokenFromSnapshot(accessToken);
+  const data = resolveProjectByPublicIdentifierFromSnapshot(accessToken);
   if (!data || accessToken === "demo") throw new Error("Project not found");
 
   const today = new Date().toISOString().slice(0, 10);

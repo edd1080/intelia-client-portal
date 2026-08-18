@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-08-18T03:37:36.079Z",
+  "generatedAt": "2026-08-18T04:09:29.028Z",
   "projects": [
     {
       "key": "bia-hn-compras-ai-5cVRh5",
+      "publicSlug": "compras-ai",
       "id": "rec5cVRh50tcuE3Kt",
       "baseId": "appM9RFgoYSE9AiPM",
       "clientName": "BIA Honduras",
@@ -11,6 +12,7 @@
     },
     {
       "key": "bia-hn-mkt-intelligence-core-tzxbKF",
+      "publicSlug": "intelligence-core",
       "id": "rectzxbKFBWaL58V8",
       "baseId": "appM9RFgoYSE9AiPM",
       "clientName": "BIA Honduras",
@@ -19,6 +21,7 @@
     },
     {
       "key": "bia-gt-datahub-I00mA5",
+      "publicSlug": "datahub",
       "id": "recI00mA5slS0ot3Q",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
@@ -27,6 +30,7 @@
     },
     {
       "key": "bia-gt-portal-vacaciones-JkploK",
+      "publicSlug": "portal-vacaciones",
       "id": "recJkploKymkZk7qF",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
@@ -35,6 +39,7 @@
     },
     {
       "key": "bia-gt-talenthub-reYeVk",
+      "publicSlug": "talenthub",
       "id": "recreYeVkqWMun34e",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
@@ -43,6 +48,7 @@
     },
     {
       "key": "bia-gt-onboarding-videos-sC7fmj",
+      "publicSlug": "onboarding-digital",
       "id": "recsC7fmjFRL2aTXE",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
@@ -51,6 +57,7 @@
     },
     {
       "key": "bia-gt-portal-beneficios-yUJHkT",
+      "publicSlug": "portal-beneficios",
       "id": "recyUJHkTyraGqtn2",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
@@ -59,6 +66,7 @@
     },
     {
       "key": "bia-mx-bia-one-hr-3ggCjC",
+      "publicSlug": "bia-one",
       "id": "rec3ggCjCIc143mBp",
       "baseId": "appsMPwrBUsQTVU49",
       "clientName": "BIA México",
