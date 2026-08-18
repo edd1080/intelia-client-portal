@@ -63,7 +63,7 @@ function buildTaskOverviewPanel(data: ClientPortalData) {
                 </div>`;
   }).join("");
 
-  return `<div class="dashboard-summary-side-panel md:w-80 bg-gradient-to-b from-white/80 to-white/30 rounded-[1.5rem] border border-white/60 p-6 relative overflow-hidden flex flex-col shadow-inner">
+  return `<div class="dashboard-task-overview-card bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
               <div class="flex items-center justify-between gap-3 text-slate-700 mb-4">
                 <div>
                   <span class="block font-medium text-xs uppercase tracking-wider text-slate-500">Overview de tareas</span>
@@ -611,7 +611,6 @@ const markup = String.raw`
                 </div>
               </div>
             </div>
-            <!-- TASK_OVERVIEW_PANEL -->
           </div>
 
           <!-- TAREAS -->
@@ -741,6 +740,8 @@ const markup = String.raw`
               </div>
             </div>
           </div>
+
+          <!-- TASK_OVERVIEW_PANEL -->
 
           <!-- ACTIVIDAD -->
           <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#53617a] to-[#3a445c] rounded-[2rem] p-6 md:p-8 text-white shadow-lg shadow-slate-800/10 border border-white/10 flex flex-col">

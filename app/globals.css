@@ -144,14 +144,18 @@ body {
     overflow: hidden !important;
   }
 
-  .reference-exact-root .dashboard-summary-card > div:first-child,
-  .reference-exact-root .dashboard-summary-side-panel {
+  .reference-exact-root .dashboard-summary-card > div:first-child {
     min-height: 0 !important;
   }
 
   .reference-exact-root .dashboard-summary-copy {
-    max-height: 14rem !important;
+    max-height: 18rem !important;
     overflow-y: auto !important;
+  }
+
+  .reference-exact-root .dashboard-task-overview-card {
+    min-height: 22rem !important;
+    overflow: hidden !important;
   }
 }
 
