@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+
 type AirtableRecord<T = Record<string, unknown>> = {
   id: string;
   createdTime: string;
@@ -197,6 +200,9 @@ export async function getMasterClients(): Promise<MasterClient[]> {
 export async function resolveProjectByToken(accessToken: string): Promise<ClientPortalData | null> {
   if (accessToken === "demo") return demoPortalData;
 
+  const snapshotData = resolveProjectByTokenSnapshotFirst(accessToken);
+  if (snapshotData) return snapshotData;
+
   const clients = await getMasterClients();
   for (const masterClient of clients) {
     const escapedToken = accessToken.replaceAll("'", "\\'");
@@ -219,6 +225,27 @@ export async function resolveProjectByToken(accessToken: string): Promise<Client
   }
 
   return null;
+}
+
+function resolveProjectByTokenSnapshotFirst(accessToken: string): ClientPortalData | null {
+  try {
+    const dataDir = path.join(process.cwd(), "data", "portal");
+    const accessIndexPath = path.join(dataDir, "access-index.json");
+    if (!existsSync(accessIndexPath)) return null;
+
+    const accessIndex = JSON.parse(readFileSync(accessIndexPath, "utf8")) as { access?: Array<{ token: string; projectKey: string }> };
+    const access = accessIndex.access?.find((entry) => entry.token === accessToken);
+    if (!access?.projectKey) return null;
+
+    const projectPath = path.join(dataDir, "projects", `${access.projectKey}.json`);
+    if (!existsSync(projectPath)) return null;
+
+    const project = JSON.parse(readFileSync(projectPath, "utf8")) as ClientPortalData;
+    return { ...project, project: { ...project.project, token: accessToken } };
+  } catch (error) {
+    console.warn("Portal snapshot lookup failed; falling back to Airtable", error);
+    return null;
+  }
 }
 
 async function getPortalData(masterClient: MasterClient, projectRecord: AirtableRecord, accessRecord?: AirtableRecord): Promise<ClientPortalData> {

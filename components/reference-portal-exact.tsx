@@ -93,41 +93,42 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
             </div>`;
 }
 
-function buildTaskOverviewPanel(data: ClientPortalData) {
-  const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
-  const currentTasks = visibleTasks.filter((task) => task.isCurrent || task.status.toLowerCase().includes("progreso") || task.status.toLowerCase().includes("revisión")).slice(0, 4);
-  const tasks = (currentTasks.length ? currentTasks : visibleTasks).slice(0, 4);
+function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
+  const actionTasks = data.tasks
+    .filter((task) => task.visibleToClient !== false && (task.needsClientAction || task.requiredAction))
+    .slice(0, 2);
+  const decisionQuestions = data.questions
+    .filter((question) => question.requiresClientDecision || question.status.toLowerCase().includes("sin responder"))
+    .slice(0, 2);
+  const items = [
+    ...actionTasks.map((task) => ({
+      title: task.requiredAction || task.name,
+      meta: "Acción del cliente",
+      body: task.description || `Relacionado con ${task.milestone || "el avance actual"}.`,
+    })),
+    ...decisionQuestions.map((question) => ({
+      title: question.message,
+      meta: question.requiresClientDecision ? "Decisión pendiente" : "Pregunta abierta",
+      body: question.answer || "Pendiente de respuesta o confirmación.",
+    })),
+  ].slice(0, 3);
 
-  const rows = tasks.map((task) => {
-    const status = task.status || "pendiente";
-    const due = task.dueDate ? formatShortDate(new Date(`${task.dueDate}T00:00:00`)) : "Sin fecha";
-    const tone = status.toLowerCase().includes("complet")
-      ? "bg-emerald-100 text-emerald-700"
-      : status.toLowerCase().includes("bloque") || status.toLowerCase().includes("riesgo")
-        ? "bg-amber-100 text-amber-700"
-        : "bg-slate-100 text-slate-600";
-    return `<div class="rounded-2xl border border-white/70 bg-white/60 p-3 shadow-sm">
-                  <div class="flex items-start justify-between gap-3">
-                    <p class="text-xs font-semibold leading-snug text-slate-800">${escapeHtml(task.name)}</p>
-                    <span class="shrink-0 rounded-full px-2 py-1 text-[9px] font-bold uppercase tracking-wider ${tone}">${escapeHtml(status)}</span>
-                  </div>
-                  <div class="mt-2 flex items-center justify-between gap-3 text-[10px] font-medium text-slate-500">
-                    <span>${escapeHtml(task.milestone || "Tarea del proyecto")}</span>
-                    <span class="font-mono">${escapeHtml(due)}</span>
-                  </div>
-                </div>`;
-  }).join("");
+  const rows = items.map((item) => `<div class="rounded-2xl border border-white/70 bg-white/60 p-4 shadow-sm">
+                <div class="mb-2 inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-amber-700">${escapeHtml(item.meta)}</div>
+                <p class="text-sm font-semibold leading-snug text-slate-800">${escapeHtml(item.title)}</p>
+                <p class="mt-2 text-xs leading-relaxed text-slate-500">${escapeHtml(item.body)}</p>
+              </div>`).join("");
 
-  return `<div class="dashboard-task-overview-card bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
+  return `<div class="dashboard-client-focus-card bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
               <div class="flex items-center justify-between gap-3 text-slate-700 mb-4">
                 <div>
-                  <span class="block font-medium text-xs uppercase tracking-wider text-slate-500">Overview de tareas</span>
-                  <span class="mt-1 block text-sm font-semibold text-slate-800">Trabajo actual</span>
+                  <span class="block font-medium text-xs uppercase tracking-wider text-slate-500">Foco del cliente</span>
+                  <span class="mt-1 block text-sm font-semibold text-slate-800">Decisiones y desbloqueos</span>
                 </div>
-                <span class="font-mono text-xl font-semibold text-emerald-500">${visibleTasks.length}</span>
+                <span class="font-mono text-xl font-semibold text-amber-500">${items.length}</span>
               </div>
               <div class="space-y-3 flex-1 overflow-hidden">
-                ${rows || `<div class="rounded-2xl border border-white/70 bg-white/60 p-4 text-xs font-medium text-slate-500 shadow-sm">No hay tareas visibles cargadas todavía.</div>`}
+                ${rows || `<div class="rounded-2xl border border-white/70 bg-white/60 p-4 text-xs font-medium text-slate-500 shadow-sm">${escapeHtml(clientAction)}</div>`}
               </div>
             </div>`;
 }
@@ -264,7 +265,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Siguiente hito definido", escapeHtml(next))
     .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
     .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
-    .replaceAll("<!-- TASK_OVERVIEW_PANEL -->", buildTaskOverviewPanel(data))
+    .replaceAll("<!-- CLIENT_FOCUS_PANEL -->", buildClientFocusPanel(data, clientAction))
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
@@ -818,7 +819,7 @@ const markup = String.raw`
             </div>
           </div>
 
-          <!-- TASK_OVERVIEW_PANEL -->
+          <!-- CLIENT_FOCUS_PANEL -->
 
           <!-- ACTIVIDAD -->
           <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#53617a] to-[#3a445c] rounded-[2rem] p-6 md:p-8 text-white shadow-lg shadow-slate-800/10 border border-white/10 flex flex-col">
