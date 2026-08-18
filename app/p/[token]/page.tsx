@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import type { Metadata } from "next";
 import { ReferencePortalExact } from "@/components/reference-portal-exact";
 import { resolveProjectByTokenFromSnapshot } from "@/lib/portal-snapshots";
 import { isPortalSessionValid } from "@/lib/portal-auth";
@@ -9,6 +10,16 @@ export const revalidate = 60;
 type ClientPortalPageProps = {
   params: Promise<{ token: string }>;
 };
+
+export async function generateMetadata({ params }: ClientPortalPageProps): Promise<Metadata> {
+  const { token } = await params;
+  const data = resolveProjectByTokenFromSnapshot(token);
+  const projectName = data?.project.name || "Intelia";
+  return {
+    title: `Portal de Cliente - ${projectName}`,
+    description: `Portal privado de estado de proyecto para ${projectName}`,
+  };
+}
 
 export default async function ClientPortalPage({ params }: ClientPortalPageProps) {
   const { token } = await params;

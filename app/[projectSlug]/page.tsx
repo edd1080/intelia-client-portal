@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import type { Metadata } from "next";
 import { ReferencePortalExact } from "@/components/reference-portal-exact";
 import { resolveProjectByPublicSlugFromSnapshot } from "@/lib/portal-snapshots";
 import { isPortalSessionValid } from "@/lib/portal-auth";
@@ -11,6 +12,16 @@ type FriendlyProjectPageProps = {
 };
 
 const RESERVED_SLUGS = new Set(["api", "p", "_next", "favicon.ico"]);
+
+export async function generateMetadata({ params }: FriendlyProjectPageProps): Promise<Metadata> {
+  const { projectSlug } = await params;
+  const data = resolveProjectByPublicSlugFromSnapshot(projectSlug);
+  const projectName = data?.project.name || "Intelia";
+  return {
+    title: `Portal de Cliente - ${projectName}`,
+    description: `Portal privado de estado de proyecto para ${projectName}`,
+  };
+}
 
 export default async function FriendlyProjectPage({ params }: FriendlyProjectPageProps) {
   const { projectSlug } = await params;
