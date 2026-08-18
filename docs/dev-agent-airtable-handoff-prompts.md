@@ -56,6 +56,7 @@ Antes de responder, inspecciona:
 - Próximos hitos razonables.
 - Evidencia verificable: archivos, módulos, tests, commits, rutas, endpoints, screenshots o docs.
 - Fechas útiles para un Gantt si existen.
+- Roadmap completo por fases: fase actual, fases terminadas, fases pendientes, dependencias, entregables, criterios de aceptación, riesgos por fase y fechas estimadas. El portal necesita más que 2-3 hitos genéricos.
 
 Formato obligatorio de respuesta:
 
@@ -103,6 +104,19 @@ HITOS PROPUESTOS
   - Descripción cliente:
   - Criterio de aceptación:
   - Orden Gantt:
+
+ROADMAP_COMPLETO_PARA_PORTAL
+- Fase:
+  - Estado: [alcanzada | actual | pendiente | en riesgo | bloqueada]
+  - Objetivo cliente:
+  - Entregables visibles:
+  - Tareas clave incluidas:
+  - Dependencias:
+  - Riesgos/bloqueos de la fase:
+  - Criterio de aceptación:
+  - Fecha inicio estimada:
+  - Fecha cierre estimada:
+  - Evidencia:
 
 TAREAS VISIBLES AL CLIENTE
 - Nombre:
@@ -202,6 +216,7 @@ Antes de responder, inspecciona:
 - Decisiones pendientes del cliente o del equipo Intelia.
 - Entregables visibles que se puedan compartir.
 - Fechas útiles para actualizar Gantt.
+- Roadmap completo actualizado: no respondas solo con 2-3 hitos. Incluye fases suficientes para que el portal muestre un roadmap robusto: entregables, dependencias, criterios de aceptación, riesgos por fase y fechas.
 
 Formato obligatorio de respuesta:
 
@@ -275,6 +290,20 @@ HITOS_A_ACTUALIZAR_O_CREAR
   - Descripción cliente:
   - Criterio de aceptación:
   - Orden Gantt:
+  - Evidencia:
+
+ROADMAP_COMPLETO_A_ACTUALIZAR
+- Fase exacta o nueva fase:
+  - Acción: [crear | actualizar | cerrar | no tocar]
+  - Estado: [alcanzada | actual | pendiente | en riesgo | bloqueada]
+  - Objetivo cliente:
+  - Entregables visibles:
+  - Tareas clave incluidas:
+  - Dependencias:
+  - Riesgos/bloqueos de la fase:
+  - Criterio de aceptación:
+  - Fecha inicio estimada:
+  - Fecha cierre estimada:
   - Evidencia:
 
 PREGUNTAS_DECISIONES_O_BLOQUEOS

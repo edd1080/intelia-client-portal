@@ -38,6 +38,61 @@ function formatShortDate(date: Date) {
   return new Intl.DateTimeFormat("es", { day: "2-digit", month: "short" }).format(date);
 }
 
+function addDays(date: Date, days: number) {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+
+function taskStatusGroup(status?: string) {
+  const normalized = String(status || "").toLowerCase();
+  if (normalized.includes("complet") || normalized.includes("cerrad") || normalized.includes("hecho")) return "Completadas";
+  if (normalized.includes("revisión") || normalized.includes("revision") || normalized.includes("valid")) return "En revisión";
+  if (normalized.includes("progreso") || normalized.includes("actual")) return "En progreso";
+  if (normalized.includes("bloque") || normalized.includes("riesgo")) return "Bloqueadas";
+  return "Siguientes";
+}
+
+function buildTaskDistributionPanel(data: ClientPortalData) {
+  const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
+  const total = Math.max(1, visibleTasks.length);
+  const groups = ["Completadas", "En revisión", "En progreso", "Siguientes"];
+  const counts = groups.map((group) => ({
+    group,
+    count: visibleTasks.filter((task) => taskStatusGroup(task.status) === group).length,
+  }));
+  const highlighted = visibleTasks
+    .filter((task) => task.isCurrent || taskStatusGroup(task.status) === "En progreso" || taskStatusGroup(task.status) === "En revisión")
+    .slice(0, 3);
+  const taskRows = (highlighted.length ? highlighted : visibleTasks.slice(0, 3)).map((task) => `
+              <div class="rounded-xl bg-white/10 border border-white/20 p-3">
+                <div class="flex items-start justify-between gap-3">
+                  <p class="text-xs font-semibold leading-snug text-white">${escapeHtml(task.name)}</p>
+                  <span class="shrink-0 rounded-full bg-white/15 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-white/85">${escapeHtml(task.status || "pendiente")}</span>
+                </div>
+                <p class="mt-1 text-[10px] leading-snug text-white/70">${escapeHtml(task.description || task.requiredAction || task.milestone || "Seguimiento visible para cliente.")}</p>
+              </div>`).join("");
+  const statRows = counts.map(({ group, count }) => {
+    const width = Math.max(8, Math.round((count / total) * 100));
+    return `<div class="bg-white/10 rounded-xl p-3 border border-white/20">
+                <div class="flex justify-between items-center text-xs mb-1.5">
+                  <span class="font-medium text-white/90">${escapeHtml(group)}</span>
+                  <span class="font-mono text-white">${count}</span>
+                </div>
+                <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
+                  <div class="h-full bg-white/80 rounded-full" style="width:${width}%"></div>
+                </div>
+              </div>`;
+  }).join("");
+  return `<div class="space-y-3 flex-1 flex flex-col">
+              <div class="grid grid-cols-2 gap-2">${statRows}</div>
+              <div class="mt-auto space-y-2">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-white/60">Tareas activas</p>
+                ${taskRows || `<div class="rounded-xl bg-white/10 border border-white/20 p-3 text-xs text-white/80">Todavía no hay tareas visibles cargadas.</div>`}
+              </div>
+            </div>`;
+}
+
 function buildTaskOverviewPanel(data: ClientPortalData) {
   const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
   const currentTasks = visibleTasks.filter((task) => task.isCurrent || task.status.toLowerCase().includes("progreso") || task.status.toLowerCase().includes("revisión")).slice(0, 4);
@@ -78,18 +133,22 @@ function buildTaskOverviewPanel(data: ClientPortalData) {
 }
 
 function buildGanttHtml(data: ClientPortalData) {
+  const fallbackStart = parseDate(data.project.startDate) || new Date();
   const tasks = data.tasks
     .filter((task) => task.visibleToClient !== false)
-    .map((task) => ({
-      ...task,
-      start: parseDate(task.ganttStart || task.dueDate || data.project.startDate),
-      end: parseDate(task.ganttEnd || task.dueDate || data.project.targetEndDate || task.ganttStart),
-    }))
-    .filter((task) => task.start && task.end)
+    .map((task, index) => {
+      const start = parseDate(task.ganttStart || task.dueDate) || addDays(fallbackStart, index * 7);
+      const end = parseDate(task.ganttEnd) || parseDate(task.dueDate) || addDays(start, 6);
+      return {
+        ...task,
+        start,
+        end: end.getTime() <= start.getTime() ? addDays(start, 6) : end,
+      };
+    })
     .sort((a, b) => (a.ganttOrder ?? 999) - (b.ganttOrder ?? 999) || a.start!.getTime() - b.start!.getTime())
-    .slice(0, 8);
+    .slice(0, 10);
 
-  if (!tasks.length) return "";
+  if (!tasks.length) return `<div class="rounded-2xl border border-white/70 bg-white/50 p-6 text-sm font-medium text-slate-600">Gantt pendiente de publicar: pediremos fechas de inicio, fin, dependencias y progreso en el próximo handoff del agente.</div>`;
 
   const min = new Date(Math.min(...tasks.map((task) => task.start!.getTime())));
   const max = new Date(Math.max(...tasks.map((task) => task.end!.getTime())));
@@ -134,6 +193,49 @@ function buildGanttHtml(data: ClientPortalData) {
             </div>`;
 }
 
+function buildRoadmapHtml(data: ClientPortalData) {
+  const milestones = data.milestones.length
+    ? data.milestones
+    : data.tasks.slice(0, 6).map((task, index) => ({
+        id: task.id,
+        name: task.milestone || task.name,
+        estimatedDate: task.dueDate,
+        actualDate: undefined,
+        status: task.status,
+        description: task.description || task.requiredAction,
+        acceptanceCriteria: "Validación del entregable y evidencia publicada en el portal.",
+        order: index,
+      }));
+
+  if (!milestones.length) {
+    return `<div class="bg-white/60 backdrop-blur-md rounded-2xl p-6 border border-white/60 shadow-sm text-sm font-medium text-slate-600">Roadmap pendiente de completar. En el próximo update pediremos al agente fases, entregables, dependencias, criterios de aceptación y fechas.</div>`;
+  }
+
+  return `<div class="relative border-l-2 border-emerald-200 ml-4 space-y-8">
+            ${milestones.slice(0, 8).map((milestone, index) => {
+              const status = statusLabel(milestone.status);
+              const isCurrent = milestone.status.toLowerCase().includes("actual") || milestone.status.toLowerCase().includes("progreso") || index === 0;
+              const relatedTasks = data.tasks.filter((task) => task.milestone === milestone.name).slice(0, 3);
+              const dot = isCurrent
+                ? `<div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-emerald-500 ring-4 ring-white shadow-sm flex items-center justify-center"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span></div>`
+                : `<div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full ${status === "Completado" ? "bg-emerald-500" : "bg-slate-300"} ring-4 ring-white shadow-sm"></div>`;
+              return `<div class="relative pl-8 ${status === "En curso" || isCurrent ? "" : "opacity-80"}">
+                ${dot}
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-lg font-semibold text-slate-800">${escapeHtml(milestone.name)}</h3>
+                  <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">${escapeHtml(status)}</span>
+                </div>
+                <p class="text-sm text-emerald-600 font-medium mb-2">${escapeHtml(milestone.estimatedDate || milestone.actualDate || "Fecha por confirmar")}</p>
+                <div class="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 shadow-sm">
+                  <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(milestone.description || "Hito pendiente de detalle en el próximo handoff de desarrollo.")}</p>
+                  ${milestone.acceptanceCriteria ? `<p class="mt-3 text-xs font-medium text-slate-500"><span class="font-bold text-slate-700">Criterio:</span> ${escapeHtml(milestone.acceptanceCriteria)}</p>` : ""}
+                  ${relatedTasks.length ? `<div class="mt-4 grid gap-2">${relatedTasks.map((task) => `<div class="rounded-xl bg-white/55 border border-white/60 p-3 text-xs text-slate-600"><span class="font-semibold text-slate-800">${escapeHtml(task.name)}</span> · ${escapeHtml(task.status || "pendiente")}</div>`).join("")}</div>` : ""}
+                </div>
+              </div>`;
+            }).join("")}
+          </div>`;
+}
+
 function buildMarkup(data?: ClientPortalData, authRequired = true) {
   if (!data) return authRequired ? markup : markup.replace(/<div id="auth-screen"[\s\S]*$/, "");
   const progress = Math.max(0, Math.min(100, Math.round(data.project.progress || 60)));
@@ -148,6 +250,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     || data.questions.find((question) => question.requiresClientDecision)?.message
     || "No hay decisiones pendientes del cliente en este momento.";
   const ganttHtml = buildGanttHtml(data);
+  const roadmapHtml = buildRoadmapHtml(data);
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
@@ -162,6 +265,8 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
     .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
     .replaceAll("<!-- TASK_OVERVIEW_PANEL -->", buildTaskOverviewPanel(data))
+    .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
+    .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
 }
@@ -483,8 +588,8 @@ const markup = String.raw`
     <!-- Cabecera Fija del Cliente (Fuera del espacio 3D) -->
     <aside class="w-24 h-[calc(100vh-3rem)] my-6 ml-6 relative z-50 backdrop-blur-3xl border border-white/60 shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-[2rem] flex-col hidden md:flex bg-white/70 items-center py-6 shrink-0">
       <div class="px-2 flex flex-col items-center gap-2 mb-8">
-        <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-lg font-bold tracking-tight shadow-md shadow-emerald-500/30 border border-white/20">
-          NV
+        <div class="w-14 h-14 rounded-2xl bg-white/90 flex items-center justify-center shadow-md shadow-emerald-500/20 border border-white/70 p-2">
+          <img src="/intelia-mark-crop.png" alt="Intelia" class="h-full w-full object-contain" />
         </div>
         <span class="hidden">Intelia</span>
       </div>
@@ -624,35 +729,7 @@ const markup = String.raw`
             <p class="text-xs leading-relaxed text-white/80 font-medium mb-6">
               Distribución del trabajo actualizado desde el tablero interno.
             </p>
-            <div class="space-y-3 mt-auto">
-              <div class="bg-white/10 rounded-xl p-3 border border-white/20">
-                <div class="flex justify-between items-center text-xs mb-1.5">
-                  <span class="font-medium text-white/90">Completadas</span>
-                  <span class="font-mono text-white">24</span>
-                </div>
-                <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
-                  <div class="h-full bg-white/90 rounded-full w-[80%]"></div>
-                </div>
-              </div>
-              <div class="bg-white/10 rounded-xl p-3 border border-white/20">
-                <div class="flex justify-between items-center text-xs mb-1.5">
-                  <span class="font-medium text-white/90">En Revisión</span>
-                  <span class="font-mono text-white">3</span>
-                </div>
-                <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
-                  <div class="h-full bg-white/60 rounded-full w-[30%]"></div>
-                </div>
-              </div>
-              <div class="bg-white/10 rounded-xl p-3 border border-white/20">
-                <div class="flex justify-between items-center text-xs mb-1.5">
-                  <span class="font-medium text-white/90">Siguientes</span>
-                  <span class="font-mono text-white">12</span>
-                </div>
-                <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
-                  <div class="h-full bg-white/30 rounded-full w-[10%]"></div>
-                </div>
-              </div>
-            </div>
+            <!-- TASK_DISTRIBUTION_PANEL -->
           </div>
 
           <!-- HITOS -->
@@ -939,55 +1016,7 @@ const markup = String.raw`
           <h2 class="text-2xl font-semibold tracking-tight text-slate-800 mb-6">
             Roadmap del Proyecto
           </h2>
-          <div class="relative border-l-2 border-emerald-200 ml-4 space-y-10">
-            <div class="relative pl-8">
-              <div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-emerald-500 ring-4 ring-white shadow-sm"></div>
-              <h3 class="text-lg font-semibold text-slate-800">
-                Fase 1: Preparación
-              </h3>
-              <p class="text-sm text-emerald-600 font-medium mb-2">
-                Septiembre 2023
-              </p>
-              <div class="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 shadow-sm">
-                <p class="text-sm text-slate-600">
-                  Recopilación de requisitos, asignación de equipo y setup de
-                  infraestructura en AWS.
-                </p>
-              </div>
-            </div>
-            <div class="relative pl-8">
-              <div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-emerald-500 ring-4 ring-white shadow-sm flex items-center justify-center">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              </div>
-              <h3 class="text-lg font-semibold text-slate-800">
-                Fase 2: Desarrollo Core
-              </h3>
-              <p class="text-sm text-emerald-600 font-medium mb-2">
-                Octubre 2023 (Actual)
-              </p>
-              <div class="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 shadow-sm">
-                <p class="text-sm text-slate-600">
-                  Entrenamiento del LLM, integración con APIs y creación del
-                  dashboard inicial.
-                </p>
-              </div>
-            </div>
-            <div class="relative pl-8 opacity-60">
-              <div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-300 ring-4 ring-white shadow-sm"></div>
-              <h3 class="text-lg font-semibold text-slate-800">
-                Fase 3: Staging &amp; Testing
-              </h3>
-              <p class="text-sm text-slate-500 font-medium mb-2">
-                Noviembre 2023
-              </p>
-              <div class="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 shadow-sm">
-                <p class="text-sm text-slate-600">
-                  Pruebas con usuarios beta, afinamiento de prompts y corrección
-                  de bugs.
-                </p>
-              </div>
-            </div>
-          </div>
+          <!-- ROADMAP_DYNAMIC -->
         </div>
         <div id="screen-gantt" class="screen-section hidden max-w-7xl mx-auto space-y-6 pb-12">
           <h2 class="text-2xl font-semibold tracking-tight text-slate-800 mb-6">
@@ -1068,8 +1097,8 @@ const markup = String.raw`
         <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-blue-400/20 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 text-center mb-8">
-          <div class="w-16 h-16 rounded-3xl bg-emerald-500 text-white flex items-center justify-center text-3xl font-bold tracking-tight shadow-lg shadow-emerald-500/30 mx-auto mb-4 border border-white/20">
-            NV
+          <div class="w-16 h-16 rounded-3xl bg-white/90 flex items-center justify-center shadow-lg shadow-emerald-500/20 mx-auto mb-4 border border-white/70 p-3">
+            <img src="/intelia-mark-crop.png" alt="Intelia" class="h-full w-full object-contain" />
           </div>
           <h2 class="text-2xl font-semibold tracking-tight text-slate-800">
             Portal de Cliente
