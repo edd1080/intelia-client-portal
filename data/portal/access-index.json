@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T04:09:29.028Z",
+  "generatedAt": "2026-08-18T04:50:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -11,7 +11,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "rec1NLbf4DwN7FElj",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI"
+      "projectName": "Portal de Compras BIA"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-mduque-biabrands-co_3C_FtSeHyWLMfd4J",
@@ -47,7 +47,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recDKQvxScYc5w8JQ",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI"
+      "projectName": "Portal de Compras BIA"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-edgar-intelia-pro_S48eCslKK6cmeCOM",
@@ -71,7 +71,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recFAicJa2FjycvCx",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI"
+      "projectName": "Portal de Compras BIA"
     },
     {
       "token": "bia-hn-compras-ai-edgarcalderon-outlook-com_iuj09E4obOBLToyD",
@@ -83,7 +83,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recFuMgrl3WUGzOyu",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI"
+      "projectName": "Portal de Compras BIA"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-dpiox-biabrands-co_6GyNGrOXdWWUx5ip",
@@ -131,7 +131,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recc9H5yq6ZQ80xht",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI"
+      "projectName": "Portal de Compras BIA"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-alder-intelia-pro_dX6G61VFOTIqvMEB",

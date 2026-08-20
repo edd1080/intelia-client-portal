@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T04:09:29.028Z",
+  "generatedAt": "2026-08-18T04:50:00.000Z",
   "projects": [
     {
       "key": "bia-hn-compras-ai-5cVRh5",
@@ -7,8 +7,8 @@
       "id": "rec5cVRh50tcuE3Kt",
       "baseId": "appM9RFgoYSE9AiPM",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Solicitud de Compras AI",
-      "code": "BIA-HN-COMPRAS-AI"
+      "projectName": "Portal de Compras BIA",
+      "code": "COM-1"
     },
     {
       "key": "bia-hn-mkt-intelligence-core-tzxbKF",

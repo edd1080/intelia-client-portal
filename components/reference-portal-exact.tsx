@@ -252,19 +252,35 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     || "No hay decisiones pendientes del cliente en este momento.";
   const ganttHtml = buildGanttHtml(data);
   const roadmapHtml = buildRoadmapHtml(data);
+  const summaryMilestones = data.milestones.slice(0, 3);
+  const summaryFiles = data.files.filter((file) => file.visibleToClient !== false).slice(0, 2);
+  const summaryQuestion = data.questions.find((question) => question.requiresClientDecision) || data.questions[0];
+  const summaryActivity = data.activity.filter((item) => item.visibleToClient !== false).slice(0, 3);
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
     .replaceAll("Actualizado: Hoy, 10:45 AM", `Actualizado: ${escapeHtml(lastUpdated)} • ${escapeHtml(updatedBy)}`)
     .replaceAll("Fase de Desarrollo Core", escapeHtml(phase))
     .replaceAll("STATUS OFICIAL", signal === "tranquilo" ? "STATUS OFICIAL" : "REQUIERE ATENCIÓN")
-    .replaceAll(">60\n                    </span>", `>${progress}\n                    </span>`)
+    .replace(/(<span class="text-4xl font-semibold tracking-tighter text-emerald-500">\s*)60(\s*<\/span>)/, `$1${progress}$2`)
     .replaceAll("w-[60%]", `w-[${progress}%]`)
     .replaceAll("Hemos completado exitosamente la fase de\n                  <strong class=\"text-slate-900\">\n                    Setup de Infraestructura\n                  </strong>\n                  y la ingesta de datos. Actualmente estamos avanzando de forma\n                  fluida en el\n                  <strong class=\"text-slate-900\">Entrenamiento del LLM</strong>\n                  .", escapeHtml(data.project.executiveSummary))
     .replaceAll("El 40% restante corresponde a las pruebas de integración en\n                    entorno Staging (30%) y el despliegue a Producción (10%),\n                    programados para completarse en las próximas 3 semanas.", escapeHtml(remaining))
     .replaceAll("Siguiente hito definido", escapeHtml(next))
     .replaceAll("Mensaje ejecutivo para el cliente", escapeHtml(clientMessage))
     .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", escapeHtml(clientAction))
+    .replaceAll("Ingesta de datos base", escapeHtml(summaryMilestones[0]?.name || "Primer hito del proyecto"))
+    .replaceAll("Entrenamiento del LLM", escapeHtml(summaryMilestones[1]?.name || data.project.nextMilestone || "Hito actual"))
+    .replaceAll("Ajuste fino con histórico de tickets.", escapeHtml(summaryMilestones[1]?.description || "Seguimiento del hito actual."))
+    .replaceAll("Despliegue en Staging", escapeHtml(summaryMilestones[2]?.name || "Siguiente hito"))
+    .replaceAll("Arq_Sistema_v1.pdf", escapeHtml(summaryFiles[0]?.name || "Documento del proyecto"))
+    .replaceAll("Métricas_Baseline.csv", escapeHtml(summaryFiles[1]?.name || "Evidencia de avance"))
+    .replaceAll("¿Cuándo necesitamos acceso a AWS?", escapeHtml(summaryQuestion?.message || "Sin preguntas abiertas"))
+    .replaceAll("Para el hito de Staging a finales de Octubre.", escapeHtml(summaryQuestion?.answer || "Pendiente de respuesta o confirmación."))
+    .replaceAll("Se completó la evaluación de sesgos en el conjunto de\n                  validación con resultados positivos.", escapeHtml(summaryActivity[0]?.description || "Actividad pendiente de publicar."))
+    .replaceAll("Conexión establecida con la API de Zendesk en entorno de\n                  desarrollo.", escapeHtml(summaryActivity[1]?.description || "Sin segunda actividad publicada."))
+    .replaceAll("Aprobación de la arquitectura de infraestructura cloud.", escapeHtml(summaryActivity[2]?.description || "Sin tercera actividad publicada."))
+    .replace(/(<span class="text-2xl font-bold text-slate-800 tracking-tighter">\s*)41(\s*<\/span>)/, `$1${data.tasks.filter((task) => task.visibleToClient !== false).length}$2`)
     .replaceAll("<!-- CLIENT_FOCUS_PANEL -->", buildClientFocusPanel(data, clientAction))
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
