@@ -86,22 +86,22 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
     .filter((task) => task.isCurrent || taskStatusGroup(task.status) === "En progreso" || taskStatusGroup(task.status) === "En revisión")
     .slice(0, 3);
   const taskRows = (highlighted.length ? highlighted : visibleTasks.slice(0, 3)).map((task) => `
-              <div class="rounded-xl bg-white/10 border border-white/20 p-3">
+              <div class="rounded-xl bg-emerald-950/25 border border-white/35 p-3 shadow-sm">
                 <div class="flex items-start justify-between gap-3">
                   <p class="text-xs font-semibold leading-snug text-white">${escapeHtml(task.name)}</p>
-                  <span class="shrink-0 rounded-full bg-white/15 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-white/85">${escapeHtml(task.status || "pendiente")}</span>
+                  <span class="shrink-0 rounded-full bg-white/25 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-white">${escapeHtml(task.status || "pendiente")}</span>
                 </div>
-                <p class="mt-1 text-[10px] leading-snug text-white/70">${escapeHtml(task.description || task.requiredAction || task.milestone || "Seguimiento visible para cliente.")}</p>
+                <p class="mt-1 text-[10px] leading-snug text-white/90">${escapeHtml(task.description || task.requiredAction || task.milestone || "Seguimiento visible para cliente.")}</p>
               </div>`).join("");
   const statRows = counts.map(({ group, count }) => {
     const width = Math.max(8, Math.round((count / total) * 100));
     const label = group === "Siguientes" ? "Por empezar" : group;
-    return `<div class="bg-white/10 rounded-xl p-3 border border-white/20">
+    return `<div class="bg-emerald-950/25 rounded-xl p-3 border border-white/35 shadow-sm">
                 <div class="flex justify-between items-center text-xs mb-1.5">
-                  <span class="font-medium text-white/90">${escapeHtml(label)}</span>
+                  <span class="font-medium text-white">${escapeHtml(label)}</span>
                   <span class="font-mono text-white">${count}</span>
                 </div>
-                <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
+                <div class="h-1.5 w-full bg-emerald-950/30 rounded-full overflow-hidden">
                   <div class="h-full bg-white/80 rounded-full" style="width:${width}%"></div>
                 </div>
               </div>`;
@@ -109,8 +109,8 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
   return `<div class="dashboard-task-content space-y-3 flex-1 min-h-0 flex flex-col overflow-y-auto pr-1">
               <div class="grid grid-cols-2 gap-2">${statRows}</div>
               <div class="mt-auto space-y-2">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-white/60">Tareas activas</p>
-                ${taskRows || `<div class="rounded-xl bg-white/10 border border-white/20 p-3 text-xs text-white/80">Todavía no hay tareas visibles cargadas.</div>`}
+                <p class="text-[10px] font-bold uppercase tracking-wider text-white/85">Tareas activas</p>
+                ${taskRows || `<div class="rounded-xl bg-emerald-950/25 border border-white/35 p-3 text-xs text-white/90">Todavía no hay tareas visibles cargadas.</div>`}
               </div>
             </div>`;
 }
