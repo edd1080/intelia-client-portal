@@ -358,6 +358,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
   const summaryActivity = data.activity.filter((item) => item.visibleToClient !== false).slice(0, 3);
   const attentionRequiredHtml = buildAttentionRequiredHtml(data);
   const taskBoardHtml = buildTaskBoardHtml(data);
+  const supportHref = `mailto:edgar@intelia.pro?subject=${encodeURIComponent(`Consulta rapida - proyecto ${data.project.name || "Intelia"}`)}`;
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
@@ -387,6 +388,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- TASK_CHART_PANEL -->", buildTaskChartPanel(data))
     .replaceAll("<!-- TASK_BOARD_DYNAMIC -->", taskBoardHtml)
+    .replaceAll("mailto:edgar@intelia.pro?subject=Consulta%20rapida%20-%20proyecto%20Intelia", supportHref)
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
@@ -575,10 +577,6 @@ export function ReferencePortalExact({ data, token = "demo", authRequired = true
       link.addEventListener("click", () => closeMobileMenu(), { once: false });
     });
 
-    root.querySelector<HTMLElement>("[data-support]")?.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.location.href = "mailto:edgar@intelia.pro?subject=Soporte%20Portal%20de%20Cliente%20Intelia";
-    });
 
     const listButton = root.querySelector<HTMLElement>("[data-view-list]");
     const kanbanButton = root.querySelector<HTMLElement>("[data-view-kanban]");
@@ -731,12 +729,16 @@ const markup = String.raw`
           <iconify-icon icon="solar:folder-with-files-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Archivos</span>
         </a>
+        <a href="mailto:edgar@intelia.pro?subject=Consulta%20rapida%20-%20proyecto%20Intelia" data-support="true" class="mobile-support-link flex flex-col items-center justify-center gap-1 rounded-2xl text-white bg-slate-800 border border-slate-700 shadow-lg">
+          <iconify-icon icon="solar:plain-2-bold" class="text-[22px] text-white"></iconify-icon>
+          <span class="text-[9px] uppercase tracking-wider text-white">Consulta</span>
+        </a>
       </nav>
       <div class="mt-auto flex flex-col items-center w-full px-2">
-        <a href="#" data-support="true" class="w-14 h-14 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform group relative border border-slate-700">
-          <iconify-icon icon="solar:help-circle-bold-duotone" class="text-2xl text-emerald-400"></iconify-icon>
+        <a href="mailto:edgar@intelia.pro?subject=Consulta%20rapida%20-%20proyecto%20Intelia" data-support="true" class="desktop-support-link w-14 h-14 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform group relative border border-slate-700">
+          <iconify-icon icon="solar:plain-2-bold" class="text-2xl text-white"></iconify-icon>
           <div class="absolute left-16 bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl border border-slate-700 z-50">
-            Soporte Técnico
+            Enviar consulta rápida
           </div>
         </a>
       </div>

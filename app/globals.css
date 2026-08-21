@@ -55,6 +55,10 @@ body {
   display: inline-block;
 }
 
+.reference-exact-root .mobile-support-link {
+  display: none;
+}
+
 /* Critical desktop chrome: keep the official sidebar/header styled even if the Tailwind CDN is slow or blocked. */
 @media (min-width: 768px) {
   .reference-exact-root > aside {
@@ -551,6 +555,19 @@ body {
   .reference-exact-root aside.fixed .nav-link span,
   .reference-exact-root aside.left-6 .nav-link span {
     font-size: 0.62rem !important;
+  }
+
+  .reference-exact-root .mobile-support-link {
+    display: flex !important;
+    width: 4.25rem !important;
+    height: 4.25rem !important;
+    justify-self: center;
+    align-self: center;
+    border-radius: 1.15rem !important;
+  }
+
+  .reference-exact-root .desktop-support-link {
+    display: none !important;
   }
 
   .reference-exact-root aside.fixed > div:last-child,
