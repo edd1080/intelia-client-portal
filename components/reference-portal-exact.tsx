@@ -239,8 +239,7 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
         end: end.getTime() <= start.getTime() ? addDays(start, 6) : end,
       };
     })
-    .sort((a, b) => (a.ganttOrder ?? 999) - (b.ganttOrder ?? 999) || a.start!.getTime() - b.start!.getTime())
-    .slice(0, 10);
+    .sort((a, b) => (a.ganttOrder ?? 999) - (b.ganttOrder ?? 999) || a.start!.getTime() - b.start!.getTime());
 
   if (!tasks.length) return `<div class="rounded-2xl border border-white/70 bg-white/50 p-6 text-sm font-medium text-slate-600">Gantt pendiente de publicar: pediremos fechas de inicio, fin, dependencias y progreso en el próximo handoff del agente.</div>`;
 
@@ -312,7 +311,7 @@ function buildRoadmapHtml(data: ClientPortalData) {
   }
 
   return `<div class="relative border-l-2 border-emerald-200 ml-4 space-y-8">
-            ${milestones.slice(0, 8).map((milestone, index) => {
+            ${milestones.map((milestone, index) => {
               const status = statusLabel(milestone.status);
               const isCurrent = milestone.status.toLowerCase().includes("actual") || milestone.status.toLowerCase().includes("progreso") || index === 0;
               const relatedTasks = data.tasks.filter((task) => task.milestone === milestone.name).slice(0, 3);
