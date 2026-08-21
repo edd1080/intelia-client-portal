@@ -5,6 +5,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Portal de Cliente - Intelia",
   description: "Portal de proyectos de Intelia para clientes",
+  icons: {
+    icon: [{ url: "/intelia-mark.png", type: "image/png" }],
+    apple: "/intelia-mark.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

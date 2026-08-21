@@ -221,7 +221,13 @@ function buildGanttHtml(data: ClientPortalData) {
   const rows = tasks.map((task) => {
     const startPct = Math.max(0, Math.min(96, ((task.start!.getTime() - min.getTime()) / total) * 100));
     const widthPct = Math.max(8, Math.min(100 - startPct, ((task.end!.getTime() - task.start!.getTime()) / total) * 100));
-    const progress = Math.max(0, Math.min(100, Math.round(task.ganttProgress ?? 0)));
+    const inferredProgress = taskStatusGroup(task.status) === "Completadas"
+      ? 100
+      : taskStatusGroup(task.status) === "En revisión" || task.isCurrent
+        ? 50
+        : 0;
+    const progress = Math.max(0, Math.min(100, Math.round(task.ganttProgress && task.ganttProgress > 0 ? task.ganttProgress : inferredProgress)));
+    const progressLabel = progress === 0 ? "Por iniciar" : `${progress}%`;
     const complete = progress >= 100;
     const bar = complete ? "bg-emerald-200 border border-emerald-300" : progress > 0 ? "bg-emerald-500 shadow-sm shadow-emerald-500/20" : "bg-slate-200 border border-slate-300";
     const textColor = complete ? "text-emerald-700" : progress > 0 ? "text-white" : "text-slate-500";
@@ -233,7 +239,7 @@ function buildGanttHtml(data: ClientPortalData) {
                   <div class="col-span-9 relative h-6 bg-white/40 rounded-md border border-white/50 overflow-hidden">
                     <div class="absolute top-0 h-full ${bar} rounded-md" style="left:${startPct}%;width:${widthPct}%">
                       <span class="absolute inset-0 flex items-center justify-center text-[10px] font-semibold ${textColor}">
-                        ${progress}%
+                        ${progressLabel}
                       </span>
                     </div>
                   </div>
@@ -663,8 +669,8 @@ const markup = String.raw`
     <!-- Cabecera Fija del Cliente (Fuera del espacio 3D) -->
     <aside class="w-24 h-[calc(100vh-3rem)] my-6 ml-6 relative z-50 backdrop-blur-3xl border border-white/60 shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-[2rem] flex-col hidden md:flex bg-white/70 items-center py-6 shrink-0">
       <div class="px-2 flex flex-col items-center gap-2 mb-8">
-        <div class="w-14 h-14 rounded-2xl bg-white/90 flex items-center justify-center shadow-md shadow-emerald-500/20 border border-white/70 p-2">
-          <img src="/intelia-mark-crop.png" alt="Intelia" class="h-full w-full object-contain" />
+        <div class="w-16 h-10 rounded-2xl bg-white/90 flex items-center justify-center shadow-md shadow-emerald-500/20 border border-white/70 px-1.5 py-1">
+          <img src="/intelia-logo-dark.png" alt="Intelia" class="h-full w-full object-contain" />
         </div>
         <span class="hidden">Intelia</span>
       </div>
@@ -1129,8 +1135,8 @@ const markup = String.raw`
         <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-blue-400/20 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 text-center mb-8">
-          <div class="w-16 h-16 rounded-3xl bg-white/90 flex items-center justify-center shadow-lg shadow-emerald-500/20 mx-auto mb-4 border border-white/70 p-3">
-            <img src="/intelia-mark-crop.png" alt="Intelia" class="h-full w-full object-contain" />
+          <div class="w-28 h-14 rounded-3xl bg-white/90 flex items-center justify-center shadow-lg shadow-emerald-500/20 mx-auto mb-4 border border-white/70 px-3 py-2">
+            <img src="/intelia-logo-dark.png" alt="Intelia" class="h-full w-full object-contain" />
           </div>
           <h2 class="text-2xl font-semibold tracking-tight text-slate-800">
             Portal de Cliente
