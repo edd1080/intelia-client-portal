@@ -1,9 +1,9 @@
 {
   "client": {
     "id": "recBdVz2o14Gk9LGW",
-    "name": "BIA Honduras",
+    "name": "BIA Honduras / BIA Foods — Compras",
     "brandColor": "#2558D8",
-    "contactName": "Lady Matute / Débora / Greta",
+    "contactName": "Lady / equipo de Compras / administración",
     "contactEmail": "gsalguero@biafoods.com"
   },
   "project": {
@@ -12,16 +12,16 @@
     "code": "COM-1",
     "token": "legacy-bia-hn-compras-fase1",
     "status": "en progreso",
-    "currentPhase": "Preparando la próxima entrega: validación fiscal y comparativo en Excel",
-    "progress": 45,
+    "currentPhase": "Núcleo del sistema completo y probado; preparación para piloto con datos reales",
+    "progress": 80,
     "startDate": "2026-08-12",
-    "targetEndDate": "2026-10-15",
-    "executiveSummary": "Estamos construyendo un canal único para el ciclo de compra de BIA: cualquier colaborador solicita, Compras la gestiona con documentos estandarizados y cotizaciones comparables, y el proceso queda medido. Sustituye correo, WhatsApp y chats dispersos. Hoy el portal del solicitante, el panel del coordinador y el dashboard administrativo ya funcionan con autenticación real y con ayuda de Inteligencia Artificial para clasificar, extraer y comparar cotizaciones.",
-    "remainingExplanation": "Siguen pendientes la validación fiscal robusta del ISV de Honduras, el Excel comparativo descargable, la gestión de catálogo desde admin y el piloto con datos y plantillas oficiales de Compras. Lo restante no depende de un bloqueo técnico mayor; el bloqueo real para piloto es recibir plantillas, ejemplos y criterios oficiales de BIA.",
-    "clientSignal": "atención",
-    "clientMessage": "El desarrollo va bien y el producto ya está utilizable en sus tres portales. Estamos entrando a la fase que da mayor valor para Compras: validación de impuestos, comparativa en Excel lista para revisar y catálogo editable desde administración. Para el piloto necesitaremos las plantillas y ejemplos oficiales del equipo de Compras.",
-    "nextMilestone": "Validación fiscal + Excel comparativo",
-    "nextMilestoneDate": "2026-08-31",
+    "targetEndDate": "",
+    "executiveSummary": "El portal ya resuelve el recorrido completo de una compra: el colaborador realiza la solicitud, el equipo de Compras gestiona cotizaciones y comparativas, el solicitante decide por un enlace y la administración puede consultar métricas y alertas. El recorrido de punta a punta ya fue validado con datos reales de prueba. El siguiente paso es habilitar una prueba piloto con usuarios reales.",
+    "remainingExplanation": "Falta terminar herramientas administrativas finas —gestión de compradores, versionado de plantillas y seguridad para que cada comprador vea solo lo suyo—, trasladar la base de datos a un entorno seguro en la nube, confirmar los insumos oficiales de BIA y ejecutar el piloto con al menos 10 compras completas.",
+    "clientSignal": "decisión requerida",
+    "clientMessage": "El núcleo del portal ya funciona de inicio a fin y está probado. Para avanzar al piloto necesitamos confirmar participantes, autorizar el entorno en la nube y recibir las plantillas y el dominio oficiales de BIA.",
+    "nextMilestone": "Piloto funcional con usuarios reales",
+    "nextMilestoneDate": "",
     "enabledSections": [
       "kanban",
       "hitos",
@@ -35,338 +35,280 @@
   },
   "tasks": [
     {
-      "id": "compras-task-01",
-      "name": "Corregir persistencia de datos de cotizaciones extraídas",
+      "id": "compras-refresh-task-01",
+      "name": "Alta, baja y asignación de categorías de compradores",
       "status": "por hacer",
-      "dueDate": "2026-08-21",
-      "milestone": "H5 — Validación fiscal y Excel comparativo",
+      "dueDate": "",
+      "milestone": "Preparación para piloto",
       "visibleToClient": true,
       "isCurrent": true,
-      "description": "Ajuste interno para que los datos que la IA lee de una cotización —plazos, condiciones de pago, garantías e IVA desglosado— se guarden correctamente y no se pierdan.",
-      "priority": "alta",
+      "description": "Permitir que la administración gestione compradores y sus categorías desde el panel, en lugar de tener una vista únicamente informativa.",
+      "priority": "media",
       "needsClientAction": false,
       "requiredAction": "",
-      "ganttStart": "2026-08-18",
-      "ganttEnd": "2026-08-21",
+      "ganttStart": "",
+      "ganttEnd": "",
       "ganttProgress": 0,
       "ganttOrder": 1,
-      "ganttDependencies": "F4"
+      "ganttDependencies": ""
     },
     {
-      "id": "compras-task-02",
-      "name": "Validación fiscal (ISV de Honduras) con alertas",
+      "id": "compras-refresh-task-02",
+      "name": "Versionado de plantillas y campos",
       "status": "por hacer",
-      "dueDate": "2026-08-28",
-      "milestone": "H5 — Validación fiscal y Excel comparativo",
+      "dueDate": "",
+      "milestone": "Preparación para piloto",
       "visibleToClient": true,
       "isCurrent": true,
-      "description": "El sistema revisará que neto, impuesto y total cuadren, y avisará al coordinador cuando haya que verificar una cotización con el proveedor.",
-      "priority": "alta",
+      "description": "Conservar la versión de plantilla utilizada por cada pedido cuando se actualicen campos o formatos.",
+      "priority": "media",
       "needsClientAction": false,
       "requiredAction": "",
-      "ganttStart": "2026-08-22",
-      "ganttEnd": "2026-08-28",
+      "ganttStart": "",
+      "ganttEnd": "",
       "ganttProgress": 0,
       "ganttOrder": 2,
-      "ganttDependencies": "1"
+      "ganttDependencies": ""
     },
     {
-      "id": "compras-task-03",
-      "name": "Excel comparativo descargable de 3 hojas",
+      "id": "compras-refresh-task-03",
+      "name": "Seguridad para que cada comprador vea solo lo suyo",
       "status": "por hacer",
-      "dueDate": "2026-09-04",
-      "milestone": "H5 — Validación fiscal y Excel comparativo",
+      "dueDate": "",
+      "milestone": "Preparación para piloto / nube",
       "visibleToClient": true,
       "isCurrent": true,
-      "description": "El coordinador descargará un Excel editable con comparativo de ofertas, detalle de cada cotización y requerimiento original.",
+      "description": "Garantizar que cada comprador solo pueda consultar los pedidos que le fueron asignados, también fuera de la interfaz.",
       "priority": "alta",
       "needsClientAction": false,
       "requiredAction": "",
-      "ganttStart": "2026-08-29",
-      "ganttEnd": "2026-09-04",
+      "ganttStart": "",
+      "ganttEnd": "",
       "ganttProgress": 0,
       "ganttOrder": 3,
-      "ganttDependencies": "1,2"
+      "ganttDependencies": "Migración a la nube"
     },
     {
-      "id": "compras-task-04",
-      "name": "Gestión de catálogo desde el panel administrativo",
+      "id": "compras-refresh-task-04",
+      "name": "Migración de la base de datos a un entorno seguro en la nube",
       "status": "por hacer",
-      "dueDate": "2026-09-15",
-      "milestone": "H6 — Administración del catálogo",
+      "dueDate": "",
+      "milestone": "Preparación para piloto",
       "visibleToClient": true,
       "isCurrent": true,
-      "description": "Lady podrá agregar, editar y desactivar campos y categorías del catálogo desde el panel administrativo sin depender de desarrollo.",
-      "priority": "media",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "2026-09-05",
-      "ganttEnd": "2026-09-15",
-      "ganttProgress": 0,
-      "ganttOrder": 4,
-      "ganttDependencies": "H5"
-    },
-    {
-      "id": "compras-task-05",
-      "name": "Proveer plantillas y ejemplos oficiales para el piloto",
-      "status": "en revisión",
-      "dueDate": "2026-09-20",
-      "milestone": "H7 — Piloto con datos reales",
-      "visibleToClient": true,
-      "isCurrent": true,
-      "description": "BIA debe entregar plantillas oficiales de solicitud y ejemplos de cotización para calibrar el sistema en piloto.",
+      "description": "Trasladar la base de datos local a un entorno administrado, respaldado y listo para usuarios reales.",
       "priority": "alta",
       "needsClientAction": true,
-      "requiredAction": "Que el equipo de Compras, liderado por Lady, comparta plantillas y ejemplos oficiales.",
-      "ganttStart": "2026-09-01",
-      "ganttEnd": "2026-09-20",
+      "requiredAction": "Autorizar la creación del entorno en la nube.",
+      "ganttStart": "",
+      "ganttEnd": "",
       "ganttProgress": 0,
-      "ganttOrder": 5,
-      "ganttDependencies": "H5"
+      "ganttOrder": 4,
+      "ganttDependencies": ""
     },
     {
-      "id": "compras-task-06",
-      "name": "Definir dominio definitivo de la aplicación",
-      "status": "en revisión",
-      "dueDate": "2026-10-01",
-      "milestone": "H8 — Apertura general / producción",
+      "id": "compras-refresh-task-05",
+      "name": "Piloto con usuarios reales: al menos 10 compras completas",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Piloto con datos reales",
       "visibleToClient": true,
       "isCurrent": true,
-      "description": "Definir la dirección definitiva del portal para producción con TI/BIA.",
-      "priority": "media",
+      "description": "Ejecutar el portal con un grupo acotado, completar al menos 10 compras de inicio a fin y ajustar el producto con datos reales.",
+      "priority": "alta",
       "needsClientAction": true,
-      "requiredAction": "Decisión de TI/BIA sobre el dominio definitivo.",
-      "ganttStart": "2026-09-20",
-      "ganttEnd": "2026-10-01",
+      "requiredAction": "Confirmar participantes y entregar plantillas y dominio oficiales de BIA.",
+      "ganttStart": "",
+      "ganttEnd": "",
       "ganttProgress": 0,
-      "ganttOrder": 6,
-      "ganttDependencies": "H7"
+      "ganttOrder": 5,
+      "ganttDependencies": "Migración a la nube + insumos oficiales"
     }
   ],
   "milestones": [
     {
-      "id": "compras-milestone-01",
-      "name": "H1 — Fundación y portales base",
+      "id": "compras-refresh-milestone-01",
+      "name": "Base y preparación",
       "estimatedDate": "2026-08-12",
       "actualDate": "2026-08-12",
       "status": "alcanzado",
-      "description": "Base de datos, arquitectura y primeros flujos listos.",
-      "acceptanceCriteria": "Esquema de datos y rutas iniciales completas (features 000-002)."
+      "description": "Entorno, arquitectura y base del producto listos.",
+      "acceptanceCriteria": "Etapa cerrada."
     },
     {
-      "id": "compras-milestone-02",
-      "name": "H2 — Diseño y documentos oficiales",
-      "estimatedDate": "2026-08-14",
+      "id": "compras-refresh-milestone-02",
+      "name": "Captura y clasificación de solicitudes",
+      "estimatedDate": "",
+      "actualDate": "2026-08-13",
+      "status": "alcanzado",
+      "description": "El colaborador puede iniciar una solicitud y el sistema la clasifica automáticamente.",
+      "acceptanceCriteria": "Etapa cerrada."
+    },
+    {
+      "id": "compras-refresh-milestone-03",
+      "name": "Preguntas, documento y comunicaciones",
+      "estimatedDate": "",
       "actualDate": "2026-08-14",
       "status": "alcanzado",
-      "description": "Identidad visual, documento de solicitud PDF y correos iniciales del ciclo.",
-      "acceptanceCriteria": "PDF membretado y correos 1-2 funcionando."
+      "description": "El sistema solicita la información necesaria y genera documentos y comunicaciones del proceso.",
+      "acceptanceCriteria": "Etapa cerrada."
     },
     {
-      "id": "compras-milestone-03",
-      "name": "H3 — Acceso por rol (auth)",
-      "estimatedDate": "2026-08-14",
-      "actualDate": "2026-08-14",
-      "status": "alcanzado",
-      "description": "Coordinadores y admin entran con usuario y contraseña; solicitante sin contraseña.",
-      "acceptanceCriteria": "Login real y rutas protegidas por rol."
-    },
-    {
-      "id": "compras-milestone-04",
-      "name": "H4 — Inteligencia Artificial en el flujo",
-      "estimatedDate": "2026-08-16",
+      "id": "compras-refresh-milestone-04",
+      "name": "Cotizaciones, comparativa y decisión",
+      "estimatedDate": "",
       "actualDate": "2026-08-16",
       "status": "alcanzado",
-      "description": "Clasificación, assessment, extracción de cotizaciones y comparativa razonada.",
-      "acceptanceCriteria": "4 funciones IA operativas con degradación segura."
+      "description": "Compras puede cargar cotizaciones, compararlas, recomendar y recibir la decisión del solicitante por enlace.",
+      "acceptanceCriteria": "Recorrido de inicio a fin verificado."
     },
     {
-      "id": "compras-milestone-05",
-      "name": "H5 — Validación fiscal y Excel comparativo",
-      "estimatedDate": "2026-08-31",
+      "id": "compras-refresh-milestone-05",
+      "name": "Métricas, alertas y decisión real",
+      "estimatedDate": "2026-08-20",
+      "actualDate": "2026-08-20",
+      "status": "alcanzado",
+      "description": "El panel muestra métricas reales, alertas automáticas, exportación a Excel y decisiones que cierran pedidos.",
+      "acceptanceCriteria": "80 pruebas automáticas y 22 recorridos completos pasan; tres roles revisados."
+    },
+    {
+      "id": "compras-refresh-milestone-06",
+      "name": "Preparación administrativa y nube",
+      "estimatedDate": "",
       "actualDate": "",
       "status": "actual",
-      "description": "Verificación de ISV y comparativo descargable en Excel de 3 hojas.",
-      "acceptanceCriteria": "validar_fiscal marcando inconsistencias + .xlsx descargable."
+      "description": "Completar administración de compradores, versionado de plantillas, seguridad y migración a la nube.",
+      "acceptanceCriteria": "Herramientas administrativas finas y entorno seguro operativos."
     },
     {
-      "id": "compras-milestone-06",
-      "name": "H6 — Administración del catálogo",
-      "estimatedDate": "2026-09-15",
+      "id": "compras-refresh-milestone-07",
+      "name": "Piloto con datos reales",
+      "estimatedDate": "",
       "actualDate": "",
       "status": "pendiente",
-      "description": "Edición de campos y categorías desde panel admin sin desarrollo.",
-      "acceptanceCriteria": "CRUD de catálogo desde /admin."
+      "description": "Probar el portal con un grupo acotado y al menos 10 compras completas.",
+      "acceptanceCriteria": "10 compras de inicio a fin y ajustes priorizados."
     },
     {
-      "id": "compras-milestone-07",
-      "name": "H7 — Piloto con datos reales",
-      "estimatedDate": "2026-09-30",
-      "actualDate": "",
-      "status": "en riesgo",
-      "description": "Piloto con grupo acotado y plantillas oficiales antes de abrir a toda la empresa.",
-      "acceptanceCriteria": "Piloto cerrado con grupo acotado; requiere insumos oficiales de BIA."
-    },
-    {
-      "id": "compras-milestone-08",
-      "name": "H8 — Apertura general / producción",
-      "estimatedDate": "2026-10-15",
+      "id": "compras-refresh-milestone-08",
+      "name": "Apertura general",
+      "estimatedDate": "",
       "actualDate": "",
       "status": "pendiente",
-      "description": "Portal abierto a toda la empresa con monitoreo y métricas.",
-      "acceptanceCriteria": "Producto en producción con trazabilidad y métrica de conversión."
+      "description": "Abrir el portal a toda la organización después del piloto.",
+      "acceptanceCriteria": "Producto en producción con operación y métricas establecidas."
     }
   ],
   "activity": [
     {
-      "id": "compras-activity-2026-08-18",
-      "date": "2026-08-18",
+      "id": "compras-refresh-activity-2026-08-20",
+      "date": "2026-08-20 18:57 CST",
+      "type": "entrega",
+      "title": "Métricas reales, alertas y decisión por enlace verificadas",
+      "description": "El panel de administración ya muestra métricas reales del ciclo, alertas automáticas y exportación a Excel. La decisión del solicitante por enlace ahora cierra el pedido y alimenta las métricas. También se corrigió un error que impedía visualizar las métricas.",
+      "clientMeaning": "BIA puede medir el rendimiento real del proceso y detectar pedidos que se quedan sin avance.",
+      "origin": "OpenCode",
+      "visibleToClient": true
+    },
+    {
+      "id": "compras-refresh-activity-80-tests",
+      "date": "2026-08-20",
+      "type": "avance",
+      "title": "Recorrido completo validado",
+      "description": "Las ocho etapas del recorrido de compras funcionan contra datos reales de prueba y fueron verificadas con pruebas automáticas y revisión de los tres roles.",
+      "clientMeaning": "El producto ya puede avanzar de la validación técnica hacia una prueba con usuarios reales.",
+      "origin": "OpenCode",
+      "visibleToClient": true
+    },
+    {
+      "id": "compras-refresh-activity-next",
+      "date": "2026-08-20",
       "type": "decisión",
-      "title": "Revisión y aprobación del alcance de la siguiente fase",
-      "description": "Confirmar que la próxima entrega es validación fiscal de impuestos, comparativo en Excel y catálogo editable, en ese orden.",
-      "clientMeaning": "Define lo que se verá en la siguiente demo y fija el cronograma cercano.",
-      "origin": "OpenCode",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-activity-feature-006",
-      "date": "2026-08-16",
-      "type": "avance",
-      "title": "Integración de IA completada para el flujo base",
-      "description": "El sistema ya clasifica solicitudes, hace preguntas relevantes, extrae datos de cotizaciones y genera una comparativa razonada.",
-      "clientMeaning": "Compras reduce trabajo manual y puede comparar ofertas con mejor estructura.",
-      "origin": "OpenCode",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-activity-auth",
-      "date": "2026-08-14",
-      "type": "avance",
-      "title": "Acceso seguro por rol habilitado",
-      "description": "Coordinadores y administradores ya entran con autenticación real y rutas protegidas.",
-      "clientMeaning": "El equipo opera con accesos separados y más seguros.",
+      "title": "Preparación del piloto",
+      "description": "El siguiente paso es confirmar participantes, autorizar el entorno en la nube y recibir las plantillas y el dominio oficiales de BIA.",
+      "clientMeaning": "Estas definiciones permiten pasar de una demo validada a una prueba real y segura.",
       "origin": "OpenCode",
       "visibleToClient": true
     }
   ],
   "questions": [
     {
-      "id": "compras-question-001",
+      "id": "compras-refresh-question-001",
       "author": "Intelia",
-      "message": "Recepción de plantillas y ejemplos oficiales para el piloto",
-      "date": "2026-08-18",
-      "status": "sin responder",
-      "answer": "",
-      "answeredAt": "",
-      "requiresClientDecision": true
-    },
-    {
-      "id": "compras-question-002",
-      "author": "Intelia",
-      "message": "Aceptación por escrito del riesgo del enlace público de comparativa",
-      "date": "2026-08-18",
-      "status": "sin responder",
-      "answer": "",
-      "answeredAt": "",
-      "requiresClientDecision": true
-    },
-    {
-      "id": "compras-question-003",
-      "author": "Intelia",
-      "message": "Definición del dominio e infraestructura definitiva",
-      "date": "2026-08-18",
-      "status": "sin responder",
-      "answer": "",
-      "answeredAt": "",
-      "requiresClientDecision": true
-    },
-    {
-      "id": "compras-question-004",
-      "author": "Intelia",
-      "message": "Confirmar alcance de la característica 007: fiscal, Excel y catálogo",
-      "date": "2026-08-18",
+      "message": "¿Se autoriza y prepara el piloto con usuarios reales?",
+      "date": "2026-08-20",
       "status": "requiere decisión",
-      "answer": "Si no hay cambios, Intelia mantiene el orden propuesto para la siguiente entrega.",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
+    },
+    {
+      "id": "compras-refresh-question-002",
+      "author": "Intelia",
+      "message": "¿BIA puede entregar las plantillas y el dominio oficiales?",
+      "date": "2026-08-20",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "compras-refresh-question-003",
+      "author": "Intelia",
+      "message": "¿Se autoriza la creación del entorno seguro en la nube?",
+      "date": "2026-08-20",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
     }
   ],
   "files": [
     {
-      "id": "compras-file-brief",
-      "name": "Brief del proyecto",
-      "url": "pendiente",
-      "date": "2026-08-18",
-      "category": "Documento de producto",
+      "id": "compras-refresh-file-app",
+      "name": "Portal de Compras BIA",
+      "url": "",
+      "date": "2026-08-20",
+      "category": "Aplicación / demo",
       "status": "disponible",
-      "description": "Alineación ejecutiva de problema, alcance, roles y éxito.",
+      "description": "Aplicación para recorrer los tres roles; actualmente disponible en entorno local, no como descarga.",
       "visibleToClient": true
     },
     {
-      "id": "compras-file-prd",
-      "name": "PRD del Portal de Compras",
-      "url": "pendiente",
-      "date": "2026-08-18",
-      "category": "Documento de producto",
+      "id": "compras-refresh-file-verification",
+      "name": "Verificación de la etapa de métricas y alertas",
+      "url": "",
+      "date": "2026-08-20",
+      "category": "Evidencia",
       "status": "disponible",
-      "description": "Requisitos funcionales autoritativos del proyecto.",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-file-user-flows",
-      "name": "Flujos por rol",
-      "url": "pendiente",
-      "date": "2026-08-18",
-      "category": "Documento de producto",
-      "status": "disponible",
-      "description": "Cómo opera cada rol dentro del sistema.",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-file-qa",
-      "name": "Reporte QA del explorador",
-      "url": "pendiente",
-      "date": "2026-08-18",
-      "category": "Evidencia de QA",
-      "status": "disponible",
-      "description": "10/10 rutas principales cargaron sin errores de consola/red.",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-file-demo",
-      "name": "Demo interactiva de los tres portales",
-      "url": "pendiente",
-      "date": "2026-08-18",
-      "category": "Demo",
-      "status": "pendiente",
-      "description": "Demo funcional disponible para sesión guiada.",
-      "visibleToClient": true
+      "description": "Registro interno de verificaciones que respaldan el estado actual.",
+      "visibleToClient": false
     }
   ],
   "impactMetrics": [
     {
       "label": "Pruebas automáticas",
-      "value": "68 unit + 21 e2e",
-      "note": "Build de producción OK"
+      "value": "80 del motor + 22 de recorrido completo",
+      "note": "Las verificaciones reportadas pasan; 6 pruebas requieren entorno."
     },
     {
-      "label": "Rutas QA sin errores",
-      "value": "10/10",
-      "note": "Exploración de rutas principales sin errores"
+      "label": "Etapas del recorrido verificadas",
+      "value": "8 de 8",
+      "note": "Desde la solicitud hasta métricas, alertas, Excel y decisión."
     },
     {
-      "label": "Features cerradas",
-      "value": "6",
-      "note": "000–006 cerradas; 007 en especificación"
+      "label": "Datos del entorno de prueba",
+      "value": "88 solicitudes · 50 enviadas · 10 cerradas",
+      "note": "Datos de desarrollo; la medición oficial empieza en el piloto."
     },
     {
-      "label": "Progreso estimado",
-      "value": "45%",
-      "note": "Comparado contra línea de 7–10 semanas de desarrollo"
+      "label": "Próximo objetivo",
+      "value": "10 compras completas",
+      "note": "Piloto con usuarios reales y ajustes sobre datos reales."
     }
   ],
   "lastUpdated": {
-    "date": "2026-08-18 04:50 PM",
+    "date": "2026-08-20 18:57 CST",
     "by": "OpenCode"
   },
   "source": {
