@@ -205,6 +205,27 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
             return `<ul class="mt-1 space-y-1.5 text-xs leading-relaxed font-medium text-slate-600">${unique.map((item) => `<li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400"></span><span>${escapeHtml(item)}</span></li>`).join("")}</ul>`;
             }
 
+            function buildTaskBoardHtml(data: ClientPortalData) {
+              const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
+              const columns = [
+                { key: "Siguientes", title: "Por hacer", color: "text-slate-700" },
+                { key: "En progreso", title: "En curso", color: "text-emerald-700" },
+                { key: "En revisión", title: "En revisión", color: "text-amber-700" },
+                { key: "Completadas", title: "Completado", color: "text-blue-700" },
+              ];
+              return `<div data-task-board="true" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">${columns.map((column) => {
+                const tasks = visibleTasks.filter((task) => taskStatusGroup(task.status) === column.key);
+                return `<div class="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm flex flex-col gap-4 min-w-0">
+                  <div class="flex items-center justify-between"><h3 class="text-sm font-semibold ${column.color}">${column.title}</h3><span class="bg-white/60 px-2 py-0.5 rounded-md text-xs font-medium text-slate-500">${tasks.length}</span></div>
+                  <div class="space-y-3 max-h-[32rem] overflow-y-auto pr-1">${tasks.length ? tasks.map((task) => `<div class="bg-white/80 rounded-xl p-4 shadow-sm border border-white/60 ${column.key === "Completadas" ? "opacity-70" : ""}">
+                    <div class="flex items-center gap-2 mb-2"><span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md text-[10px] font-semibold uppercase tracking-wider">${escapeHtml(task.priority || "Seguimiento")}</span></div>
+                    <p class="text-sm font-medium text-slate-800 mb-2 ${column.key === "Completadas" ? "line-through" : ""}">${escapeHtml(task.name)}</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">${escapeHtml(task.description || task.requiredAction || task.milestone || "Seguimiento del proyecto.")}</p>
+                  </div>`).join("") : `<div class="rounded-xl border border-dashed border-slate-300 p-4 text-xs text-slate-500">No hay tareas en esta columna.</div>`}</div>
+                </div>`;
+              }).join("")}</div>`;
+            }
+
             function buildGanttHtml(data: ClientPortalData) {
   const fallbackStart = parseDate(data.project.startDate) || new Date();
   const tasks = data.tasks
@@ -335,6 +356,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
   const summaryQuestion = data.questions.find((question) => question.requiresClientDecision) || data.questions[0];
   const summaryActivity = data.activity.filter((item) => item.visibleToClient !== false).slice(0, 3);
   const attentionRequiredHtml = buildAttentionRequiredHtml(data);
+  const taskBoardHtml = buildTaskBoardHtml(data);
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
@@ -363,6 +385,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("<!-- CLIENT_FOCUS_PANEL -->", buildClientFocusPanel(data, clientAction))
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- TASK_CHART_PANEL -->", buildTaskChartPanel(data))
+    .replaceAll("<!-- TASK_BOARD_DYNAMIC -->", taskBoardHtml)
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
@@ -988,79 +1011,7 @@ const markup = String.raw`
               </button>
             </div>
           </div>
-          <div data-task-board="true" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm flex flex-col gap-4">
-              <div class="flex items-center justify-between">
-                <h3 class="text-sm font-semibold text-slate-700">Por Hacer</h3>
-                <span class="bg-white/60 px-2 py-0.5 rounded-md text-xs font-medium text-slate-500">
-                  3
-                </span>
-              </div>
-              <div class="bg-white/80 rounded-xl p-4 shadow-sm border border-white/60">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 bg-red-100 text-red-600 rounded-md text-[10px] font-semibold uppercase tracking-wider">
-                    Alta
-                  </span>
-                </div>
-                <p class="text-sm font-medium text-slate-800 mb-2">
-                  Configurar entorno de desarrollo
-                </p>
-                <p class="text-xs text-slate-500">
-                  Preparar repositorios y accesos AWS.
-                </p>
-              </div>
-              <div class="bg-white/80 rounded-xl p-4 shadow-sm border border-white/60">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 bg-blue-100 text-blue-600 rounded-md text-[10px] font-semibold uppercase tracking-wider">
-                    Media
-                  </span>
-                </div>
-                <p class="text-sm font-medium text-slate-800 mb-2">
-                  Definir esquema de BBDD
-                </p>
-                <p class="text-xs text-slate-500">
-                  Crear diagramas ER para el modelo.
-                </p>
-              </div>
-            </div>
-            <div class="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm flex flex-col gap-4">
-              <div class="flex items-center justify-between">
-                <h3 class="text-sm font-semibold text-slate-700">En Curso</h3>
-                <span class="bg-white/60 px-2 py-0.5 rounded-md text-xs font-medium text-slate-500">
-                  2
-                </span>
-              </div>
-              <div class="bg-white/80 rounded-xl p-4 shadow-sm border border-white/60">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-md text-[10px] font-semibold uppercase tracking-wider">
-                    Alta
-                  </span>
-                </div>
-                <p class="text-sm font-medium text-slate-800 mb-2">
-                  Entrenamiento del LLM
-                </p>
-                <p class="text-xs text-slate-500">
-                  Ajuste fino con histórico de tickets.
-                </p>
-              </div>
-            </div>
-            <div class="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm flex flex-col gap-4">
-              <div class="flex items-center justify-between">
-                <h3 class="text-sm font-semibold text-slate-700">Completado</h3>
-                <span class="bg-white/60 px-2 py-0.5 rounded-md text-xs font-medium text-slate-500">
-                  1
-                </span>
-              </div>
-              <div class="bg-white/80 rounded-xl p-4 shadow-sm border border-white/60 opacity-70">
-                <p class="text-sm font-medium text-slate-800 mb-2 line-through">
-                  Ingesta de datos base
-                </p>
-                <p class="text-xs text-slate-500">
-                  Recopilar primeros 10k tickets.
-                </p>
-              </div>
-            </div>
-          </div>
+          <!-- TASK_BOARD_DYNAMIC -->
         </div>
         <div id="screen-roadmap" class="screen-section hidden max-w-5xl mx-auto space-y-6 pb-12">
           <h2 class="text-2xl font-semibold tracking-tight text-slate-800 mb-6">
