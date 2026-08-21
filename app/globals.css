@@ -144,6 +144,17 @@ body {
     overflow: hidden !important;
   }
 
+  .reference-exact-root .dashboard-task-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.55) transparent;
+  }
+
+  .reference-exact-root .dashboard-attention-card {
+    align-self: start !important;
+    max-height: 13rem;
+    overflow-y: auto;
+  }
+
   .reference-exact-root .dashboard-summary-card > div:first-child {
     min-height: 0 !important;
   }

@@ -106,7 +106,7 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
                 </div>
               </div>`;
   }).join("");
-  return `<div class="space-y-3 flex-1 flex flex-col">
+  return `<div class="dashboard-task-content space-y-3 flex-1 min-h-0 flex flex-col overflow-y-auto pr-1">
               <div class="grid grid-cols-2 gap-2">${statRows}</div>
               <div class="mt-auto space-y-2">
                 <p class="text-[10px] font-bold uppercase tracking-wider text-white/60">Tareas activas</p>
@@ -790,6 +790,19 @@ const markup = String.raw`
             </div>
           </div>
 
+          <!-- ATENCION_REQUERIDA -->
+          <div class="dashboard-attention-card md:col-span-1 lg:col-span-1 bg-gradient-to-br from-[#fff7ed] to-white rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-orange-200/70 flex flex-col hover:shadow-xl transition-shadow">
+            <div class="flex items-center gap-2 mb-4">
+              <iconify-icon icon="solar:shield-warning-linear" class="text-xl text-orange-500" stroke-width="1.5"></iconify-icon>
+              <h3 class="text-xl font-semibold tracking-tight text-slate-800">
+                Atención requerida
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">
+              Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.
+            </p>
+          </div>
+
           <!-- TAREAS -->
           <div class="dashboard-task-card bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[2rem] p-6 text-white/90 shadow-lg shadow-emerald-500/10 border border-white/30 flex flex-col hover:shadow-xl transition-shadow">
             <div class="flex items-center gap-2 mb-4">
@@ -946,17 +959,6 @@ const markup = String.raw`
             </p>
             <p class="text-sm text-slate-600 leading-relaxed font-medium">
               Mensaje ejecutivo para el cliente
-            </p>
-          </div>
-          <div class="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-[#eef7f5] to-white rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
-            <div class="flex items-center gap-2 mb-4">
-              <iconify-icon icon="solar:shield-warning-linear" class="text-xl text-emerald-500" stroke-width="1.5"></iconify-icon>
-              <h3 class="text-xl font-semibold tracking-tight text-slate-800">
-                Atención requerida
-              </h3>
-            </div>
-            <p class="text-sm text-slate-600 leading-relaxed font-medium">
-              Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.
             </p>
           </div>
         </div>
