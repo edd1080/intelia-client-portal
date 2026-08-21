@@ -632,11 +632,7 @@ export function ReferencePortalExact({ data, token = "demo", authRequired = true
         codeButton.textContent = "Verificar y Entrar";
       }
       if (valid) {
-        const authScreen = root.querySelector<HTMLElement>("#auth-screen");
-        if (authScreen) {
-          authScreen.style.opacity = "0";
-          setTimeout(() => authScreen.remove(), 500);
-        }
+        window.location.reload();
       } else {
         codeInput?.classList.add("border-red-400", "focus:border-red-500", "focus:ring-red-500/20");
         root.querySelector("#auth-error")?.classList.remove("hidden");
