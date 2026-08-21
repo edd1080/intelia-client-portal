@@ -489,8 +489,19 @@ body {
     overflow-x: auto;
   }
 
-  .reference-exact-root #screen-gantt .min-w-\[800px\] {
-    min-width: 42rem !important;
+  .reference-exact-root #screen-gantt .min-w-\[920px\] {
+    min-width: 57.5rem !important;
+  }
+
+  .reference-exact-root #screen-gantt {
+    overflow-x: hidden !important;
+  }
+
+  .reference-exact-root #screen-gantt > div:last-child {
+    overflow-x: auto !important;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(100 116 139 / 0.55) transparent;
   }
 
   /* Mobile menu: replace the anti-pattern full-height sidebar with a bottom sheet using the same official nav/buttons. */

@@ -266,28 +266,29 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
     const progressLabel = progress === 0 ? "Por iniciar" : `${progress}%`;
     const complete = progress >= 100;
     const bar = complete ? "bg-emerald-200 border border-emerald-300" : progress > 0 ? "bg-emerald-500 shadow-sm shadow-emerald-500/20" : "bg-slate-200 border border-slate-300";
-    const textColor = complete ? "text-emerald-700" : progress > 0 ? "text-white" : "text-slate-500";
+
     return `
-                <div class="grid grid-cols-12 gap-2 items-center">
-                  <div class="col-span-3 text-sm font-medium text-slate-700 truncate">
+                <div class="grid grid-cols-12 gap-3 items-center min-w-[920px]">
+                  <div class="col-span-3 text-sm font-medium text-slate-700 truncate" title="${escapeHtml(task.name)}">
                     ${escapeHtml(task.name)}
                   </div>
-                  <div class="col-span-9 relative h-6 bg-white/40 rounded-md border border-white/50 overflow-hidden">
+                  <div class="col-span-7 relative h-7 bg-white/40 rounded-md border border-white/50 overflow-hidden">
                     <div class="absolute top-0 h-full ${bar} rounded-md" style="left:${startPct}%;width:${widthPct}%">
-                      <span class="absolute inset-0 flex items-center justify-center text-[10px] font-semibold ${textColor}">
-                        ${progressLabel}
-                      </span>
                     </div>
+                  </div>
+                  <div class="col-span-2 flex items-center justify-end">
+                    <span class="inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold ${complete ? "bg-emerald-100 text-emerald-700" : progress > 0 ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-600"}">${progressLabel}</span>
                   </div>
                 </div>`;
   }).join("");
 
-  return `<div class="min-w-[800px]">
-              <div class="grid grid-cols-12 gap-2 mb-4 text-xs font-semibold text-slate-500 border-b border-slate-200 pb-2">
+  return `<div class="gantt-scroll-frame min-w-[920px]">
+              <div class="grid grid-cols-12 gap-3 mb-4 text-xs font-semibold text-slate-500 border-b border-slate-200 pb-2">
                 <div class="col-span-3">Tarea</div>
-                <div class="col-span-9 grid grid-cols-4 gap-2 text-center">
+                <div class="col-span-7 grid grid-cols-4 gap-2 text-center"> 
                   ${periods}
                 </div>
+                <div class="col-span-2 text-right">Avance</div>
               </div>
               <div class="space-y-4">${rows}
               </div>
