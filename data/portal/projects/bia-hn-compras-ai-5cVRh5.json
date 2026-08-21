@@ -12,7 +12,7 @@
     "code": "COM-1",
     "token": "legacy-bia-hn-compras-fase1",
     "status": "en progreso",
-    "currentPhase": "Sprints 1–5 de desarrollo · features 001–006 cerradas; 007 en especificación",
+    "currentPhase": "Preparando la próxima entrega: validación fiscal y comparativo en Excel",
     "progress": 45,
     "startDate": "2026-08-12",
     "targetEndDate": "2026-10-15",
@@ -366,7 +366,7 @@
     }
   ],
   "lastUpdated": {
-    "date": "2026-08-18",
+    "date": "2026-08-18 04:50 PM",
     "by": "OpenCode"
   },
   "source": {

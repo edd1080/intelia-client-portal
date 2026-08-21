@@ -394,9 +394,9 @@ body {
   }
 
   .reference-exact-root #screen-resumen > div:first-child {
-    padding: 1.6rem !important;
+    padding: 2rem 1.65rem !important;
     border-radius: 1.75rem !important;
-    gap: 1.55rem !important;
+    gap: 1.85rem !important;
     text-align: left !important;
     align-items: stretch !important;
   }
@@ -440,7 +440,7 @@ body {
   }
 
   .reference-exact-root #screen-resumen .bg-white\/50.rounded-2xl {
-    padding: 1rem !important;
+    padding: 1.25rem !important;
   }
 
   .reference-exact-root #screen-resumen .bg-white\/50.rounded-2xl p {

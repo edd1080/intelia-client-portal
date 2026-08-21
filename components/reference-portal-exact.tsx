@@ -38,6 +38,27 @@ function formatShortDate(date: Date) {
   return new Intl.DateTimeFormat("es", { day: "2-digit", month: "short" }).format(date);
 }
 
+function formatDisplayUpdated(value?: string) {
+  if (!value) return "pendiente de publicar";
+  const withTime = /\d{1,2}:\d{2}/.test(value);
+  if (withTime) return value;
+  return `${value} · hora pendiente`;
+}
+
+function clientSafePhase(value?: string, fallback?: string) {
+  const raw = String(value || fallback || "Avance general del proyecto").trim();
+  if (!raw) return "Avance general del proyecto";
+  const lower = raw.toLowerCase();
+  if (lower.includes("007") || lower.includes("spec") || lower.includes("g2") || lower.includes("feature")) {
+    return "Preparando la próxima entrega: validación fiscal y comparativo en Excel";
+  }
+  return raw
+    .replace(/features?\s*\d+[\d\s–\-.,]*\s*(cerradas?|abiertas?|en especificaci[oó]n)/gi, "avances recientes verificados")
+    .replace(/\bG\d\b/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function addDays(date: Date, days: number) {
   const next = new Date(date);
   next.setDate(next.getDate() + days);
@@ -56,7 +77,7 @@ function taskStatusGroup(status?: string) {
 function buildTaskDistributionPanel(data: ClientPortalData) {
   const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
   const total = Math.max(1, visibleTasks.length);
-  const groups = ["Completadas", "En revisión", "En progreso", "Siguientes"];
+  const groups = ["En revisión", "En progreso", "Siguientes", "Bloqueadas"];
   const counts = groups.map((group) => ({
     group,
     count: visibleTasks.filter((task) => taskStatusGroup(task.status) === group).length,
@@ -74,9 +95,10 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
               </div>`).join("");
   const statRows = counts.map(({ group, count }) => {
     const width = Math.max(8, Math.round((count / total) * 100));
+    const label = group === "Siguientes" ? "Por empezar" : group;
     return `<div class="bg-white/10 rounded-xl p-3 border border-white/20">
                 <div class="flex justify-between items-center text-xs mb-1.5">
-                  <span class="font-medium text-white/90">${escapeHtml(group)}</span>
+                  <span class="font-medium text-white/90">${escapeHtml(label)}</span>
                   <span class="font-mono text-white">${count}</span>
                 </div>
                 <div class="h-1.5 w-full bg-black/10 rounded-full overflow-hidden">
@@ -90,6 +112,42 @@ function buildTaskDistributionPanel(data: ClientPortalData) {
                 <p class="text-[10px] font-bold uppercase tracking-wider text-white/60">Tareas activas</p>
                 ${taskRows || `<div class="rounded-xl bg-white/10 border border-white/20 p-3 text-xs text-white/80">Todavía no hay tareas visibles cargadas.</div>`}
               </div>
+            </div>`;
+}
+
+function buildTaskChartPanel(data: ClientPortalData) {
+  const visibleTasks = data.tasks.filter((task) => task.visibleToClient !== false);
+  const groups = [
+    { label: "En revisión", color: "#f59e0b", count: visibleTasks.filter((task) => taskStatusGroup(task.status) === "En revisión").length },
+    { label: "Trabajando", color: "#3b82f6", count: visibleTasks.filter((task) => taskStatusGroup(task.status) === "En progreso").length },
+    { label: "Por empezar", color: "#94a3b8", count: visibleTasks.filter((task) => taskStatusGroup(task.status) === "Siguientes").length },
+    { label: "Bloqueadas", color: "#ef4444", count: visibleTasks.filter((task) => taskStatusGroup(task.status) === "Bloqueadas").length },
+  ];
+  const total = Math.max(1, visibleTasks.length);
+  let offset = 0;
+  const circles = groups.map((group) => {
+    const size = (group.count / total) * 100;
+    const circle = `<circle cx="18" cy="18" r="15.915" fill="transparent" stroke="${group.color}" stroke-width="4" stroke-dasharray="${size} ${100 - size}" stroke-dashoffset="-${offset}"></circle>`;
+    offset += size;
+    return circle;
+  }).join("");
+  const legend = groups.map((group) => `<div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background:${group.color}"></span>
+                  <span class="font-medium text-slate-600">${escapeHtml(group.label)} (${group.count})</span>
+                </div>`).join("");
+  return `<div class="flex-1 flex flex-col justify-center">
+              <div class="relative w-32 h-32 mx-auto mb-6">
+                <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90 drop-shadow-sm">
+                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="rgba(0,0,0,0.05)" stroke-width="4"></circle>
+                  ${circles}
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                  <span class="text-2xl font-bold text-slate-800 tracking-tighter">${visibleTasks.length}</span>
+                  <span class="text-[9px] uppercase tracking-wider font-semibold text-slate-500 text-center leading-tight">Próximas</span>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-500 font-medium text-center mb-4 px-3">Estas son tareas visibles de la siguiente etapa, no el total histórico del proyecto.</p>
+              <div class="grid grid-cols-2 gap-3 text-xs px-2">${legend}</div>
             </div>`;
 }
 
@@ -240,8 +298,8 @@ function buildRoadmapHtml(data: ClientPortalData) {
 function buildMarkup(data?: ClientPortalData, authRequired = true) {
   if (!data) return authRequired ? markup : markup.replace(/<div id="auth-screen"[\s\S]*$/, "");
   const progress = Math.max(0, Math.min(100, Math.round(data.project.progress || 60)));
-  const phase = data.project.currentPhase || data.project.nextMilestone || "Fase de Desarrollo Core";
-  const lastUpdated = data.lastUpdated.date ? data.lastUpdated.date : "Hoy";
+  const phase = clientSafePhase(data.project.currentPhase, data.project.nextMilestone);
+  const lastUpdated = formatDisplayUpdated(data.lastUpdated.date);
   const updatedBy = data.lastUpdated.by || "Intelia";
   const next = data.project.nextMilestone || "Siguiente hito por confirmar";
   const signal = data.project.clientSignal || (data.project.status?.toLowerCase().includes("riesgo") ? "atención" : "tranquilo");
@@ -261,7 +319,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
     .replaceAll("Actualizado: Hoy, 10:45 AM", `Actualizado: ${escapeHtml(lastUpdated)} • ${escapeHtml(updatedBy)}`)
     .replaceAll("Fase de Desarrollo Core", escapeHtml(phase))
-    .replaceAll("STATUS OFICIAL", signal === "tranquilo" ? "STATUS OFICIAL" : "REQUIERE ATENCIÓN")
+    .replaceAll("STATUS OFICIAL", "Lo último que deben saber")
     .replace(/(<span class="text-4xl font-semibold tracking-tighter text-emerald-500">\s*)60(\s*<\/span>)/, `$1${progress}$2`)
     .replaceAll("w-[60%]", `w-[${progress}%]`)
     .replaceAll("Hemos completado exitosamente la fase de\n                  <strong class=\"text-slate-900\">\n                    Setup de Infraestructura\n                  </strong>\n                  y la ingesta de datos. Actualmente estamos avanzando de forma\n                  fluida en el\n                  <strong class=\"text-slate-900\">Entrenamiento del LLM</strong>\n                  .", escapeHtml(data.project.executiveSummary))
@@ -280,9 +338,9 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Se completó la evaluación de sesgos en el conjunto de\n                  validación con resultados positivos.", escapeHtml(summaryActivity[0]?.description || "Actividad pendiente de publicar."))
     .replaceAll("Conexión establecida con la API de Zendesk en entorno de\n                  desarrollo.", escapeHtml(summaryActivity[1]?.description || "Sin segunda actividad publicada."))
     .replaceAll("Aprobación de la arquitectura de infraestructura cloud.", escapeHtml(summaryActivity[2]?.description || "Sin tercera actividad publicada."))
-    .replace(/(<span class="text-2xl font-bold text-slate-800 tracking-tighter">\s*)41(\s*<\/span>)/, `$1${data.tasks.filter((task) => task.visibleToClient !== false).length}$2`)
     .replaceAll("<!-- CLIENT_FOCUS_PANEL -->", buildClientFocusPanel(data, clientAction))
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
+    .replaceAll("<!-- TASK_CHART_PANEL -->", buildTaskChartPanel(data))
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
     .replace(/<div id="auth-screen"[\s\S]*$/, authRequired ? markup.match(/<div id="auth-screen"[\s\S]*$/)?.[0] || "" : "");
@@ -651,15 +709,15 @@ const markup = String.raw`
             <h1 class="text-2xl font-semibold tracking-tight text-slate-800 drop-shadow-sm">
               Asistente Copilot CX
             </h1>
-            <div class="flex items-center gap-2 mt-1">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+            <div class="flex flex-wrap items-center gap-2 mt-1">
               <span class="text-xs font-medium text-slate-600 bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/50">
                 En curso • Fase de pruebas
               </span>
-              <span class="text-xs font-medium text-slate-500 ml-2">
+              <span class="text-xs font-medium text-slate-500 inline-flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2 shrink-0">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
                 Actualizado: Hoy, 10:45 AM
               </span>
             </div>
@@ -679,12 +737,9 @@ const markup = String.raw`
           <div class="dashboard-summary-card md:col-span-2 lg:col-span-2 bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 p-6 md:p-8 flex flex-col md:flex-row gap-8">
             <div class="flex-1 pr-0 md:pr-4 flex flex-col justify-center">
               <div class="flex items-center gap-2 mb-4">
-                <div class="bg-emerald-100/80 px-3 py-1.5 rounded-full shadow-sm border border-emerald-200 inline-flex items-center gap-2">
-                  <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  <span class="text-[10px] font-mono font-bold text-emerald-800 tracking-wider">
+                <div class="bg-sky-100/80 px-3 py-1.5 rounded-full shadow-sm border border-sky-200 inline-flex items-center gap-2">
+                  <iconify-icon icon="solar:info-circle-bold-duotone" class="text-sky-600 text-sm"></iconify-icon>
+                  <span class="text-[10px] font-mono font-bold text-sky-800 tracking-wider">
                     STATUS OFICIAL
                   </span>
                 </div>
@@ -740,11 +795,11 @@ const markup = String.raw`
             <div class="flex items-center gap-2 mb-4">
               <iconify-icon icon="solar:checklist-minimalistic-linear" class="text-xl text-white/80" stroke-width="1.5"></iconify-icon>
               <h3 class="text-xl font-semibold tracking-tight text-white">
-                Tareas
+                Próximas tareas
               </h3>
             </div>
             <p class="text-xs leading-relaxed text-white/80 font-medium mb-6">
-              Distribución del trabajo actualizado desde el tablero interno.
+              Trabajo visible de la siguiente etapa. El avance global considera también entregables, hitos y validaciones ya cerradas.
             </p>
             <!-- TASK_DISTRIBUTION_PANEL -->
           </div>
@@ -791,13 +846,13 @@ const markup = String.raw`
           <!-- RECURSOS -->
           <div class="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-[#d4e4ec] to-[#b8cfd8] rounded-[2rem] p-6 text-slate-700 shadow-lg border border-white/50 flex flex-col hover:shadow-xl transition-shadow">
             <h3 class="text-xl font-semibold tracking-tight mb-4 text-slate-800">
-              Recursos
+              Referencias
             </h3>
             <div class="space-y-2 mb-6">
               <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">
-                Entregables
+                Documentos de referencia
               </p>
-              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm resource-card" data-resource-card="true">
+              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 shadow-sm resource-card" data-resource-card="true">
                 <div class="bg-blue-500/10 p-1.5 rounded-lg text-blue-600">
                   <iconify-icon icon="solar:document-text-linear" stroke-width="1.5"></iconify-icon>
                 </div>
@@ -805,10 +860,10 @@ const markup = String.raw`
                   <p class="text-xs font-medium text-slate-800">
                     Arq_Sistema_v1.pdf
                   </p>
-                  <p class="text-[10px] text-slate-500">2.4 MB</p>
+                  <p class="text-[10px] text-slate-500">Referencia documentada</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 hover:bg-white/70 transition-colors cursor-pointer shadow-sm resource-card" data-resource-card="true">
+              <div class="flex items-center gap-3 bg-white/40 p-2.5 rounded-xl border border-white/50 shadow-sm resource-card" data-resource-card="true">
                 <div class="bg-emerald-500/10 p-1.5 rounded-lg text-emerald-600">
                   <iconify-icon icon="solar:file-check-linear" stroke-width="1.5"></iconify-icon>
                 </div>
@@ -816,7 +871,7 @@ const markup = String.raw`
                   <p class="text-xs font-medium text-slate-800">
                     Métricas_Baseline.csv
                   </p>
-                  <p class="text-[10px] text-slate-500">842 KB</p>
+                  <p class="text-[10px] text-slate-500">Referencia documentada</p>
                 </div>
               </div>
             </div>
@@ -874,46 +929,10 @@ const markup = String.raw`
             <div class="flex items-center gap-2 mb-4">
               <iconify-icon icon="solar:pie-chart-2-linear" class="text-xl text-emerald-500" stroke-width="1.5"></iconify-icon>
               <h3 class="text-xl font-semibold tracking-tight text-slate-800">
-                Estado de Tareas
+                Próximas tareas
               </h3>
             </div>
-            <div class="flex-1 flex flex-col justify-center">
-              <div class="relative w-32 h-32 mx-auto mb-6">
-                <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90 drop-shadow-sm">
-                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="rgba(0,0,0,0.05)" stroke-width="4"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#10b981" stroke-width="4" stroke-dasharray="59 41" stroke-dashoffset="0"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#3b82f6" stroke-width="4" stroke-dasharray="5 95" stroke-dashoffset="-59"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#f59e0b" stroke-width="4" stroke-dasharray="7 93" stroke-dashoffset="-64"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#94a3b8" stroke-width="4" stroke-dasharray="29 71" stroke-dashoffset="-71"></circle>
-                </svg>
-                <div class="absolute inset-0 flex items-center justify-center flex-col">
-                  <span class="text-2xl font-bold text-slate-800 tracking-tighter">
-                    41
-                  </span>
-                  <span class="text-[9px] uppercase tracking-wider font-semibold text-slate-500">
-                    Total
-                  </span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-3 text-xs px-2">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm"></span>
-                  <span class="font-medium text-slate-600">Completadas</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span>
-                  <span class="font-medium text-slate-600">Trabajando</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm"></span>
-                  <span class="font-medium text-slate-600">En Review</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shadow-sm"></span>
-                  <span class="font-medium text-slate-600">Por trabajar</span>
-                </div>
-              </div>
-            </div>
+            <!-- TASK_CHART_PANEL -->
           </div>
           <div class="md:col-span-1 lg:col-span-1 bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 flex flex-col hover:shadow-xl transition-shadow">
             <div class="flex items-center gap-2 mb-4">
