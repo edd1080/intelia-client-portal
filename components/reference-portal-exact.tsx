@@ -710,7 +710,7 @@ const markup = String.raw`
               Asistente Copilot CX
             </h1>
             <div class="flex flex-wrap items-center gap-2 mt-1">
-              <span class="text-xs font-medium text-slate-600 bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/50">
+              <span class="status-phase-pill text-xs font-medium text-slate-600 bg-white/40 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/50">
                 En curso • Fase de pruebas
               </span>
               <span class="text-xs font-medium text-slate-500 inline-flex items-center gap-1.5">

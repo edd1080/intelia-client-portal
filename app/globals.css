@@ -366,6 +366,12 @@ body {
     margin-left: 0 !important;
   }
 
+  .reference-exact-root #top-header .status-phase-pill {
+    margin-block: 0.18rem !important;
+    padding: 0.55rem 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
   .reference-exact-root #top-header > div:last-child {
     width: fit-content;
     max-width: 100%;
