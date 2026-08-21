@@ -194,7 +194,19 @@ INTELIA_PROJECT_HANDOFF_END
 
 ## Prompt 2 — Actualizar proyecto existente después de sesión de desarrollo
 
-Usar al terminar una sesión de desarrollo o cuando ya existe el dashboard y solo se actualizará su estado.
+Usar al terminar una sesión de desarrollo o cuando ya existe el dashboard y se actualizará su estado.
+
+### Regla clave: el update siempre debe ser autocontenido
+
+El update NO debe ser únicamente una comparación técnica contra el reporte anterior. Hermes necesita recibir el **estado actual completo** del proyecto para reemplazar el snapshot anterior. La comparación histórica se conserva solo como contexto y se convierte a una explicación que un stakeholder pueda entender aunque nunca haya visto el reporte anterior.
+
+Para un proyecto con mucho avance desde el último reporte, usar:
+
+```text
+MODO_DE_ACTUALIZACION: REFRESH_COMPLETO
+```
+
+No crear un segundo proyecto. No usar el prompt de creación salvo que el proyecto realmente no exista. `REFRESH_COMPLETO` significa: reconstruir todos los datos actuales del proyecto, cerrar o marcar como alcanzado lo que ya terminó, reemplazar tareas/hitos obsoletos y explicar el avance en lenguaje cliente.
 
 ```text
 Necesito que prepares un handoff oficial de ACTUALIZACIÓN para el Portal Cliente de Intelia.
@@ -215,9 +227,15 @@ Reglas estrictas:
 - Incluye Roadmap/Gantt completos o actualizados si cambian. No mandes 2–3 hitos genéricos.
 - Los archivos son referencias/evidencia; solo marcarlos descargables si hay link público real.
 - Incluye fecha y hora local del update.
+- El bloque debe poder leerse sin conocer el update anterior. No escribas "como antes", "sigue igual", "se avanzó en lo anterior" ni referencias a IDs internos sin explicar el contexto.
+- Primero describe el estado actual completo; después resume los cambios más importantes desde el último reporte.
+- Cuando algo anterior ya terminó, no lo dejes como tarea pendiente: márcalo como cerrado/alcanzado y muévelo a avance, hito o actividad.
+- El mensaje para cliente debe seguir esta estructura: `qué construimos o validamos` → `qué significa para el cliente` → `qué sigue` → `qué necesitamos del cliente`.
+- Si no puedes reconstruir con certeza el estado actual, marca el dato como `no verificado`; no rellenes el dashboard con el diff incompleto.
 
 INTELIA_PROJECT_UPDATE_START
 TIPO_DE_HANDOFF: ACTUALIZACION_PROYECTO
+MODO_DE_ACTUALIZACION: [REFRESH_COMPLETO | CAMBIO_INCREMENTAL]
 FECHA_HORA_DEL_UPDATE: [YYYY-MM-DD HH:mm zona]
 AGENTE_ORIGEN: [Claude Code | OpenCode | Codex | Otro]
 REPO_O_CONTEXTO: [repo/ruta/nombre]
@@ -244,6 +262,15 @@ RESUMEN_EJECUTIVO_CLIENTE
 - Semáforo cliente: [tranquilo | atención | decisión requerida]
 - Atención requerida del cliente: [acción concreta o `ninguna`]
 
+ESTADO_ACTUAL_CANONICO
+- Qué está funcionando hoy:
+- Qué está terminado y verificado:
+- Qué está parcialmente terminado:
+- Qué falta para completar el proyecto:
+- Qué ya no aplica del reporte anterior:
+- Qué cambió en alcance, fechas, riesgos o prioridades:
+- Explicación breve para un stakeholder que nunca vio el reporte anterior:
+
 QUE_CAMBIO_DESDE_EL_UPDATE_ANTERIOR
 - Cambio:
   - Tipo: [avance | fix | entrega | decisión | bloqueo | cambio de alcance | investigación]
@@ -251,6 +278,12 @@ QUE_CAMBIO_DESDE_EL_UPDATE_ANTERIOR
   - Impacto para cliente:
   - Evidencia:
   - Visible al cliente: sí/no
+
+HISTORIA_VISIBLE_PARA_CLIENTE
+- Antes, en una frase entendible:
+- Ahora, en una frase entendible:
+- Por qué importa el cambio:
+- Evidencia del cambio:
 
 AVANCE_VERIFICADO_ACUMULADO
 - Avance:
@@ -381,6 +414,7 @@ Reglas estrictas:
 - El progreso % debe explicarse por alcance/hitos/evidencia, no por cantidad de tareas visibles.
 - Las tareas visibles deben ser próximas acciones, no el backlog total del proyecto.
 - Los documentos deben marcarse como referencias salvo que haya link público real descargable.
+- Si han pasado varias sesiones o hubo mucho avance, usa `MODO_DE_ACTUALIZACION: REFRESH_COMPLETO`: reconstruye el estado actual completo y explica `antes → ahora → por qué importa`. No dependas de que el stakeholder haya visto reportes anteriores.
 - Incluye un roadmap completo; no respondas solo con 2–3 hitos genéricos.
 - Devuelve únicamente el bloque oficial, sin explicación adicional.
 ```
