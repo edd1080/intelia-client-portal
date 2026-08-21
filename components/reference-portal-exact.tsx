@@ -787,20 +787,14 @@ const markup = String.raw`
                   </p>
                 </div>
               </div>
+              <div class="dashboard-attention-inline mt-5 rounded-2xl border border-orange-200/80 bg-orange-50/80 px-4 py-3 flex items-start gap-3">
+                <iconify-icon icon="solar:shield-warning-linear" class="text-lg text-orange-500 shrink-0 mt-0.5" stroke-width="1.5"></iconify-icon>
+                <div class="min-w-0">
+                  <p class="text-[10px] font-bold uppercase tracking-wider text-orange-700">Atención requerida</p>
+                  <p class="mt-1 text-xs leading-relaxed font-medium text-slate-600">Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.</p>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- ATENCION_REQUERIDA -->
-          <div class="dashboard-attention-card md:col-span-1 lg:col-span-1 bg-gradient-to-br from-[#fff7ed] to-white rounded-[2rem] p-6 text-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-orange-200/70 flex flex-col hover:shadow-xl transition-shadow">
-            <div class="flex items-center gap-2 mb-4">
-              <iconify-icon icon="solar:shield-warning-linear" class="text-xl text-orange-500" stroke-width="1.5"></iconify-icon>
-              <h3 class="text-xl font-semibold tracking-tight text-slate-800">
-                Atención requerida
-              </h3>
-            </div>
-            <p class="text-sm text-slate-600 leading-relaxed font-medium">
-              Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.
-            </p>
           </div>
 
           <!-- TAREAS -->
