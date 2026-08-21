@@ -21,10 +21,12 @@ function escapeHtml(value: unknown) {
 
 function statusLabel(status?: string) {
   const normalized = String(status || "en curso").toLowerCase();
+  if (normalized.includes("alcanz") || normalized.includes("complet") || normalized.includes("cerrad") || normalized.includes("hecho")) return "Completado";
+  if (normalized.includes("pendiente") || normalized.includes("por hacer") || normalized.includes("por iniciar")) return "Pendiente";
+  if (normalized.includes("actual") || normalized.includes("progreso") || normalized.includes("en curso")) return "En curso";
   if (normalized.includes("riesgo")) return "En riesgo";
   if (normalized.includes("atras")) return "Atrasado";
   if (normalized.includes("paus")) return "Pausado";
-  if (normalized.includes("complet")) return "Completado";
   return "En curso";
 }
 
@@ -260,7 +262,7 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
       : taskStatusGroup(task.status) === "En revisión" || task.isCurrent
         ? 50
         : 0;
-    const progress = Math.max(0, Math.min(100, Math.round(task.ganttProgress && task.ganttProgress > 0 ? task.ganttProgress : inferredProgress)));
+    const progress = Math.max(0, Math.min(100, Math.round(inferredProgress)));
     const progressLabel = progress === 0 ? "Por iniciar" : `${progress}%`;
     const complete = progress >= 100;
     const bar = complete ? "bg-emerald-200 border border-emerald-300" : progress > 0 ? "bg-emerald-500 shadow-sm shadow-emerald-500/20" : "bg-slate-200 border border-slate-300";
@@ -313,7 +315,7 @@ function buildRoadmapHtml(data: ClientPortalData) {
   return `<div class="relative border-l-2 border-emerald-200 ml-4 space-y-8">
             ${milestones.map((milestone, index) => {
               const status = statusLabel(milestone.status);
-              const isCurrent = milestone.status.toLowerCase().includes("actual") || milestone.status.toLowerCase().includes("progreso") || index === 0;
+              const isCurrent = milestone.status.toLowerCase().includes("actual") || milestone.status.toLowerCase().includes("progreso") || milestone.status.toLowerCase().includes("en curso");
               const relatedTasks = data.tasks.filter((task) => task.milestone === milestone.name).slice(0, 3);
               const dot = isCurrent
                 ? `<div class="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-emerald-500 ring-4 ring-white shadow-sm flex items-center justify-center"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span></div>`
