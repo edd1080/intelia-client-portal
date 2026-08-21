@@ -189,9 +189,23 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
                 ${rows || `<div class="rounded-2xl border border-white/70 bg-white/60 p-4 text-xs font-medium text-slate-500 shadow-sm">${escapeHtml(clientAction)}</div>`}
               </div>
             </div>`;
-}
+            }
 
-function buildGanttHtml(data: ClientPortalData) {
+            function buildAttentionRequiredHtml(data: ClientPortalData) {
+            const actions = [
+            ...data.tasks
+            .filter((task) => task.visibleToClient !== false && task.needsClientAction && task.requiredAction)
+            .map((task) => task.requiredAction as string),
+            ...data.questions
+            .filter((question) => question.requiresClientDecision)
+            .map((question) => question.message),
+            ];
+            const unique = [...new Set(actions)].slice(0, 3);
+            if (!unique.length) return `<p class="text-xs leading-relaxed font-medium text-slate-600">No hay acciones pendientes del cliente en este momento.</p>`;
+            return `<ul class="mt-1 space-y-1.5 text-xs leading-relaxed font-medium text-slate-600">${unique.map((item) => `<li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400"></span><span>${escapeHtml(item)}</span></li>`).join("")}</ul>`;
+            }
+
+            function buildGanttHtml(data: ClientPortalData) {
   const fallbackStart = parseDate(data.project.startDate) || new Date();
   const tasks = data.tasks
     .filter((task) => task.visibleToClient !== false)
@@ -320,6 +334,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
   const summaryFiles = data.files.filter((file) => file.visibleToClient !== false).slice(0, 2);
   const summaryQuestion = data.questions.find((question) => question.requiresClientDecision) || data.questions[0];
   const summaryActivity = data.activity.filter((item) => item.visibleToClient !== false).slice(0, 3);
+  const attentionRequiredHtml = buildAttentionRequiredHtml(data);
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
     .replaceAll("En curso • Fase de pruebas", `${escapeHtml(statusLabel(data.project.status))} • ${escapeHtml(phase)}`)
@@ -344,6 +359,7 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("Se completó la evaluación de sesgos en el conjunto de\n                  validación con resultados positivos.", escapeHtml(summaryActivity[0]?.description || "Actividad pendiente de publicar."))
     .replaceAll("Conexión establecida con la API de Zendesk en entorno de\n                  desarrollo.", escapeHtml(summaryActivity[1]?.description || "Sin segunda actividad publicada."))
     .replaceAll("Aprobación de la arquitectura de infraestructura cloud.", escapeHtml(summaryActivity[2]?.description || "Sin tercera actividad publicada."))
+    .replaceAll("Si hay decisiones pendientes, aparecerán aquí con la acción esperada del cliente.", attentionRequiredHtml)
     .replaceAll("<!-- CLIENT_FOCUS_PANEL -->", buildClientFocusPanel(data, clientAction))
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- TASK_CHART_PANEL -->", buildTaskChartPanel(data))

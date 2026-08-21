@@ -117,7 +117,7 @@
       "description": "Ejecutar el portal con un grupo acotado, completar al menos 10 compras de inicio a fin y ajustar el producto con datos reales.",
       "priority": "alta",
       "needsClientAction": true,
-      "requiredAction": "Confirmar participantes y entregar plantillas y dominio oficiales de BIA.",
+      "requiredAction": "Compartir las plantillas PDF y formatos oficiales de solicitud/cotización, definir el dominio oficial y confirmar los participantes del piloto.",
       "ganttStart": "",
       "ganttEnd": "",
       "ganttProgress": 0,
@@ -245,7 +245,7 @@
     {
       "id": "compras-refresh-question-002",
       "author": "Intelia",
-      "message": "¿BIA puede entregar las plantillas y el dominio oficiales?",
+      "message": "Compartir las plantillas PDF y formatos oficiales de solicitud/cotización, además del dominio oficial",
       "date": "2026-08-20",
       "status": "requiere decisión",
       "answer": "",
