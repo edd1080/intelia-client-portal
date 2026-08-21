@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T19:45:00.000Z",
+  "generatedAt": "2026-08-20T20:00:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -432,6 +432,18 @@
       "accessRecordId": "recvd0jXeWDzEs9ji",
       "clientName": "BIA México",
       "projectName": "BIA One (Plataforma HR)"
+    },
+    {
+      "token": "bia-hn-mkt-intelligence-core-edgarcalderon-outlook-com_3ip-_6cOxJUAoexX",
+      "email": "edgarcalderon@outlook.com",
+      "stakeholder": "edgarcalderon",
+      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
+      "publicSlug": "intelligence-core",
+      "projectId": "rectzxbKFBWaL58V8",
+      "baseId": "appM9RFgoYSE9AiPM",
+      "accessRecordId": "recMWsBuSEbW8zLPy",
+      "clientName": "BIA Honduras",
+      "projectName": "BIA Market Intelligence Core"
     }
   ]
 }
