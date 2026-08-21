@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T19:30:00.000Z",
+  "generatedAt": "2026-08-20T19:45:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -98,30 +98,6 @@
       "projectName": "BIA Market Intelligence Core"
     },
     {
-      "token": "bia-hn-mkt-intelligence-core-edgarcalderon-outlook-com_3ip-_6cOxJUAoexX",
-      "email": "edgarcalderon@outlook.com",
-      "stakeholder": "edgarcalderon",
-      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
-      "publicSlug": "intelligence-core",
-      "projectId": "rectzxbKFBWaL58V8",
-      "baseId": "appM9RFgoYSE9AiPM",
-      "accessRecordId": "recMWsBuSEbW8zLPy",
-      "clientName": "BIA Honduras",
-      "projectName": "BIA Market Intelligence Core"
-    },
-    {
-      "token": "bia-hn-mkt-intelligence-core-aisolis-gmail-com_SV0OXJF6LkdfOMeg",
-      "email": "aisolis@gmail.com",
-      "stakeholder": "aisolis",
-      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
-      "publicSlug": "intelligence-core",
-      "projectId": "rectzxbKFBWaL58V8",
-      "baseId": "appM9RFgoYSE9AiPM",
-      "accessRecordId": "recUUO8Ke0A6h2uTU",
-      "clientName": "BIA Honduras",
-      "projectName": "BIA Market Intelligence Core"
-    },
-    {
       "token": "bia-hn-compras-ai-lmatute-biabrands-co_6UkIonMqjO5irXdA",
       "email": "lmatute@biabrands.co",
       "stakeholder": "lmatute",
@@ -134,18 +110,6 @@
       "projectName": "Portal de Compras BIA"
     },
     {
-      "token": "bia-hn-mkt-intelligence-core-alder-intelia-pro_dX6G61VFOTIqvMEB",
-      "email": "alder@intelia.pro",
-      "stakeholder": "alder",
-      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
-      "publicSlug": "intelligence-core",
-      "projectId": "rectzxbKFBWaL58V8",
-      "baseId": "appM9RFgoYSE9AiPM",
-      "accessRecordId": "recgkuZ25OCadjERV",
-      "clientName": "BIA Honduras",
-      "projectName": "BIA Market Intelligence Core"
-    },
-    {
       "token": "bia-hn-mkt-intelligence-core-nchahin-biabrands-co_DEQNVMHmQWunFXCX",
       "email": "nchahin@biabrands.co",
       "stakeholder": "nchahin",
@@ -154,18 +118,6 @@
       "projectId": "rectzxbKFBWaL58V8",
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "reciOOKuQ0YVMgOK3",
-      "clientName": "BIA Honduras",
-      "projectName": "BIA Market Intelligence Core"
-    },
-    {
-      "token": "bia-hn-mkt-intelligence-core-gsalguero-biafoods-com_hLzhO0XcDx7lFV3p",
-      "email": "gsalguero@biafoods.com",
-      "stakeholder": "gsalguero",
-      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
-      "publicSlug": "intelligence-core",
-      "projectId": "rectzxbKFBWaL58V8",
-      "baseId": "appM9RFgoYSE9AiPM",
-      "accessRecordId": "recj0wg3vsARedvv7",
       "clientName": "BIA Honduras",
       "projectName": "BIA Market Intelligence Core"
     },
