@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T18:57:00.000Z",
+  "generatedAt": "2026-08-20T19:30:00.000Z",
   "projects": [
     {
       "key": "bia-hn-compras-ai-5cVRh5",
@@ -16,8 +16,8 @@
       "id": "rectzxbKFBWaL58V8",
       "baseId": "appM9RFgoYSE9AiPM",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard",
-      "code": "BIA-HN-MKT-INTELLIGENCE-CORE"
+      "projectName": "BIA Market Intelligence Core",
+      "code": "BIA-MIC"
     },
     {
       "key": "bia-gt-datahub-I00mA5",

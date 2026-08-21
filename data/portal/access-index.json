@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T18:57:00.000Z",
+  "generatedAt": "2026-08-20T19:30:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -23,7 +23,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recC1V0jjwwmv9mKc",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-danielam-biabrands-co_yoND4p39cxVCt6xH",
@@ -35,7 +35,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recCU5rd1S4JEVEPd",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-compras-ai-gsalguero-biafoods-com_LAWzeAUHEppYi9Bt",
@@ -59,7 +59,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recEcafrQWuAeoga5",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-compras-ai-edgar-intelia-pro_lwPlh5IRavqLk3c2",
@@ -95,7 +95,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recL5K6eZ0DInm2wT",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-edgarcalderon-outlook-com_3ip-_6cOxJUAoexX",
@@ -107,7 +107,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recMWsBuSEbW8zLPy",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-aisolis-gmail-com_SV0OXJF6LkdfOMeg",
@@ -119,7 +119,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recUUO8Ke0A6h2uTU",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-compras-ai-lmatute-biabrands-co_6UkIonMqjO5irXdA",
@@ -143,7 +143,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recgkuZ25OCadjERV",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-nchahin-biabrands-co_DEQNVMHmQWunFXCX",
@@ -155,7 +155,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "reciOOKuQ0YVMgOK3",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-hn-mkt-intelligence-core-gsalguero-biafoods-com_hLzhO0XcDx7lFV3p",
@@ -167,7 +167,7 @@
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recj0wg3vsARedvv7",
       "clientName": "BIA Honduras",
-      "projectName": "Proyecto Intelligence Core Dashboard"
+      "projectName": "BIA Market Intelligence Core"
     },
     {
       "token": "bia-gt-talenthub-edgarcalderon-outlook-com_CvhCYqwghHZqPdAj",

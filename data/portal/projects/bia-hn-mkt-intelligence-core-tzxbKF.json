@@ -1,26 +1,26 @@
 {
   "client": {
     "id": "recBdVz2o14Gk9LGW",
-    "name": "BIA Honduras",
+    "name": "BIA Honduras — Marketing e Insights",
     "brandColor": "#2558D8",
-    "contactName": "Greta Salguero / Marketing BIA Honduras",
-    "contactEmail": "gsalguero@biafoods.com"
+    "contactName": "Nathalie / Edgar Calderón",
+    "contactEmail": ""
   },
   "project": {
     "id": "rectzxbKFBWaL58V8",
-    "name": "Proyecto Intelligence Core Dashboard",
-    "code": "BIA-HN-MKT-INTELLIGENCE-CORE",
+    "name": "BIA Market Intelligence Core",
+    "code": "BIA-MIC",
     "token": "",
-    "status": "en curso",
-    "currentPhase": "Shell inicial pendiente de carga detallada",
-    "progress": 0,
+    "status": "en progreso",
+    "currentPhase": "Definición y validación funcional; paquete documental listo para aprobación",
+    "progress": 20,
     "startDate": "",
     "targetEndDate": "",
-    "executiveSummary": "Proyecto agregado al portal de clientes Intelia. La información detallada se cargará desde la plantilla oficial de actualización del proyecto.",
-    "remainingExplanation": "Pendiente de cargar avance real, próximos hitos, tareas y entregables desde Airtable.",
+    "executiveSummary": "BIA Market Intelligence Core digitalizará el ciclo mensual de inteligencia de mercado de BIA Honduras: recibirá los archivos de Nielsen y Dichter & Neira, aplicará las reglas de negocio documentadas por Insights, certificará el reporte mensual con exactitud numérica y habilitará dashboard, consultas y un asistente conversacional sobre la misma versión oficial de las cifras. La definición funcional y técnica está completa y lista para aprobación antes de iniciar la construcción.",
+    "remainingExplanation": "Falta la aprobación formal del paquete de definición, la sesión de diseño visual y toda la construcción de la plataforma: fundaciones, pipelines de datos, capa semántica, reporte certificado, publicación, chat, insights y salida a producción. También deben resolverse decisiones corporativas de nube, identidad, política de IA y retención.",
     "clientSignal": "atención",
-    "clientMessage": "Este portal ya está creado. El equipo Intelia está actualizando la información visible para mostrar estado, próximos pasos y decisiones pendientes.",
-    "nextMilestone": "Cargar información oficial del proyecto",
+    "clientMessage": "La definición de la solución está completa y fue verificada contra archivos reales de BIA. Necesitamos la revisión y aprobación del equipo de Marketing/Insights para congelar el alcance de Fase 1 e iniciar el desarrollo, además de agendar la sesión de diseño visual.",
+    "nextMilestone": "Aprobación del paquete de definición por Marketing/Insights",
     "nextMilestoneDate": "",
     "enabledSections": [
       "kanban",
@@ -28,18 +28,292 @@
       "actividad",
       "preguntas",
       "archivos",
-      "metricas"
+      "metricas",
+      "roadmap",
+      "gantt"
     ]
   },
-  "tasks": [],
-  "milestones": [],
-  "activity": [],
-  "questions": [],
-  "files": [],
-  "impactMetrics": [],
+  "tasks": [
+    {
+      "id": "marketing-task-01",
+      "name": "Revisar y aprobar el paquete de definición de Fase 1",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Aprobación funcional (G-PROD)",
+      "visibleToClient": true,
+      "isCurrent": true,
+      "description": "Revisar por bloques la solución, los flujos y el PRD para confirmar que representan el proceso y las necesidades del equipo.",
+      "priority": "alta",
+      "needsClientAction": "sí",
+      "requiredAction": "Agendar las sesiones de revisión y emitir aprobación o correcciones por escrito.",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 1,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-task-02",
+      "name": "Validar contratos de datos, KPI, reglas y certificación",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Aprobación de datos (G-DATA)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Confirmar que las reglas digitalizadas y el criterio de certificación del reporte de junio 2026 son correctos.",
+      "priority": "alta",
+      "needsClientAction": "sí",
+      "requiredAction": "Revisar los documentos de datos y confirmar los supuestos abiertos.",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 2,
+      "ganttDependencies": "G-PROD"
+    },
+    {
+      "id": "marketing-task-03",
+      "name": "Resolver decisiones de nube, identidad y política de IA",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Aprobación técnica (G-ARCH)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Definir la infraestructura, identidad corporativa, política de proveedores de IA y retención de datos.",
+      "priority": "alta",
+      "needsClientAction": "sí",
+      "requiredAction": "TI/Seguridad debe resolver las decisiones técnicas corporativas.",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 3,
+      "ganttDependencies": "ninguna"
+    },
+    {
+      "id": "marketing-task-04",
+      "name": "Agendar sesión de definición visual UI/UX",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Sesión UI/UX (G-UX)",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Definir la experiencia visual de la plataforma en una sesión separada de la definición funcional.",
+      "priority": "media",
+      "needsClientAction": "sí",
+      "requiredAction": "Agendar la sesión con Producto y Marketing.",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 4,
+      "ganttDependencies": "G-PROD"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "marketing-milestone-01",
+      "name": "Descubrimiento y rebaseline",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "alcanzado",
+      "description": "Se identificó el cuello de botella prioritario y se acordó el enfoque de la Fase 1.",
+      "acceptanceCriteria": "Solución de Fase 1 confirmada."
+    },
+    {
+      "id": "marketing-milestone-02",
+      "name": "Definición funcional consolidada",
+      "estimatedDate": "",
+      "actualDate": "2026-08-14",
+      "status": "actual",
+      "description": "Paquete documental completo con brief, solución, blueprint, flujos, PRD, contratos, KPI, reglas, certificación, arquitectura y backlog.",
+      "acceptanceCriteria": "Aprobación funcional y de datos registrada por escrito."
+    },
+    {
+      "id": "marketing-milestone-03",
+      "name": "Aprobación técnica y política de IA",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "BIA/TI/Seguridad aprueba nube, identidad, política de IA y retención.",
+      "acceptanceCriteria": "Decisiones corporativas resueltas y arquitectura aprobada."
+    },
+    {
+      "id": "marketing-milestone-04",
+      "name": "Sesión de diseño visual UI/UX",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Definir la experiencia visual de la plataforma.",
+      "acceptanceCriteria": "Especificación UI/UX validada."
+    },
+    {
+      "id": "marketing-milestone-05",
+      "name": "Primer corte: reporte de junio reproducido con exactitud",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Procesar archivos reales y reproducir el reporte de referencia con tolerancia cero.",
+      "acceptanceCriteria": "Cifras acordadas coinciden y certificación aprobada."
+    },
+    {
+      "id": "marketing-milestone-06",
+      "name": "Salida a operación productiva",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Poner la plataforma en uso productivo con capacitación, respaldos y transferencia operativa.",
+      "acceptanceCriteria": "UAT por rol, seguridad y runbooks aprobados."
+    }
+  ],
+  "activity": [
+    {
+      "id": "marketing-activity-definition",
+      "date": "2026-08-14",
+      "type": "entrega",
+      "title": "Paquete de definición de Fase 1 completado",
+      "description": "Se completó la documentación integral de la solución y se verificó contra los archivos reales de Nielsen, Dichter & Neira y el reporte de referencia.",
+      "clientMeaning": "El proyecto ya tiene definido qué se construirá, con qué datos y cómo se aceptará, reduciendo el riesgo de retrabajo.",
+      "origin": "Claude Code",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-activity-next",
+      "date": "2026-08-18",
+      "type": "decisión",
+      "title": "Siguiente paso: aprobar la definición e iniciar construcción",
+      "description": "El paquete documental está listo para revisión de Marketing/Insights; después deben resolverse las decisiones técnicas corporativas y la sesión UI/UX.",
+      "clientMeaning": "La siguiente decisión del equipo permite congelar el alcance y comenzar el desarrollo.",
+      "origin": "Claude Code",
+      "visibleToClient": true
+    }
+  ],
+  "questions": [
+    {
+      "id": "marketing-question-001",
+      "author": "Intelia",
+      "message": "¿Marketing/Insights aprueba el paquete de definición de Fase 1?",
+      "date": "2026-08-18",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-question-002",
+      "author": "Intelia",
+      "message": "¿Cuál será la nube, identidad corporativa, política de IA y retención aprobadas?",
+      "date": "2026-08-18",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-question-003",
+      "author": "Intelia",
+      "message": "¿El archivo StoreLive de junio es el archivo completo o un extracto?",
+      "date": "2026-08-18",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-question-004",
+      "author": "Intelia",
+      "message": "¿La página 15 del reporte debe decir Nielsen Mayo 2025 o Junio 2026?",
+      "date": "2026-08-18",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-question-005",
+      "author": "Intelia",
+      "message": "¿Existe el PowerPoint original y cuáles son los formatos finales de exportación?",
+      "date": "2026-08-18",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    }
+  ],
+  "files": [
+    {
+      "id": "marketing-file-definition",
+      "name": "Paquete de definición de Fase 1",
+      "url": "",
+      "date": "2026-08-14",
+      "category": "Documentación de producto",
+      "status": "disponible",
+      "description": "Brief, solución, blueprint, flujos, PRD, contratos de datos, KPI, reglas, certificación, arquitectura y backlog.",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-file-report",
+      "name": "Reporte ejecutivo de contexto",
+      "url": "",
+      "date": "2026-08-18",
+      "category": "Análisis",
+      "status": "disponible",
+      "description": "Síntesis ejecutiva del proyecto, evidencia verificada y riesgos.",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-file-golden",
+      "name": "Reporte mensual de referencia de junio 2026",
+      "url": "",
+      "date": "2026-08-14",
+      "category": "Referencia del cliente",
+      "status": "disponible",
+      "description": "Reporte que la futura plataforma debe reproducir con exactitud.",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-file-flow",
+      "name": "Flujograma y catálogo de reglas",
+      "url": "",
+      "date": "2026-08-14",
+      "category": "Reglas de negocio",
+      "status": "disponible",
+      "description": "Proceso mensual documentado por Insights y sus tablas de homologación.",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-file-data",
+      "name": "Archivos mensuales de Nielsen y Dichter & Neira",
+      "url": "",
+      "date": "2026-08-14",
+      "category": "Datos de referencia",
+      "status": "disponible",
+      "description": "Archivos reales perfilados para definir contratos y certificación.",
+      "visibleToClient": true
+    }
+  ],
+  "impactMetrics": [
+    {
+      "label": "Definición documental",
+      "value": "14 documentos",
+      "note": "Paquete funcional y técnico listo para aprobación."
+    },
+    {
+      "label": "Cobertura de requisitos",
+      "value": "~100 requisitos",
+      "note": "Incluye flujos, criterios y decisiones de Fase 1."
+    },
+    {
+      "label": "Flujos de usuario definidos",
+      "value": "18",
+      "note": "Roles y recorridos documentados."
+    },
+    {
+      "label": "Criterio de certificación",
+      "value": "Tolerancia cero",
+      "note": "El reporte de junio debe reproducirse exactamente; la construcción aún no inicia."
+    }
+  ],
   "lastUpdated": {
-    "date": "2026-08-15",
-    "by": "Intelia"
+    "date": "2026-08-18",
+    "by": "Claude Code"
   },
   "source": {
     "masterRecordId": "recRjSC3pKgaL4MCw",
