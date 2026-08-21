@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:30:00.000Z",
+  "generatedAt": "2026-08-20T21:00:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -399,8 +399,8 @@
     },
     {
       "token": "bia-mx-bia-one-hr-agomex-biafoods-com_wtW9gr1r1fT7VAJz",
-      "email": "agomex@biafoods.com",
-      "stakeholder": "agomex",
+      "email": "agomez@biafoods.com",
+      "stakeholder": "agomez",
       "projectKey": "bia-mx-bia-one-hr-3ggCjC",
       "publicSlug": "bia-one",
       "projectId": "rec3ggCjCIc143mBp",
