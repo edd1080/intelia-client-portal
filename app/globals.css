@@ -80,14 +80,7 @@ body {
     min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-  }
-
-  .reference-exact-root > .flex-1 > main {
-    height: auto !important;
-    flex: none !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   .reference-exact-root #top-header {
