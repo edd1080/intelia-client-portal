@@ -139,8 +139,8 @@ body {
 
   .reference-exact-root .dashboard-summary-card,
   .reference-exact-root .dashboard-task-card {
-    height: min(36rem, calc(100vh - 12rem)) !important;
-    min-height: 30rem !important;
+    height: min(44rem, calc(100vh - 9rem)) !important;
+    min-height: 38rem !important;
     overflow: hidden !important;
   }
 
@@ -160,7 +160,7 @@ body {
   }
 
   .reference-exact-root .dashboard-summary-copy {
-    max-height: 18rem !important;
+    max-height: 24rem !important;
     overflow-y: auto !important;
   }
 
