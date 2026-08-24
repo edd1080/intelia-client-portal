@@ -47,8 +47,30 @@ export type ClientPortalData = {
   questions: Question[];
   files: DeliverableFile[];
   impactMetrics: ImpactMetric[];
+  solution?: PortalSolution;
   lastUpdated: { date?: string; by: string };
   source: { masterRecordId: string; baseId: string };
+};
+
+export type PortalSolution = {
+  homeTitle: string;
+  homeSubtitle: string;
+  homeSummary: string;
+  problem: string;
+  objective: string;
+  value: string[];
+  flow: { step: string; actor: string; description: string; output: string }[];
+  roles: { name: string; description: string; capabilities: string[] }[];
+  modules: { name: string; description: string; status: string }[];
+  dataAndIntegrations: { name: string; description: string; status: string }[];
+  automation: { name: string; description: string; guardrail: string; status: string }[];
+  security: string[];
+  scopeIncluded: string[];
+  scopeFuture: string[];
+  exampleTitle: string;
+  exampleSteps: string[];
+  currentState: string;
+  glossary: { term: string; explanation: string }[];
 };
 
 export type Task = { id: string; name: string; status: string; dueDate?: string; milestone?: string; visibleToClient: boolean; isCurrent: boolean; description?: string; priority?: string; needsClientAction?: boolean; requiredAction?: string; ganttStart?: string; ganttEnd?: string; ganttProgress?: number; ganttOrder?: number; ganttDependencies?: string };

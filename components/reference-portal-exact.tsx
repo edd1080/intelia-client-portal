@@ -228,7 +228,15 @@ function buildClientFocusPanel(data: ClientPortalData, clientAction: string) {
               }).join("")}</div>`;
             }
 
-            function buildGanttHtml(data: ClientPortalData) {
+            function buildSolutionCardHtml(data: ClientPortalData) {
+  const solution = data.solution;
+  if (!solution) return "";
+  return `<div class="dashboard-solution-card md:col-span-2 lg:col-span-3 rounded-[2rem] border border-blue-200/70 bg-gradient-to-br from-blue-50/90 via-white to-emerald-50/80 p-6 md:p-8 shadow-sm">
+    <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between"><div class="max-w-3xl"><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-700">La solución</p><h3 class="mt-2 text-2xl font-semibold tracking-tight text-slate-800">${escapeHtml(solution.homeTitle)}</h3><p class="mt-2 text-sm font-medium leading-relaxed text-slate-600">${escapeHtml(solution.homeSummary)}</p><p class="mt-3 text-xs font-semibold text-emerald-700">${escapeHtml(solution.homeSubtitle)}</p></div><button data-solution-general="true" class="shrink-0 rounded-2xl bg-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-700">Ver solución completa</button></div>
+  </div>`;
+}
+
+function buildGanttHtml(data: ClientPortalData) {
   const fallbackStart = parseDate(data.project.startDate) || new Date();
   const tasks = data.tasks
     .filter((task) => task.visibleToClient !== false)
@@ -338,6 +346,19 @@ function buildRoadmapHtml(data: ClientPortalData) {
           </div>`;
 }
 
+function buildSolutionGeneralHtml(data: ClientPortalData) {
+  const solution = data.solution;
+  if (!solution) return `<div class="rounded-2xl border border-white/70 bg-white/60 p-6 text-sm text-slate-600">La descripción completa de la solución se incorporará en el próximo handoff.</div>`;
+  const list = (items: string[]) => `<ul class="space-y-2">${items.map((item) => `<li class="flex gap-2 text-sm leading-relaxed text-slate-600"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span><span>${escapeHtml(item)}</span></li>`).join("")}</ul>`;
+  const flow = solution.flow.map((item, i) => `<div class="rounded-2xl border border-white/70 bg-white/65 p-5"><p class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">${i + 1} · ${escapeHtml(item.actor)}</p><h3 class="mt-1 text-base font-semibold text-slate-800">${escapeHtml(item.step)}</h3><p class="mt-2 text-sm leading-relaxed text-slate-600">${escapeHtml(item.description)}</p><p class="mt-3 text-xs text-slate-500"><strong>Resultado:</strong> ${escapeHtml(item.output)}</p></div>`).join("");
+  const roles = solution.roles.map((role) => `<div class="rounded-2xl border border-white/70 bg-white/65 p-5"><h3 class="text-base font-semibold text-slate-800">${escapeHtml(role.name)}</h3><p class="mt-2 text-sm leading-relaxed text-slate-600">${escapeHtml(role.description)}</p>${list(role.capabilities)}</div>`).join("");
+  const modules = solution.modules.map((item) => `<div class="rounded-2xl border border-white/70 bg-white/65 p-5"><h3 class="text-base font-semibold text-slate-800">${escapeHtml(item.name)}</h3><p class="mt-2 text-sm leading-relaxed text-slate-600">${escapeHtml(item.description)}</p><span class="mt-3 inline-flex rounded-full bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase text-slate-600">${escapeHtml(item.status)}</span></div>`).join("");
+  const integrations = solution.dataAndIntegrations.map((item) => `<div class="rounded-2xl border border-white/70 bg-white/65 p-5"><h3 class="text-base font-semibold text-slate-800">${escapeHtml(item.name)}</h3><p class="mt-2 text-sm leading-relaxed text-slate-600">${escapeHtml(item.description)}</p><span class="mt-3 inline-flex rounded-full bg-blue-100 px-2 py-1 text-[10px] font-bold uppercase text-blue-700">${escapeHtml(item.status)}</span></div>`).join("");
+  const automation = solution.automation.map((item) => `<div class="rounded-2xl border border-white/70 bg-white/65 p-5"><h3 class="text-base font-semibold text-slate-800">${escapeHtml(item.name)}</h3><p class="mt-2 text-sm leading-relaxed text-slate-600">${escapeHtml(item.description)}</p><p class="mt-3 rounded-xl bg-amber-50 p-3 text-xs leading-relaxed text-amber-800"><strong>Control:</strong> ${escapeHtml(item.guardrail)}</p></div>`).join("");
+  const glossary = solution.glossary.map((item) => `<div class="rounded-xl bg-white/60 p-4"><dt class="text-sm font-semibold text-slate-800">${escapeHtml(item.term)}</dt><dd class="mt-1 text-xs leading-relaxed text-slate-600">${escapeHtml(item.explanation)}</dd></div>`).join("");
+  return `<div class="space-y-8"><section class="rounded-[2rem] bg-gradient-to-br from-slate-900 to-blue-950 p-6 text-white shadow-xl md:p-8"><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-300">${escapeHtml(solution.homeSubtitle)}</p><h2 class="mt-3 text-3xl font-semibold tracking-tight">${escapeHtml(solution.homeTitle)}</h2><p class="mt-4 max-w-4xl text-sm leading-relaxed text-white/80">${escapeHtml(solution.currentState)}</p></section><section class="grid gap-6 lg:grid-cols-2"><div class="rounded-2xl bg-white/65 p-6 shadow-sm"><h2 class="text-xl font-semibold text-slate-800">El problema</h2><p class="mt-3 text-sm leading-relaxed text-slate-600">${escapeHtml(solution.problem)}</p></div><div class="rounded-2xl bg-white/65 p-6 shadow-sm"><h2 class="text-xl font-semibold text-slate-800">Objetivo</h2><p class="mt-3 text-sm leading-relaxed text-slate-600">${escapeHtml(solution.objective)}</p></div></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Valor para BIA</h2><div class="rounded-2xl bg-white/65 p-6 shadow-sm">${list(solution.value)}</div></section><section><h2 class="mb-5 text-xl font-semibold text-slate-800">Cómo funciona</h2><div class="grid gap-4 lg:grid-cols-2">${flow}</div></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Quién participa</h2><div class="grid gap-4 md:grid-cols-2">${roles}</div></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Módulos de la solución</h2><div class="grid gap-4 md:grid-cols-2">${modules}</div></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Datos e integraciones</h2><div class="grid gap-4 md:grid-cols-2">${integrations}</div></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Automatización e IA</h2><div class="grid gap-4 md:grid-cols-2">${automation}</div></section><section class="grid gap-6 lg:grid-cols-2"><div class="rounded-2xl bg-white/65 p-6 shadow-sm"><h2 class="mb-4 text-xl font-semibold text-slate-800">Seguridad y auditoría</h2>${list(solution.security)}</div><div class="rounded-2xl bg-white/65 p-6 shadow-sm"><h2 class="mb-4 text-xl font-semibold text-slate-800">Alcance</h2>${list(solution.scopeIncluded)}<h3 class="mb-3 mt-6 text-sm font-semibold uppercase tracking-wider text-slate-500">Futuro</h3>${list(solution.scopeFuture)}</div></section><section class="rounded-2xl bg-emerald-50/80 p-6"><h2 class="text-xl font-semibold text-slate-800">${escapeHtml(solution.exampleTitle)}</h2><ol class="mt-4 space-y-2">${solution.exampleSteps.map((step, i) => `<li class="flex gap-3 text-sm leading-relaxed text-slate-600"><span class="font-bold text-emerald-700">${i + 1}.</span><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2 class="mb-4 text-xl font-semibold text-slate-800">Glosario</h2><dl class="grid gap-3 md:grid-cols-2">${glossary}</dl></section></div>`;
+}
+
 function buildMarkup(data?: ClientPortalData, authRequired = true) {
   if (!data) return authRequired ? markup : markup.replace(/<div id="auth-screen"[\s\S]*$/, "");
   const progress = Math.max(0, Math.min(100, Math.round(data.project.progress || 60)));
@@ -359,6 +380,8 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
   const summaryActivity = data.activity.filter((item) => item.visibleToClient !== false).slice(0, 3);
   const attentionRequiredHtml = buildAttentionRequiredHtml(data);
   const taskBoardHtml = buildTaskBoardHtml(data);
+  const solutionCardHtml = buildSolutionCardHtml(data);
+  const solutionGeneralHtml = buildSolutionGeneralHtml(data);
   const supportHref = `mailto:edgar@intelia.pro?subject=${encodeURIComponent(`Consulta rapida - proyecto ${data.project.name || "Intelia"}`)}`;
   return markup
     .replaceAll("Asistente Copilot CX", escapeHtml(data.project.name || "Proyecto Intelia"))
@@ -389,6 +412,8 @@ function buildMarkup(data?: ClientPortalData, authRequired = true) {
     .replaceAll("<!-- TASK_DISTRIBUTION_PANEL -->", buildTaskDistributionPanel(data))
     .replaceAll("<!-- TASK_CHART_PANEL -->", buildTaskChartPanel(data))
     .replaceAll("<!-- TASK_BOARD_DYNAMIC -->", taskBoardHtml)
+    .replaceAll("<!-- SOLUTION_CARD_DYNAMIC -->", solutionCardHtml)
+    .replaceAll("<!-- SOLUTION_GENERAL_DYNAMIC -->", solutionGeneralHtml)
     .replaceAll("mailto:edgar@intelia.pro?subject=Consulta%20rapida%20-%20proyecto%20Intelia", supportHref)
     .replaceAll("<!-- ROADMAP_DYNAMIC -->", roadmapHtml)
     .replaceAll("<!-- GANTT_DYNAMIC -->", ganttHtml)
@@ -534,6 +559,7 @@ export function ReferencePortalExact({ data, token = "demo", authRequired = true
         showScreen(link.getAttribute("data-screen") || "resumen");
       };
     });
+    root.querySelector<HTMLElement>("[data-solution-general]")?.addEventListener("click", () => showScreen("general"));
     const showToast = (message: string) => {
       root.querySelector("[data-action-toast]")?.remove();
       const toast = document.createElement("div");
@@ -714,6 +740,10 @@ const markup = String.raw`
           <iconify-icon icon="solar:widget-5-bold-duotone" class="text-[22px] text-emerald-500 group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Resumen</span>
         </a>
+        <a href="#" onclick="showScreen('general')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
+          <iconify-icon icon="solar:document-text-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
+          <span class="text-[9px] uppercase tracking-wider">General</span>
+        </a>
         <a href="#" onclick="showScreen('tareas')" class="nav-link flex flex-col items-center justify-center gap-1 w-16 h-16 rounded-2xl transition-all group hover:scale-105 text-slate-600 hover:bg-white/50 font-medium border border-transparent">
           <iconify-icon icon="solar:checklist-minimalistic-linear" class="text-[22px] group-hover:scale-110 transition-transform"></iconify-icon>
           <span class="text-[9px] uppercase tracking-wider">Tareas</span>
@@ -841,6 +871,8 @@ const markup = String.raw`
               </div>
             </div>
           </div>
+
+          <!-- SOLUTION_CARD_DYNAMIC -->
 
           <!-- TAREAS -->
           <div class="dashboard-task-card bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[2rem] p-6 text-white/90 shadow-lg shadow-emerald-500/10 border border-white/30 flex flex-col hover:shadow-xl transition-shadow">
@@ -1000,6 +1032,9 @@ const markup = String.raw`
               Mensaje ejecutivo para el cliente
             </p>
           </div>
+        </div>
+        <div id="screen-general" class="screen-section hidden max-w-7xl mx-auto space-y-6 pb-12">
+          <!-- SOLUTION_GENERAL_DYNAMIC -->
         </div>
         <div id="screen-tareas" class="screen-section hidden max-w-7xl mx-auto space-y-6 pb-12">
           <div class="flex items-center justify-between">

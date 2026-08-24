@@ -754,5 +754,227 @@
   "source": {
     "masterRecordId": "recRjSC3pKgaL4MCw",
     "baseId": "appM9RFgoYSE9AiPM"
+  },
+  "solution": {
+    "homeTitle": "Portal de Compras BIA",
+    "homeSubtitle": "Del pedido inicial a una decisión trazable",
+    "homeSummary": "Una plataforma para que cualquier colaborador solicite una compra, Compras gestione y compare cotizaciones, y el solicitante tome una decisión segura con todo el proceso registrado.",
+    "problem": "El proceso de compras requiere coordinar solicitudes, preguntas, cotizaciones, documentos, recomendaciones y decisiones entre varias personas. Cuando ocurre por correo, WhatsApp o archivos separados, se pierde trazabilidad, se repite trabajo y es difícil saber qué está detenido.",
+    "objective": "Centralizar el ciclo completo de compras en un solo flujo: capturar mejor la necesidad, ayudar a Compras a comparar alternativas, mantener la decisión humana y dejar evidencia de cada paso.",
+    "value": [
+      "Cada solicitud tiene un folio y un estado claro.",
+      "Compras trabaja con cotizaciones comparables y datos estructurados.",
+      "La recomendación final sigue siendo humana y queda registrada.",
+      "El solicitante decide desde un enlace seguro sin perder el contexto.",
+      "Administración puede observar métricas, tiempos, alertas y procesos activos."
+    ],
+    "flow": [
+      {
+        "step": "El colaborador describe lo que necesita",
+        "actor": "Solicitante",
+        "description": "Completa un formulario guiado con la necesidad, categoría y datos disponibles.",
+        "output": "Solicitud registrada con un folio y estado inicial."
+      },
+      {
+        "step": "El sistema ayuda a clasificar y completar la solicitud",
+        "actor": "Plataforma",
+        "description": "La clasificación y el assessment sugieren el tipo de solicitud y las preguntas relevantes; la persona puede corregir o completar la información.",
+        "output": "Requerimiento más claro para iniciar la gestión."
+      },
+      {
+        "step": "Compras recibe y gestiona el proceso",
+        "actor": "Coordinador de Compras",
+        "description": "El equipo revisa la solicitud, carga cotizaciones manualmente o desde archivos y confirma los datos importantes.",
+        "output": "Cotizaciones estructuradas y listas para comparar."
+      },
+      {
+        "step": "Se genera la comparativa",
+        "actor": "Compras",
+        "description": "La plataforma organiza precios, condiciones, plazos, garantías e impuestos disponibles para facilitar la revisión.",
+        "output": "Comparativa con recomendación humana y trazabilidad."
+      },
+      {
+        "step": "El solicitante toma la decisión",
+        "actor": "Solicitante",
+        "description": "Recibe un enlace seguro para revisar las alternativas y elegir o cerrar sin decisión.",
+        "output": "Decisión registrada y solicitud cerrada."
+      },
+      {
+        "step": "Administración observa el desempeño",
+        "actor": "Administrador",
+        "description": "Consulta procesos, coordinadores, métricas, alertas y exportaciones sin depender de datos ficticios.",
+        "output": "Visibilidad operativa y gerencial del ciclo de compras."
+      }
+    ],
+    "roles": [
+      {
+        "name": "Solicitante",
+        "description": "Persona de la organización que necesita realizar una compra.",
+        "capabilities": [
+          "Crear una solicitud",
+          "Responder preguntas del requerimiento",
+          "Revisar cotizaciones",
+          "Tomar la decisión final por enlace"
+        ]
+      },
+      {
+        "name": "Coordinador de Compras",
+        "description": "Persona que gestiona solicitudes, proveedores y cotizaciones.",
+        "capabilities": [
+          "Revisar solicitudes",
+          "Cargar y editar cotizaciones",
+          "Generar comparativas",
+          "Escribir la recomendación humana",
+          "Dar seguimiento al proceso"
+        ]
+      },
+      {
+        "name": "Administrador",
+        "description": "Responsable de supervisar la operación y configuración.",
+        "capabilities": [
+          "Consultar métricas",
+          "Revisar procesos y alertas",
+          "Observar coordinadores",
+          "Exportar información",
+          "Administrar la operación según las capacidades habilitadas"
+        ]
+      }
+    ],
+    "modules": [
+      {
+        "name": "Portal del solicitante",
+        "description": "Formulario guiado para presentar solicitudes de compra y completar la información necesaria.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Panel de Compras",
+        "description": "Bandeja de solicitudes, gestión de cotizaciones, comparativa y recomendación humana.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Comparativa y decisión",
+        "description": "Vista de alternativas y enlace seguro para que el solicitante decida.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Dashboard administrativo",
+        "description": "Procesos, coordinadores, métricas, exportación y alertas con información real del sistema.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Administración avanzada",
+        "description": "Gestión visual de coordinadores, historial de plantillas y controles avanzados de base de datos.",
+        "status": "Posterior al piloto"
+      }
+    ],
+    "dataAndIntegrations": [
+      {
+        "name": "Base de datos de compras",
+        "description": "Guarda solicitudes, estados, cotizaciones, comparativas, decisiones y eventos de trazabilidad.",
+        "status": "Implementado en pruebas"
+      },
+      {
+        "name": "Servicio de correo",
+        "description": "Enviará notificaciones, documentos y enlaces de decisión desde el dominio oficial.",
+        "status": "Pendiente de producción"
+      },
+      {
+        "name": "Inteligencia artificial",
+        "description": "Apoya clasificación, preguntas, extracción y comparativa; el flujo continúa con alternativas manuales si la IA no responde.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Nube y dominio",
+        "description": "Entorno administrado para operar con usuarios reales y una dirección pública definitiva.",
+        "status": "Pendiente de producción"
+      }
+    ],
+    "automation": [
+      {
+        "name": "Clasificación de solicitudes",
+        "description": "Sugiere el tipo y subtipo de compra a partir de la información proporcionada.",
+        "guardrail": "La persona puede corregir la clasificación y la IA no bloquea el flujo.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Assessment de requerimientos",
+        "description": "Propone preguntas relevantes para aclarar la compra.",
+        "guardrail": "Si la IA falla, se usa una plantilla base y el usuario puede continuar.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Extracción de cotizaciones",
+        "description": "Lee documentos y propone datos estructurados para que Compras los revise.",
+        "guardrail": "Los campos de baja confianza requieren revisión manual; la IA nunca reemplaza la validación humana.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Alertas del proceso",
+        "description": "Detecta inactividad y condiciones que requieren atención usando reglas del sistema.",
+        "guardrail": "Las alertas informan y no bloquean el proceso.",
+        "status": "Implementado"
+      },
+      {
+        "name": "Recomendación de alternativas",
+        "description": "Puede apoyar la comparación, pero la recomendación final la escribe una persona.",
+        "guardrail": "La plataforma nunca decide automáticamente el proveedor ganador.",
+        "status": "Implementado"
+      }
+    ],
+    "security": [
+      "Accesos diferenciados para coordinadores y administradores.",
+      "Enlaces públicos con token no adivinable, expiración y revocación.",
+      "La decisión del solicitante se registra una sola vez.",
+      "Las rutas administrativas requieren autenticación y rol.",
+      "La recomendación final requiere intervención humana.",
+      "La migración a nube debe incorporar controles adicionales de seguridad de datos."
+    ],
+    "scopeIncluded": [
+      "Solicitud guiada de compras.",
+      "Clasificación y assessment asistidos.",
+      "Gestión de cotizaciones.",
+      "Comparativa y recomendación humana.",
+      "Decisión del solicitante por enlace.",
+      "Métricas, alertas y exportación administrativa.",
+      "Trazabilidad del proceso completo."
+    ],
+    "scopeFuture": [
+      "Gestión visual de coordinadores.",
+      "Versionado histórico de plantillas.",
+      "Seguridad avanzada a nivel de base de datos.",
+      "Ajustes priorizados por el piloto."
+    ],
+    "exampleTitle": "Ejemplo: una compra de inicio a fin",
+    "exampleSteps": [
+      "Un colaborador describe la compra que necesita.",
+      "La plataforma ayuda a completar y clasificar la solicitud.",
+      "Compras recibe el folio, gestiona cotizaciones y arma la comparativa.",
+      "El coordinador agrega su recomendación humana.",
+      "El solicitante recibe un enlace seguro y decide.",
+      "El pedido queda cerrado y el administrador puede consultar el resultado."
+    ],
+    "currentState": "El flujo funcional está construido y probado en ambiente de pruebas. La siguiente etapa es llevarlo a un entorno de producción, cargar los insumos oficiales de BIA Foods y ejecutar un piloto con solicitudes reales.",
+    "glossary": [
+      {
+        "term": "Folio",
+        "explanation": "Número único que identifica una solicitud de compra y facilita su seguimiento."
+      },
+      {
+        "term": "Comparativa",
+        "explanation": "Vista que organiza las cotizaciones para revisar diferencias de precio, condiciones y plazos."
+      },
+      {
+        "term": "Assessment",
+        "explanation": "Preguntas adicionales que ayudan a completar correctamente el requerimiento."
+      },
+      {
+        "term": "Decisión humana",
+        "explanation": "La elección final corresponde al solicitante y la recomendación corresponde al equipo de Compras."
+      },
+      {
+        "term": "Alerta",
+        "explanation": "Aviso informativo sobre una solicitud que requiere seguimiento o revisión."
+      }
+    ]
   }
 }
