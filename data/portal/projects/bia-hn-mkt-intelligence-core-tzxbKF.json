@@ -927,5 +927,328 @@
   "source": {
     "masterRecordId": "recRjSC3pKgaL4MCw",
     "baseId": "appM9RFgoYSE9AiPM"
+  },
+  "solution": {
+    "homeTitle": "BIA Market Intelligence Core",
+    "homeSubtitle": "Plataforma interna de inteligencia de mercado para Marketing e Insights de BIA Honduras",
+    "homeSummary": "Digitalizará el ciclo mensual de inteligencia de mercado: desde los archivos de Nielsen y Dichter & Neira hasta un reporte certificado, consultable y conversacional. La base de procesamiento ya está construida y probada contra archivos reales; el reporte final, el tablero y el asistente siguen en construcción.",
+    "problem": "Hoy el equipo de Insights descarga archivos de Nielsen y Dichter & Neira y aplica manualmente fórmulas, correcciones y conocimiento operativo en Excel. El proceso es repetitivo, depende mucho de una persona y no siempre ofrece una versión única y trazable de cada cifra publicada.",
+    "objective": "Digitalizar y hacer reproducible el ciclo mensual de inteligencia de mercado sin reemplazar el criterio del equipo de Insights: recibir fuentes, aplicar reglas, calcular indicadores, certificar el reporte y permitir consultas sobre una única publicación oficial.",
+    "value": [
+      "Una versión oficial y auditable de las cifras de mercado.",
+      "Menos trabajo manual repetitivo en cada cierre mensual.",
+      "Reglas de homologación versionadas y reutilizables.",
+      "Trazabilidad de cada cifra hasta su archivo y origen.",
+      "Respuestas más rápidas para Marketing sin depender de una sola persona.",
+      "Separación clara entre preparar, aprobar y publicar información."
+    ],
+    "flow": [
+      {
+        "step": "Preparar el ciclo mensual",
+        "actor": "Operador/a de Insights",
+        "description": "Se crea el expediente digital del mes y se genera la lista de fuentes esperadas.",
+        "output": "Ciclo mensual con responsables y estado inicial."
+      },
+      {
+        "step": "Recibir y versionar archivos",
+        "actor": "Operador/a de Insights",
+        "description": "Se cargan las cinco fuentes mensuales y se conserva cada original sin modificarlo, detectando duplicados o reemplazos.",
+        "output": "Entregas registradas con versión y huella de verificación."
+      },
+      {
+        "step": "Validar estructura y contenido",
+        "actor": "Plataforma",
+        "description": "Cada archivo se compara con el contrato esperado; los cambios ambiguos se muestran para revisión y no se corrigen silenciosamente.",
+        "output": "Fuente validada o excepción explícita."
+      },
+      {
+        "step": "Transformar y homologar",
+        "actor": "Plataforma + Insights",
+        "description": "Se aplican reglas versionadas para homologar fabricantes, marcas, segmentos, SKU, zonas y formatos.",
+        "output": "Datos homologados y trazables hasta el origen."
+      },
+      {
+        "step": "Calcular indicadores",
+        "actor": "Plataforma",
+        "description": "Los datos se consolidan y se calculan indicadores mediante fórmulas controladas, sin generación libre de cifras por IA.",
+        "output": "Indicadores con fuente y evidencia."
+      },
+      {
+        "step": "Certificar el reporte",
+        "actor": "Operador/a de Insights",
+        "description": "El resultado se compara contra el mes de referencia de junio 2026 con criterios objetivos de exactitud.",
+        "output": "Reporte certificado o lista de diferencias."
+      },
+      {
+        "step": "Aprobar y publicar",
+        "actor": "Aprobador/a",
+        "description": "Una persona revisa la evidencia, aprueba o devuelve observaciones y publica una versión oficial e inmutable.",
+        "output": "Publicación oficial para consulta y análisis."
+      },
+      {
+        "step": "Consultar y conversar",
+        "actor": "Analista / Lector ejecutivo",
+        "description": "Las personas consultan indicadores por periodo, canal, cadena, punto de venta, producto o SKU cuando la fuente lo permite.",
+        "output": "Tabla o gráfica con explicación, fuente, periodo y evidencia."
+      }
+    ],
+    "roles": [
+      {
+        "name": "Operador/a de Insights",
+        "description": "Prepara el ciclo mensual, carga fuentes, resuelve excepciones y solicita la certificación.",
+        "capabilities": [
+          "Crear ciclos",
+          "Cargar y reemplazar archivos",
+          "Confirmar mapeos",
+          "Resolver excepciones",
+          "Ejecutar procesamiento",
+          "Solicitar certificación"
+        ]
+      },
+      {
+        "name": "Aprobador/a",
+        "description": "Revisa la evidencia y autoriza o devuelve la publicación oficial. Puede ser la misma persona que opera, pero con permisos separados.",
+        "capabilities": [
+          "Revisar evidencia",
+          "Devolver observaciones",
+          "Aprobar",
+          "Autorizar publicación"
+        ]
+      },
+      {
+        "name": "Analista de Marketing",
+        "description": "Explora la información oficial y prepara análisis para decisiones de Marketing.",
+        "capabilities": [
+          "Consultar indicadores",
+          "Comparar periodos",
+          "Filtrar dimensiones",
+          "Generar entregables autorizados"
+        ]
+      },
+      {
+        "name": "Lector ejecutivo",
+        "description": "Consume información publicada de forma sintética y explicable.",
+        "capabilities": [
+          "Consultar publicaciones oficiales",
+          "Revisar indicadores",
+          "Consumir entregables"
+        ]
+      },
+      {
+        "name": "Administrador/a técnico",
+        "description": "Opera usuarios, accesos, catálogos e integraciones sin aprobar cifras.",
+        "capabilities": [
+          "Gestionar acceso",
+          "Administrar catálogos técnicos",
+          "Dar soporte controlado",
+          "Consultar estado operativo"
+        ]
+      },
+      {
+        "name": "Soporte / Auditor",
+        "description": "Investiga incidencias y verifica el origen de una cifra.",
+        "capabilities": [
+          "Consultar auditoría",
+          "Revisar linaje",
+          "Consultar versiones",
+          "Verificar acciones"
+        ]
+      }
+    ],
+    "modules": [
+      {
+        "name": "Control del ciclo mensual",
+        "description": "Organiza el periodo, fuentes esperadas, responsables y estado general.",
+        "status": "Existente"
+      },
+      {
+        "name": "Recepción y versionado de fuentes",
+        "description": "Recibe las cinco fuentes, conserva originales y detecta duplicados o cambios.",
+        "status": "Existente"
+      },
+      {
+        "name": "Reglas y homologación",
+        "description": "Convierte el conocimiento operativo de Insights en reglas versionadas para fabricantes, marcas, SKU, zonas y formatos.",
+        "status": "Existente"
+      },
+      {
+        "name": "Calidad y excepciones",
+        "description": "Explica faltantes, cambios y datos que no pueden certificarse; nunca convierte un faltante en cero.",
+        "status": "Existente"
+      },
+      {
+        "name": "Motor de indicadores",
+        "description": "Calcula ventas, participación, variaciones y otros KPI con fórmulas controladas.",
+        "status": "Existente y verificado"
+      },
+      {
+        "name": "Reporte mensual certificado",
+        "description": "Reproduce el reporte de referencia y compara los resultados antes de publicar.",
+        "status": "En desarrollo"
+      },
+      {
+        "name": "Certificación, aprobación y publicación",
+        "description": "Separa preparación, revisión humana y publicación de una versión oficial inmutable.",
+        "status": "Propuesto"
+      },
+      {
+        "name": "Tablero de consulta",
+        "description": "Permitirá explorar publicaciones por periodo, canal, cadena, zona, producto o SKU.",
+        "status": "Parcial"
+      },
+      {
+        "name": "Asistente conversacional e insights",
+        "description": "Interpretará preguntas y sugerirá hallazgos usando únicamente información publicada y evidencia autorizada.",
+        "status": "Propuesto"
+      },
+      {
+        "name": "Entregables mensuales",
+        "description": "Generará presentaciones, Excel o resúmenes trazables a una publicación oficial.",
+        "status": "Propuesto"
+      },
+      {
+        "name": "Seguridad y auditoría",
+        "description": "Controla acceso por rol, aislamiento entre organizaciones y registro no editable de acciones sensibles.",
+        "status": "Existente en entorno técnico"
+      }
+    ],
+    "dataAndIntegrations": [
+      {
+        "name": "Nielsen — mercado consolidado",
+        "description": "Fuente mensual para participación, ventas, volumen y tendencias generales. Procesamiento verificado con 420,360 filas.",
+        "status": "Existente"
+      },
+      {
+        "name": "Nielsen — distribución y precios",
+        "description": "Fuentes mensuales para distribución numérica, ponderada y precios.",
+        "status": "Existente"
+      },
+      {
+        "name": "Nielsen — distribución por canal",
+        "description": "Indicadores por Total Honduras, Autoservicios y Tradicional.",
+        "status": "Existente"
+      },
+      {
+        "name": "Dichter & Neira — Moderno",
+        "description": "Detalle por cadena, punto de venta, producto y SKU.",
+        "status": "Existente"
+      },
+      {
+        "name": "Dichter & Neira — StoreLive",
+        "description": "Cobertura adicional por canal, región y categoría; junio tiene cobertura parcial que debe confirmarse.",
+        "status": "Existente con validación pendiente"
+      },
+      {
+        "name": "Catálogo de reglas de Insights",
+        "description": "202 reglas de corrección importadas y verificadas contra el archivo de control de BIA.",
+        "status": "Existente"
+      },
+      {
+        "name": "Identidad corporativa y nube",
+        "description": "Proveedor de identidad y ambiente para salir de local aún deben definirse con BIA.",
+        "status": "Pendiente"
+      },
+      {
+        "name": "Proveedores de IA",
+        "description": "El asistente futuro dependerá de una política aprobada para servicios externos de inteligencia artificial.",
+        "status": "Propuesto"
+      }
+    ],
+    "automation": [
+      {
+        "name": "Motor de indicadores",
+        "description": "Calcula KPI mediante fórmulas controladas sobre datos homologados.",
+        "guardrail": "No calcula cifras con un modelo generativo y rechaza consultas incompatibles.",
+        "status": "Existente y verificado: 113 de 113 cifras comparadas coinciden."
+      },
+      {
+        "name": "Reconocimiento y validación de archivos",
+        "description": "Identifica fuentes, versiones y cambios de estructura.",
+        "guardrail": "Los cambios ambiguos se muestran para decisión; no se corrigen silenciosamente.",
+        "status": "Existente"
+      },
+      {
+        "name": "Homologación de reglas",
+        "description": "Aplica el catálogo versionado de reglas de negocio.",
+        "guardrail": "Las reglas nuevas requieren revisión y quedan trazables.",
+        "status": "Existente"
+      },
+      {
+        "name": "Asistente conversacional",
+        "description": "Interpretará preguntas y devolverá respuesta, gráfica o tabla con evidencia.",
+        "guardrail": "No calculará cifras libremente; usará herramientas autorizadas y datos publicados.",
+        "status": "Propuesto"
+      },
+      {
+        "name": "Insights sugeridos",
+        "description": "Detectará hallazgos descriptivos para revisión del equipo.",
+        "guardrail": "Ningún hallazgo se publica sin revisión humana.",
+        "status": "Propuesto"
+      }
+    ],
+    "security": [
+      "Acceso y permisos validados del lado del servidor.",
+      "Seis roles definidos con mínimo privilegio.",
+      "Aislamiento de datos entre organizaciones.",
+      "Archivos originales almacenados de forma inmutable con huella de verificación.",
+      "Auditoría no editable de acciones sensibles.",
+      "Preparar y aprobar son acciones separadas.",
+      "Pendientes: identidad corporativa, nube, política de IA y retención de datos."
+    ],
+    "scopeIncluded": [
+      "Ciclo mensual e ingesta versionada de cinco fuentes.",
+      "Reglas, homologación y control de calidad.",
+      "Capa semántica y KPI.",
+      "Reporte exacto y certificación.",
+      "Aprobación, publicación y auditoría.",
+      "Consulta interactiva y conversación híbrida.",
+      "Insights descriptivos y entregables autorizados."
+    ],
+    "scopeFuture": [
+      "World Panel y Brand Tracker como fuentes productivas.",
+      "Predicción, atribución causal u optimización de inversión.",
+      "Descarga automática desde portales de proveedores.",
+      "Capacidades adicionales de fuentes e integración."
+    ],
+    "exampleTitle": "Ejemplo: comprobar junio de 2026",
+    "exampleSteps": [
+      "Se cargan las cinco fuentes mensuales reales.",
+      "El sistema valida archivos y aplica las reglas de homologación de Insights.",
+      "Se calculan los indicadores con fórmulas controladas.",
+      "Se comparan las cifras contra el reporte oficial de junio.",
+      "Las 113 cifras comparadas coinciden a la precisión publicada.",
+      "La certificación formal, publicación, tablero y asistente siguen siendo las siguientes etapas."
+    ],
+    "currentState": "La base técnica de recepción, transformación, homologación y cálculo ya está construida y fue verificada contra archivos reales. El reporte final certificado, la publicación oficial, el tablero visual y el asistente conversacional todavía están en construcción o propuestos.",
+    "glossary": [
+      {
+        "term": "Ciclo mensual",
+        "explanation": "Expediente digital que reúne archivos, reglas, cálculos y aprobación de un mes."
+      },
+      {
+        "term": "Homologación",
+        "explanation": "Convertir nombres o valores distintos de los proveedores en un valor oficial común."
+      },
+      {
+        "term": "Tolerancia numérica cero",
+        "explanation": "El resultado debe coincidir exactamente con el reporte oficial de referencia."
+      },
+      {
+        "term": "Certificación",
+        "explanation": "Comprobación objetiva de que el reporte calculado es correcto antes de aprobarlo."
+      },
+      {
+        "term": "Publicación oficial",
+        "explanation": "Versión aprobada e inmutable que alimenta reportes, tablero y asistente."
+      },
+      {
+        "term": "Linaje",
+        "explanation": "Capacidad de seguir una cifra hasta el archivo y fila exactos de origen."
+      },
+      {
+        "term": "Modo degradado",
+        "explanation": "El sistema sigue operando con lo disponible y muestra claramente qué falta, sin inventar datos."
+      }
+    ]
   }
 }
