@@ -418,3 +418,202 @@ Reglas estrictas:
 - Incluye un roadmap completo; no respondas solo con 2–3 hitos genéricos.
 - Devuelve únicamente el bloque oficial, sin explicación adicional.
 ```
+
+---
+
+## Prompt 3 — Descripción completa de la solución para el módulo General
+
+Usar después de crear un proyecto o cuando se necesita explicar la solución de forma completa para stakeholders. Este prompt no reemplaza el update operativo; genera la narrativa funcional y de producto.
+
+```text
+Necesito que prepares un handoff oficial de la SOLUCIÓN para el módulo General del Portal Cliente de Intelia.
+
+Actúa como Product Architect y Technical Project Analyst. Revisa el contexto real del proyecto: README, brief, PRD, requisitos, flujos de usuario, arquitectura, decisiones, contratos de datos, integraciones, código existente, pruebas, documentación y alcance aprobado.
+
+Tu objetivo NO es modificar código ni generar un update de tareas. Tu objetivo es explicar qué solución se está construyendo, por qué existe, cómo funcionará y qué verá cada tipo de usuario. Hermes usará la respuesta para crear una card resumida en Home y una página General completa.
+
+Reglas estrictas:
+- Devuelve únicamente el bloque oficial.
+- No inventes información, fechas, métricas ni capacidades.
+- Distingue entre existente, aprobado, en desarrollo, propuesto y pendiente.
+- Si algo no está definido, escribe `pendiente de definición`.
+- Escribe primero para stakeholders no técnicos; explica la jerga técnica cuando sea necesaria.
+- No presentes una capacidad documentada como si ya estuviera construida.
+- No confundas definición, desarrollo, piloto y producción.
+- No mezcles el backlog operativo con la explicación de producto.
+- No incluyas secretos, tokens, API keys, passwords, connection strings, commits privados ni rutas sensibles.
+- La explicación debe poder entenderse aunque el stakeholder nunca haya visto reportes anteriores.
+
+INTELIA_SOLUTION_HANDOFF_START
+TIPO_DE_HANDOFF: DESCRIPCION_COMPLETA_SOLUCION
+FECHA_HORA_DE_ANALISIS: [YYYY-MM-DD HH:mm zona]
+AGENTE_ORIGEN: [Claude Code | OpenCode | Codex | Otro]
+REPO_O_CONTEXTO: [repo/ruta/contexto]
+BRANCH_O_VERSION: [branch + commit corto o pendiente]
+
+IDENTIFICACION
+- Cliente:
+- Área/unidad:
+- Proyecto:
+- Código:
+- Slug público:
+- Stakeholders principales:
+- Usuarios finales:
+- Estado actual: [idea | definida | en desarrollo | parcialmente operativa | lista para piloto | productiva]
+
+RESUMEN_PARA_HOME
+- Título corto:
+- Subtítulo:
+- Qué es la solución:
+- Problema principal que resuelve:
+- Para quién se construye:
+- Beneficio principal:
+- Estado actual en lenguaje cliente:
+- Texto recomendado para la card:
+- Texto del botón: Ver solución completa
+
+CONTEXTO_DEL_PROBLEMA
+- Cómo se realiza hoy el proceso:
+- Fricciones actuales:
+- Riesgos actuales:
+- Equipos afectados:
+- Evidencia:
+
+OBJETIVO_Y_PROPUESTA_DE_VALOR
+- Objetivo principal:
+- Objetivos secundarios:
+- Resultado esperado:
+- Beneficio para dirección:
+- Beneficio para operación:
+- Beneficio para usuarios finales:
+- Antes:
+- Después:
+- Cómo se medirá el éxito:
+- Qué queda fuera:
+
+FLUJO_COMPLETO_DE_LA_SOLUCION
+- Paso:
+  - Nombre:
+  - Actor:
+  - Qué ocurre:
+  - Entrada:
+  - Automatización:
+  - Decisión humana:
+  - Salida:
+  - Estado:
+  - Valor para el usuario:
+  - Evidencia:
+
+ROLES_Y_USUARIOS
+- Rol:
+  - Quién es:
+  - Qué necesita:
+  - Qué puede hacer:
+  - Qué puede consultar:
+  - Qué no puede hacer:
+  - Cómo se autentica:
+  - Estado:
+
+MODULOS_DE_LA_SOLUCION
+- Módulo:
+  - Nombre para cliente:
+  - Nombre técnico si aplica:
+  - Para qué sirve:
+  - Usuario principal:
+  - Funciones:
+  - Entradas:
+  - Salidas:
+  - Estado:
+  - Dependencias:
+  - Qué verá el stakeholder:
+
+DATOS_E_INTEGRACIONES
+- Fuente o sistema:
+  - Para qué se usa:
+  - Qué entra:
+  - Qué sale:
+  - Frecuencia:
+  - Responsable:
+  - Estado:
+  - Riesgos:
+  - Decisiones pendientes:
+
+AUTOMATIZACION_E_IA
+- Capacidad:
+  - Qué hace:
+  - Qué no hace:
+  - Qué datos utiliza:
+  - Quién la revisa:
+  - Qué pasa si falla:
+  - Cómo se evita que invente información:
+  - Estado:
+
+SEGURIDAD_PERMISOS_Y_AUDITORIA
+- Mecanismo de acceso:
+- Roles y permisos:
+- Datos sensibles:
+- Separación entre usuarios:
+- Auditoría:
+- Aprobaciones humanas:
+- Retención:
+- Medidas implementadas:
+- Medidas pendientes:
+
+ALCANCE_Y_EXPERIENCIA
+- Incluido en esta fase:
+- Parcialmente incluido:
+- Fuera de alcance:
+- Reservado para fases futuras:
+- Cómo inicia el usuario:
+- Qué recorrido realiza:
+- Qué resultado obtiene:
+- Qué ocurre ante errores:
+
+EJEMPLO_DE_USO_REAL
+- Situación inicial:
+- Usuario:
+- Pasos:
+- Resultado:
+- Beneficio:
+- Parte verificada:
+- Parte futura:
+
+ESTADO_DE_LA_SOLUCION
+- Capacidades existentes:
+- Capacidades aprobadas no construidas:
+- Capacidades en desarrollo:
+- Capacidades pendientes:
+- Dependencias externas:
+- Riesgos:
+- Próximo resultado visible:
+
+DECISIONES_Y_SUPUESTOS
+- Tema:
+  - Estado: [confirmado | aprobado | supuesto | pendiente | descartado]
+  - Decisión actual:
+  - Impacto:
+  - Responsable:
+  - Evidencia:
+
+GLOSARIO_CLIENTE
+- Término técnico:
+  - Explicación sencilla:
+  - Por qué aparece:
+
+REFERENCIAS
+- Nombre:
+  - Tipo:
+  - Ruta o URL:
+  - Qué demuestra:
+  - Visible al cliente: sí/no
+
+NO_PUBLICAR
+- Información interna o sensible que Hermes debe omitir:
+
+NOTAS_PARA_HERMES
+- Qué debe aparecer en la card Home:
+- Qué debe aparecer en General:
+- Qué requiere revisión humana:
+- Qué información falta:
+INTELIA_SOLUTION_HANDOFF_END
+```
