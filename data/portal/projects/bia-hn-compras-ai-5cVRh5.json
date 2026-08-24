@@ -12,15 +12,15 @@
     "code": "COM-1",
     "token": "legacy-bia-hn-compras-fase1",
     "status": "en progreso",
-    "currentPhase": "Núcleo completo; cierre administrativo y preparación del piloto",
-    "progress": 80,
+    "currentPhase": "Plataforma funcional completa; preparación de producción y piloto",
+    "progress": 85,
     "startDate": "2026-08-12",
     "targetEndDate": "",
-    "executiveSummary": "El portal ya resuelve el recorrido completo de una compra: el colaborador realiza la solicitud, el equipo de Compras gestiona cotizaciones y comparativas, el solicitante decide por un enlace y la administración puede consultar métricas y alertas. El recorrido de punta a punta ya fue validado con datos reales de prueba. El siguiente paso es habilitar una prueba piloto con usuarios reales.",
-    "remainingExplanation": "Falta terminar herramientas administrativas finas —gestión de compradores, versionado de plantillas y seguridad para que cada comprador vea solo lo suyo—, trasladar la base de datos a un entorno seguro en la nube, confirmar los insumos oficiales de BIA y ejecutar el piloto con al menos 10 compras completas.",
+    "executiveSummary": "El Portal de Compras BIA permite que cualquier colaborador solicite una compra mediante un formulario inteligente, que Compras gestione cotizaciones y compare opciones, y que el solicitante decida con un enlace seguro. El flujo completo está construido y probado con información real de prueba. El panel administrativo ya muestra procesos, coordinadores, métricas y líneas de tiempo reales; cada solicitud recibe automáticamente un folio formal. Falta migrar a la nube, configurar el dominio y correos oficiales, cargar los insumos del cliente y ejecutar un piloto con al menos 10 solicitudes reales.",
+    "remainingExplanation": "El 15% restante corresponde principalmente a la puesta en producción —nube, dominio y correos—, carga de plantillas y coordinadores oficiales, y ejecución del piloto. La gestión visual de coordinadores, el historial de plantillas y la seguridad avanzada de base de datos se priorizarán después del piloto según el feedback real.",
     "clientSignal": "decisión requerida",
-    "clientMessage": "El núcleo del portal ya funciona de inicio a fin y está probado. Para avanzar al piloto necesitamos confirmar participantes, autorizar el entorno en la nube y recibir las plantillas y el dominio oficiales de BIA.",
-    "nextMilestone": "Piloto funcional con usuarios reales",
+    "clientMessage": "La plataforma ya funciona con datos reales en ambiente de pruebas: el panel administrativo refleja procesos, coordinadores y líneas de tiempo verdaderas; cada solicitud recibe su folio oficial automáticamente y el flujo completo pasó las pruebas de calidad y seguridad. El siguiente paso es llevarla a la nube y preparar el piloto con usuarios reales.",
+    "nextMilestone": "Ambiente de producción listo en la nube",
     "nextMilestoneDate": "",
     "enabledSections": [
       "kanban",
@@ -35,7 +35,7 @@
   },
   "tasks": [
     {
-      "id": "compras-expanded-01",
+      "id": "compras-verified-01",
       "name": "Fundaciones y modelo de datos",
       "status": "completado",
       "dueDate": "",
@@ -53,7 +53,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-02",
+      "id": "compras-verified-02",
       "name": "Portal inicial del solicitante",
       "status": "completado",
       "dueDate": "",
@@ -71,7 +71,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-03",
+      "id": "compras-verified-03",
       "name": "Persistencia de solicitudes",
       "status": "completado",
       "dueDate": "",
@@ -89,7 +89,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-04",
+      "id": "compras-verified-04",
       "name": "Clasificación automática",
       "status": "completado",
       "dueDate": "",
@@ -107,7 +107,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-05",
+      "id": "compras-verified-05",
       "name": "Assessment de preguntas",
       "status": "completado",
       "dueDate": "",
@@ -125,7 +125,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-06",
+      "id": "compras-verified-06",
       "name": "Generación de PDF",
       "status": "completado",
       "dueDate": "",
@@ -143,7 +143,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-07",
+      "id": "compras-verified-07",
       "name": "Correos del ciclo",
       "status": "completado",
       "dueDate": "",
@@ -161,7 +161,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-08",
+      "id": "compras-verified-08",
       "name": "Panel del coordinador",
       "status": "completado",
       "dueDate": "",
@@ -179,7 +179,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-09",
+      "id": "compras-verified-09",
       "name": "Carga manual de cotizaciones",
       "status": "completado",
       "dueDate": "",
@@ -197,7 +197,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-10",
+      "id": "compras-verified-10",
       "name": "Extracción desde archivos",
       "status": "completado",
       "dueDate": "",
@@ -215,7 +215,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-11",
+      "id": "compras-verified-11",
       "name": "Comparativa de cotizaciones",
       "status": "completado",
       "dueDate": "",
@@ -233,7 +233,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-12",
+      "id": "compras-verified-12",
       "name": "Recomendación humana",
       "status": "completado",
       "dueDate": "",
@@ -251,7 +251,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-13",
+      "id": "compras-verified-13",
       "name": "Enlace público de decisión",
       "status": "completado",
       "dueDate": "",
@@ -269,7 +269,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-14",
+      "id": "compras-verified-14",
       "name": "Autenticación de coordinadores",
       "status": "completado",
       "dueDate": "",
@@ -287,7 +287,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-15",
+      "id": "compras-verified-15",
       "name": "Autenticación de administradores",
       "status": "completado",
       "dueDate": "",
@@ -305,7 +305,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-16",
+      "id": "compras-verified-16",
       "name": "Dashboard administrativo base",
       "status": "completado",
       "dueDate": "",
@@ -323,7 +323,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-17",
+      "id": "compras-verified-17",
       "name": "Métricas reales",
       "status": "completado",
       "dueDate": "",
@@ -341,7 +341,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-18",
+      "id": "compras-verified-18",
       "name": "Alertas automáticas",
       "status": "completado",
       "dueDate": "",
@@ -359,7 +359,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-19",
+      "id": "compras-verified-19",
       "name": "Exportación a Excel",
       "status": "completado",
       "dueDate": "",
@@ -377,7 +377,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-20",
+      "id": "compras-verified-20",
       "name": "Registro de decisión y cierre",
       "status": "completado",
       "dueDate": "",
@@ -395,7 +395,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-21",
+      "id": "compras-verified-21",
       "name": "Pruebas automáticas del motor",
       "status": "completado",
       "dueDate": "",
@@ -413,7 +413,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-22",
+      "id": "compras-verified-22",
       "name": "Recorridos end-to-end",
       "status": "completado",
       "dueDate": "",
@@ -431,7 +431,7 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-23",
+      "id": "compras-verified-23",
       "name": "Revisión visual de los tres roles",
       "status": "completado",
       "dueDate": "",
@@ -449,17 +449,17 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-24",
-      "name": "Alta, baja y categorías de compradores",
+      "id": "compras-aug24-24",
+      "name": "Preparar ambiente de producción en la nube",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Preparación administrativa",
+      "milestone": "Puesta en producción",
       "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Gestionar compradores y categorías desde el panel.",
-      "priority": "media",
-      "needsClientAction": false,
-      "requiredAction": "",
+      "isCurrent": true,
+      "description": "Migrar la plataforma a una nube administrada con base de datos propia, correos reales y URL definitiva.",
+      "priority": "alta",
+      "needsClientAction": true,
+      "requiredAction": "Confirmar cuenta/región de nube y dominio deseado.",
       "ganttStart": "",
       "ganttEnd": "",
       "ganttProgress": 0,
@@ -467,17 +467,17 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-25",
-      "name": "Versionado de plantillas",
-      "status": "por hacer",
+      "id": "compras-aug24-25",
+      "name": "Incorporar plantillas y coordinadores oficiales",
+      "status": "bloqueado",
       "dueDate": "",
-      "milestone": "Preparación administrativa",
+      "milestone": "Piloto",
       "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Conservar la versión usada por cada pedido.",
-      "priority": "media",
-      "needsClientAction": false,
-      "requiredAction": "",
+      "isCurrent": true,
+      "description": "Cargar las plantillas oficiales de solicitud/cotización y registrar a los coordinadores reales de Compras.",
+      "priority": "alta",
+      "needsClientAction": true,
+      "requiredAction": "Entregar plantillas oficiales, lista de coordinadores con correos y reglas del negocio.",
       "ganttStart": "",
       "ganttEnd": "",
       "ganttProgress": 0,
@@ -485,35 +485,35 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-26",
-      "name": "Seguridad por comprador",
+      "id": "compras-aug24-26",
+      "name": "Piloto controlado con al menos 10 solicitudes reales",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Seguridad y nube",
+      "milestone": "Piloto",
       "visibleToClient": true,
       "isCurrent": false,
-      "description": "Cada comprador debe ver solo lo asignado.",
+      "description": "Ejecutar solicitudes reales de punta a punta, medir resultados y ajustar detalles.",
       "priority": "alta",
-      "needsClientAction": false,
-      "requiredAction": "",
+      "needsClientAction": true,
+      "requiredAction": "Designar participantes del piloto.",
       "ganttStart": "",
       "ganttEnd": "",
-      "ganttProgress": 0,
+      "ganttProgress": "",
       "ganttOrder": 26,
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-27",
-      "name": "Migración a la nube",
+      "id": "compras-aug24-27",
+      "name": "Configurar correos y dominio oficiales",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Seguridad y nube",
+      "milestone": "Puesta en producción",
       "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Pasar la base local a un entorno administrado.",
+      "isCurrent": true,
+      "description": "Conectar el servicio de correos y la dirección definitiva para que los usuarios reciban notificaciones reales.",
       "priority": "alta",
-      "needsClientAction": false,
-      "requiredAction": "",
+      "needsClientAction": true,
+      "requiredAction": "Confirmar dominio y remitente oficial.",
       "ganttStart": "",
       "ganttEnd": "",
       "ganttProgress": 0,
@@ -521,15 +521,15 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-28",
-      "name": "Respaldos y recuperación",
+      "id": "compras-aug24-28",
+      "name": "Mejoras post-piloto: gestión visual de coordinadores",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Seguridad y nube",
+      "milestone": "Post-piloto",
       "visibleToClient": true,
       "isCurrent": false,
-      "description": "Definir respaldo y restauración antes del piloto.",
-      "priority": "alta",
+      "description": "Agregar la administración visual de coordinadores después de observar el uso real.",
+      "priority": "baja",
       "needsClientAction": false,
       "requiredAction": "",
       "ganttStart": "",
@@ -539,15 +539,15 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-29",
-      "name": "Piloto con 10 compras",
+      "id": "compras-aug24-29",
+      "name": "Mejoras post-piloto: historial de plantillas",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Piloto real",
+      "milestone": "Post-piloto",
       "visibleToClient": true,
       "isCurrent": false,
-      "description": "Probar con usuarios reales y ajustar datos.",
-      "priority": "alta",
+      "description": "Agregar historial y versionado de plantillas según el feedback del piloto.",
+      "priority": "baja",
       "needsClientAction": false,
       "requiredAction": "",
       "ganttStart": "",
@@ -557,15 +557,15 @@
       "ganttDependencies": ""
     },
     {
-      "id": "compras-expanded-30",
-      "name": "Participantes del piloto",
+      "id": "compras-aug24-30",
+      "name": "Mejoras post-piloto: seguridad avanzada de base de datos",
       "status": "por hacer",
       "dueDate": "",
-      "milestone": "Piloto real",
+      "milestone": "Post-piloto",
       "visibleToClient": true,
       "isCurrent": false,
-      "description": "Definir grupo de usuarios de prueba.",
-      "priority": "alta",
+      "description": "Aplicar la capa adicional de seguridad de datos después de priorizar hallazgos reales.",
+      "priority": "baja",
       "needsClientAction": false,
       "requiredAction": "",
       "ganttStart": "",
@@ -573,276 +573,130 @@
       "ganttProgress": 0,
       "ganttOrder": 30,
       "ganttDependencies": ""
-    },
-    {
-      "id": "compras-expanded-31",
-      "name": "Plantillas PDF oficiales",
-      "status": "por hacer",
-      "dueDate": "",
-      "milestone": "Piloto real",
-      "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Sustituir formatos provisionales de Compras.",
-      "priority": "alta",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "",
-      "ganttEnd": "",
-      "ganttProgress": 0,
-      "ganttOrder": 31,
-      "ganttDependencies": ""
-    },
-    {
-      "id": "compras-expanded-32",
-      "name": "Dominio y remitente oficial",
-      "status": "por hacer",
-      "dueDate": "",
-      "milestone": "Piloto real",
-      "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Configurar dirección y entrega de correos.",
-      "priority": "media",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "",
-      "ganttEnd": "",
-      "ganttProgress": 0,
-      "ganttOrder": 32,
-      "ganttDependencies": ""
-    },
-    {
-      "id": "compras-expanded-33",
-      "name": "Calibración de alertas",
-      "status": "por hacer",
-      "dueDate": "",
-      "milestone": "Piloto real",
-      "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Ajustar alertas con operaciones reales.",
-      "priority": "media",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "",
-      "ganttEnd": "",
-      "ganttProgress": 0,
-      "ganttOrder": 33,
-      "ganttDependencies": ""
-    },
-    {
-      "id": "compras-expanded-34",
-      "name": "UAT de tres roles",
-      "status": "por hacer",
-      "dueDate": "",
-      "milestone": "Piloto real",
-      "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Validar solicitante, comprador y administración.",
-      "priority": "alta",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "",
-      "ganttEnd": "",
-      "ganttProgress": 0,
-      "ganttOrder": 34,
-      "ganttDependencies": ""
-    },
-    {
-      "id": "compras-expanded-35",
-      "name": "Apertura general y monitoreo",
-      "status": "por hacer",
-      "dueDate": "",
-      "milestone": "Producción",
-      "visibleToClient": true,
-      "isCurrent": false,
-      "description": "Abrir después del piloto y monitorear.",
-      "priority": "alta",
-      "needsClientAction": false,
-      "requiredAction": "",
-      "ganttStart": "",
-      "ganttEnd": "",
-      "ganttProgress": 0,
-      "ganttOrder": 35,
-      "ganttDependencies": ""
     }
   ],
   "milestones": [
     {
-      "id": "compras-roadmap-01",
-      "name": "M1 — Modelo y fundaciones",
+      "id": "compras-aug24-m1",
+      "name": "Plataforma funcional completa",
       "estimatedDate": "",
-      "actualDate": "",
+      "actualDate": "2026-08-24",
       "status": "alcanzado",
-      "description": "Base y estructura inicial.",
-      "acceptanceCriteria": "Base verificada."
+      "description": "Todos los flujos construidos, probados y auditados con datos reales.",
+      "acceptanceCriteria": "Flujo completo, pruebas automáticas en verde y revisión manual sin errores."
     },
     {
-      "id": "compras-roadmap-02",
-      "name": "M2 — Solicitud del colaborador",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Captura y persistencia.",
-      "acceptanceCriteria": "Solicitud trazable."
-    },
-    {
-      "id": "compras-roadmap-03",
-      "name": "M3 — Clasificación y assessment",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Clasificación y preguntas.",
-      "acceptanceCriteria": "Flujo verificado."
-    },
-    {
-      "id": "compras-roadmap-04",
-      "name": "M4 — PDF y comunicaciones",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Documento y correos.",
-      "acceptanceCriteria": "Entrega verificada."
-    },
-    {
-      "id": "compras-roadmap-05",
-      "name": "M5 — Cotizaciones",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Carga y extracción.",
-      "acceptanceCriteria": "Cotizaciones registradas."
-    },
-    {
-      "id": "compras-roadmap-06",
-      "name": "M6 — Comparativa y recomendación",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Comparativa con revisión humana.",
-      "acceptanceCriteria": "Recomendación obligatoria."
-    },
-    {
-      "id": "compras-roadmap-07",
-      "name": "M7 — Decisión por enlace",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Aprobación y cierre.",
-      "acceptanceCriteria": "Decisión registrada."
-    },
-    {
-      "id": "compras-roadmap-08",
-      "name": "M8 — Roles y accesos",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Coordinador y administración.",
-      "acceptanceCriteria": "Rutas protegidas."
-    },
-    {
-      "id": "compras-roadmap-09",
-      "name": "M9 — Métricas y alertas",
-      "estimatedDate": "",
-      "actualDate": "",
-      "status": "alcanzado",
-      "description": "Datos reales y alertas.",
-      "acceptanceCriteria": "Panel verificado."
-    },
-    {
-      "id": "compras-roadmap-10",
-      "name": "M10 — Administración fina",
+      "id": "compras-aug24-m2",
+      "name": "Puesta en producción: nube, dominio y correos",
       "estimatedDate": "",
       "actualDate": "",
       "status": "actual",
-      "description": "Compradores, plantillas y seguridad.",
-      "acceptanceCriteria": "Herramientas finas completas."
+      "description": "Portal accesible desde internet con dirección propia y notificaciones reales.",
+      "acceptanceCriteria": "Usuario real accede por el dominio definitivo y recibe correo oficial."
     },
     {
-      "id": "compras-roadmap-11",
-      "name": "M11 — Piloto real",
+      "id": "compras-aug24-m3",
+      "name": "Carga de insumos oficiales",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "en riesgo",
+      "description": "Incorporar plantillas, formatos y coordinadores reales de BIA Foods.",
+      "acceptanceCriteria": "Plantillas y coordinadores cargados y validados."
+    },
+    {
+      "id": "compras-aug24-m4",
+      "name": "Piloto con solicitudes reales",
       "estimatedDate": "",
       "actualDate": "",
       "status": "pendiente",
-      "description": "10 compras completas.",
-      "acceptanceCriteria": "Piloto cerrado."
+      "description": "Primer uso real del portal por el equipo de BIA Foods.",
+      "acceptanceCriteria": "Al menos 10 solicitudes completas sin errores críticos."
     },
     {
-      "id": "compras-roadmap-12",
-      "name": "M12 — Producción",
+      "id": "compras-aug24-m5",
+      "name": "Medición y ajustes del piloto",
       "estimatedDate": "",
       "actualDate": "",
       "status": "pendiente",
-      "description": "Apertura general.",
-      "acceptanceCriteria": "Operación estable."
+      "description": "Medir resultados y priorizar ajustes a partir del uso real.",
+      "acceptanceCriteria": "Reporte de resultados y backlog priorizado."
+    },
+    {
+      "id": "compras-aug24-m6",
+      "name": "Gestión visual de coordinadores",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Permitir administrar coordinadores desde el panel.",
+      "acceptanceCriteria": "Alta, baja y asignación visual operativas."
+    },
+    {
+      "id": "compras-aug24-m7",
+      "name": "Historial de plantillas y seguridad avanzada",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Robustecer versionado y seguridad de datos después del piloto.",
+      "acceptanceCriteria": "Versionado y controles avanzados aprobados."
+    },
+    {
+      "id": "compras-aug24-m8",
+      "name": "Apertura general",
+      "estimatedDate": "",
+      "actualDate": "",
+      "status": "pendiente",
+      "description": "Abrir la plataforma al uso general después del piloto.",
+      "acceptanceCriteria": "Operación estable, monitoreo y soporte definidos."
     }
   ],
   "activity": [
     {
-      "id": "compras-expanded-activity",
-      "date": "2026-08-20",
+      "id": "compras-aug24-activity",
+      "date": "2026-08-24 14:19 CST",
       "type": "avance",
-      "title": "Recorrido completo cerrado y preparación del piloto",
-      "description": "Las etapas funcionales están completadas; el trabajo visible se concentra en administración fina, seguridad, nube y piloto.",
-      "clientMeaning": "El producto base está listo para pasar a una prueba real.",
+      "title": "Panel administrativo operativo con datos reales y folios automáticos",
+      "description": "Se revisó el panel como usuario real y se eliminaron los últimos datos de demostración. Ahora los procesos, coordinadores, estadísticas y líneas de tiempo reflejan la operación real; cada solicitud enviada recibe automáticamente un folio formal.",
+      "clientMeaning": "El administrador puede confiar en lo que ve y auditar cada proceso con su folio único.",
       "origin": "OpenCode",
       "visibleToClient": true
     },
     {
-      "id": "compras-refresh-activity-2026-08-20",
-      "date": "2026-08-20 18:57 CST",
-      "type": "entrega",
-      "title": "Métricas reales, alertas y decisión por enlace verificadas",
-      "description": "El panel de administración ya muestra métricas reales del ciclo, alertas automáticas y exportación a Excel. La decisión del solicitante por enlace ahora cierra el pedido y alimenta las métricas. También se corrigió un error que impedía visualizar las métricas.",
-      "clientMeaning": "BIA puede medir el rendimiento real del proceso y detectar pedidos que se quedan sin avance.",
-      "origin": "OpenCode",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-refresh-activity-80-tests",
-      "date": "2026-08-20",
-      "type": "avance",
-      "title": "Recorrido completo validado",
-      "description": "Las ocho etapas del recorrido de compras funcionan contra datos reales de prueba y fueron verificadas con pruebas automáticas y revisión de los tres roles.",
-      "clientMeaning": "El producto ya puede avanzar de la validación técnica hacia una prueba con usuarios reales.",
-      "origin": "OpenCode",
-      "visibleToClient": true
-    },
-    {
-      "id": "compras-refresh-activity-next",
-      "date": "2026-08-20",
+      "id": "compras-aug24-priority",
+      "date": "2026-08-24",
       "type": "decisión",
-      "title": "Preparación del piloto",
-      "description": "El siguiente paso es confirmar participantes, autorizar el entorno en la nube y recibir las plantillas y el dominio oficiales de BIA.",
-      "clientMeaning": "Estas definiciones permiten pasar de una demo validada a una prueba real y segura.",
+      "title": "Orden de preparación acordado",
+      "description": "La prioridad es recibir primero los insumos del cliente, mientras Intelia prepara la migración a nube y producción en paralelo. Las mejoras opcionales se priorizarán después del piloto.",
+      "clientMeaning": "El proyecto avanza por el camino más corto hacia una prueba real, sin esperar mejoras que no son necesarias para el piloto.",
       "origin": "OpenCode",
       "visibleToClient": true
     }
   ],
   "questions": [
     {
-      "id": "compras-refresh-question-001",
+      "id": "compras-aug24-q1",
       "author": "Intelia",
-      "message": "¿Se autoriza y prepara el piloto con usuarios reales?",
-      "date": "2026-08-20",
+      "message": "Entregar plantillas oficiales de solicitud y cotización",
+      "date": "2026-08-24",
       "status": "requiere decisión",
       "answer": "",
       "answeredAt": "",
       "requiresClientDecision": true
     },
     {
-      "id": "compras-refresh-question-002",
+      "id": "compras-aug24-q2",
       "author": "Intelia",
-      "message": "Compartir las plantillas PDF y formatos oficiales de solicitud/cotización, además del dominio oficial",
-      "date": "2026-08-20",
+      "message": "Entregar lista real de coordinadores con sus correos",
+      "date": "2026-08-24",
       "status": "requiere decisión",
       "answer": "",
       "answeredAt": "",
       "requiresClientDecision": true
     },
     {
-      "id": "compras-refresh-question-003",
+      "id": "compras-aug24-q3",
       "author": "Intelia",
-      "message": "¿Se autoriza la creación del entorno seguro en la nube?",
-      "date": "2026-08-20",
+      "message": "Confirmar dominio y cuenta de nube definitivos",
+      "date": "2026-08-24",
       "status": "requiere decisión",
       "answer": "",
       "answeredAt": "",
@@ -873,28 +727,28 @@
   ],
   "impactMetrics": [
     {
-      "label": "Pruebas automáticas",
-      "value": "80 del motor + 22 de recorrido completo",
-      "note": "Las verificaciones reportadas pasan; 6 pruebas requieren entorno."
+      "label": "Pruebas unitarias",
+      "value": "80 PASS",
+      "note": "Reglas de negocio y lógica verificadas."
     },
     {
-      "label": "Etapas del recorrido verificadas",
-      "value": "8 de 8",
-      "note": "Desde la solicitud hasta métricas, alertas, Excel y decisión."
+      "label": "Pruebas de navegación",
+      "value": "22 PASS",
+      "note": "Recorridos completos contra datos reales."
     },
     {
-      "label": "Datos del entorno de prueba",
-      "value": "88 solicitudes · 50 enviadas · 10 cerradas",
-      "note": "Datos de desarrollo; la medición oficial empieza en el piloto."
+      "label": "Datos de demostración",
+      "value": "0 visibles",
+      "note": "Panel administrativo auditado y conectado a información real."
     },
     {
-      "label": "Próximo objetivo",
-      "value": "10 compras completas",
-      "note": "Piloto con usuarios reales y ajustes sobre datos reales."
+      "label": "Piloto",
+      "value": "0 de 10 solicitudes",
+      "note": "El piloto inicia después de producción e insumos oficiales."
     }
   ],
   "lastUpdated": {
-    "date": "2026-08-20 18:57 CST",
+    "date": "2026-08-24 14:19 CST",
     "by": "OpenCode"
   },
   "source": {
