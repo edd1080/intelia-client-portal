@@ -13,7 +13,7 @@
     "token": "",
     "status": "en progreso",
     "currentPhase": "Tablero ejecutivo funcionando con los primeros datos reales publicados; validación conjunta con BIA en preparación",
-    "progress": 45,
+    "progress": 65,
     "startDate": "2026-07-21",
     "targetEndDate": "",
     "executiveSummary": "bia DataHub ya muestra en un tablero web la foto real de la organización de junio 2026: headcount, vacaciones, gasto corporativo y rotación. El proceso mensual de carga de archivos está construido y probado, con controles de seguridad y trazabilidad. Lo siguiente es validar juntos el tablero y la carga, completar parámetros económicos e incorporar las fuentes restantes.",
@@ -744,7 +744,7 @@
   ],
   "lastUpdated": {
     "date": "2026-08-25 23:23 CST",
-    "by": "OpenCode"
+    "by": "Intelia"
   },
   "source": {
     "masterRecordId": "recwfzRxnyrW3mWEQ",
