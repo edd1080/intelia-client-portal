@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T21:00:00.000Z",
+  "generatedAt": "2026-08-25T23:23:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -311,7 +311,7 @@
       "baseId": "appNcnN6leXDGTHu3",
       "accessRecordId": "recpv6Mt3GkMm7XOK",
       "clientName": "BIA Corporativo Guatemala",
-      "projectName": "DataHub"
+      "projectName": "bia DataHub"
     },
     {
       "token": "bia-gt-onboarding-videos-edgar-intelia-pro_1dmXIB1E9P9UL6Wj",
@@ -335,7 +335,7 @@
       "baseId": "appNcnN6leXDGTHu3",
       "accessRecordId": "recvKp2cvWBtOc2Xw",
       "clientName": "BIA Corporativo Guatemala",
-      "projectName": "DataHub"
+      "projectName": "bia DataHub"
     },
     {
       "token": "bia-gt-datahub-dzepeda-biafoods-com_NedzdQD5JUPS8sp5",
@@ -347,7 +347,7 @@
       "baseId": "appNcnN6leXDGTHu3",
       "accessRecordId": "recw3Oc1z43scRGOQ",
       "clientName": "BIA Corporativo Guatemala",
-      "projectName": "DataHub"
+      "projectName": "bia DataHub"
     },
     {
       "token": "bia-gt-datahub-lorellana-biafoods-com_Y0dS5SNdAuECHOOz",
@@ -359,7 +359,7 @@
       "baseId": "appNcnN6leXDGTHu3",
       "accessRecordId": "reczDzCA4aE19scr5",
       "clientName": "BIA Corporativo Guatemala",
-      "projectName": "DataHub"
+      "projectName": "bia DataHub"
     },
     {
       "token": "bia-mx-bia-one-hr-dulces-cafepuntadelcielo-co_HPyBMsXf3DlhV4Ln",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:30:00.000Z",
+  "generatedAt": "2026-08-25T23:23:00.000Z",
   "projects": [
     {
       "key": "bia-hn-compras-ai-5cVRh5",
@@ -25,8 +25,8 @@
       "id": "recI00mA5slS0ot3Q",
       "baseId": "appNcnN6leXDGTHu3",
       "clientName": "BIA Corporativo Guatemala",
-      "projectName": "DataHub",
-      "code": "BIA-GT-DATAHUB"
+      "projectName": "bia DataHub",
+      "code": "BIA-DH"
     },
     {
       "key": "bia-gt-portal-vacaciones-JkploK",
