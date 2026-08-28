@@ -12,15 +12,15 @@
     "code": "BIA-MIC",
     "token": "",
     "status": "en progreso",
-    "currentPhase": "Desarrollo inicial: fundaciones verificables y preparación de pipelines de datos",
-    "progress": 20,
+    "currentPhase": "Motor de cálculo y gobierno del reporte completados; tablero y asistente en construcción",
+    "progress": 55,
     "startDate": "",
     "targetEndDate": "",
-    "executiveSummary": "BIA Market Intelligence Core digitalizará el ciclo mensual de inteligencia de mercado de BIA Honduras: recibirá los archivos de Nielsen y Dichter & Neira, aplicará las reglas de negocio documentadas por Insights, certificará el reporte mensual con exactitud numérica y habilitará dashboard, consultas y un asistente conversacional sobre la misma versión oficial de las cifras. La definición funcional y técnica está completa y lista para aprobación antes de iniciar la construcción.",
-    "remainingExplanation": "Falta construir y validar los pipelines Nielsen/D&N, la capa semántica, el reporte certificado, el asistente, los entregables y la salida a producción. Las decisiones de alcance y los supuestos de definición ya fueron cerrados; el avance pendiente es principalmente construcción y pruebas.",
-    "clientSignal": "tranquilo",
-    "clientMessage": "Marketing ya aprobó el alcance de la Fase 1 y el equipo Intelia inició el desarrollo. El 20% completado corresponde a la definición aprobada y al arranque de las fundaciones; ahora avanzamos hacia los primeros pipelines y la reproducción certificada del reporte de junio.",
-    "nextMilestone": "Slice 0: fundaciones verificables",
+    "executiveSummary": "BIA Market Intelligence Core ya recibe las fuentes mensuales, aplica las reglas de negocio de Insights, calcula el reporte completo y cuenta con el proceso formal para revisar, aprobar, publicar y corregir un ciclo sin perder el histórico. El sistema comparó el reporte de junio de 2026: 6 de 11 elementos revisados coinciden exactamente y los restantes están en revisión técnica. El siguiente trabajo visible es construir el tablero, el asistente y los entregables, mientras Insights confirma los valores exactos de referencia.",
+    "remainingExplanation": "Falta construir el tablero visual, el asistente de consulta en lenguaje natural y la generación automática de entregables. También faltan endurecimiento, pruebas de carga, capacitación, salida a producción, aprobación formal del paquete de definición y confirmación de valores exactos para certificar junio.",
+    "clientSignal": "decisión requerida",
+    "clientMessage": "La plataforma ya calcula el reporte mensual completo y tiene un proceso formal para revisarlo, aprobarlo, publicarlo y corregirlo sin perder el histórico. De los elementos revisados del reporte oficial de junio, 6 de 11 coinciden exactamente. El siguiente paso es confirmar los valores de referencia y construir la experiencia de consulta para Marketing e Insights.",
+    "nextMilestone": "Confirmar valores exactos de referencia para certificar junio 2026",
     "nextMilestoneDate": "",
     "enabledSections": [
       "kanban",
@@ -559,7 +559,7 @@
     {
       "id": "marketing-expanded-30",
       "name": "Capa semántica y comparador",
-      "status": "por hacer",
+      "status": "completado",
       "dueDate": "",
       "milestone": "Reporte certificado",
       "visibleToClient": true,
@@ -570,7 +570,7 @@
       "requiredAction": "",
       "ganttStart": "",
       "ganttEnd": "",
-      "ganttProgress": 0,
+      "ganttProgress": 100,
       "ganttOrder": 30,
       "ganttDependencies": ""
     },
@@ -645,6 +645,150 @@
       "ganttProgress": 0,
       "ganttOrder": 34,
       "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-35",
+      "name": "Motor completo de cálculo de las 16 métricas",
+      "status": "completado",
+      "dueDate": "",
+      "milestone": "Capa semántica y reporte mensual",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Calcular las métricas de negocio definidas con reglas controladas.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 100,
+      "ganttOrder": 35,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-36",
+      "name": "Comparación del reporte completo contra junio 2026",
+      "status": "en progreso",
+      "dueDate": "",
+      "milestone": "Certificación del reporte",
+      "visibleToClient": true,
+      "isCurrent": true,
+      "description": "6 de 11 elementos coinciden sin diferencias; 5 siguen en revisión técnica.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 50,
+      "ganttOrder": 36,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-37",
+      "name": "Flujo oficial de aprobación, publicación y corrección",
+      "status": "completado",
+      "dueDate": "",
+      "milestone": "Aprobación y publicación",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Revisar, aprobar, publicar y corregir sin perder histórico.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 100,
+      "ganttOrder": 37,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-38",
+      "name": "Revisión técnica adversarial de coordinación",
+      "status": "completado",
+      "dueDate": "",
+      "milestone": "Calidad y seguridad",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Revisión independiente con hallazgos corregidos antes de exposición.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 100,
+      "ganttOrder": 38,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-39",
+      "name": "Construir tablero visual para Marketing e Insights",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Consulta y tablero",
+      "visibleToClient": true,
+      "isCurrent": true,
+      "description": "Crear la experiencia visual para explorar información publicada.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 39,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-40",
+      "name": "Construir asistente de consulta en lenguaje natural",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Consulta y asistente",
+      "visibleToClient": true,
+      "isCurrent": true,
+      "description": "Permitir preguntas respaldadas por fuente, periodo y evidencia.",
+      "priority": "alta",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 40,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-41",
+      "name": "Generar entregables desde la publicación oficial",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Insights y entregables",
+      "visibleToClient": true,
+      "isCurrent": false,
+      "description": "Crear resúmenes y presentaciones trazables.",
+      "priority": "media",
+      "needsClientAction": false,
+      "requiredAction": "",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 41,
+      "ganttDependencies": ""
+    },
+    {
+      "id": "marketing-aug28-42",
+      "name": "Confirmar valores exactos de referencia con decimales",
+      "status": "por hacer",
+      "dueDate": "",
+      "milestone": "Aprobación de datos y golden set",
+      "visibleToClient": true,
+      "isCurrent": true,
+      "description": "Fijar con Insights los valores que cerrarán la certificación formal.",
+      "priority": "alta",
+      "needsClientAction": true,
+      "requiredAction": "Agendar reunión de datos y confirmar valores de referencia.",
+      "ganttStart": "",
+      "ganttEnd": "",
+      "ganttProgress": 0,
+      "ganttOrder": 42,
+      "ganttDependencies": ""
     }
   ],
   "milestones": [
@@ -662,8 +806,8 @@
       "name": "F1a — Definición consolidada",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "alcanzado",
-      "description": "Documentar alcance, datos, reglas y criterios.",
+      "status": "actual",
+      "description": "Paquete completo; la aprobación formal del cliente sigue pendiente.",
       "acceptanceCriteria": "Paquete aprobado."
     },
     {
@@ -671,7 +815,7 @@
       "name": "S0 — Fundaciones verificables",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "actual",
+      "status": "alcanzado",
       "description": "Construir base segura, auditable y comprobable.",
       "acceptanceCriteria": "Base y harness inicial operativos."
     },
@@ -680,7 +824,7 @@
       "name": "S1 — Pipeline Nielsen",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
+      "status": "alcanzado",
       "description": "Procesar y validar la fuente Nielsen mensual.",
       "acceptanceCriteria": "Pruebas DT-001 a DT-017."
     },
@@ -689,7 +833,7 @@
       "name": "S2 — Pipeline Dichter & Neira",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
+      "status": "alcanzado",
       "description": "Procesar las fuentes D&N y sus homologaciones.",
       "acceptanceCriteria": "Contratos ejecutables y excepciones visibles."
     },
@@ -698,7 +842,7 @@
       "name": "S3 — Capa semántica",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
+      "status": "alcanzado",
       "description": "Conectar fuentes, reglas y 16 KPI.",
       "acceptanceCriteria": "KPI trazables."
     },
@@ -707,8 +851,8 @@
       "name": "S4 — Reporte dorado de junio",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
-      "description": "Reproducir el reporte de referencia con tolerancia cero.",
+      "status": "actual",
+      "description": "Motor completo; 6 de 11 elementos coinciden sin diferencias y 5 siguen en revisión técnica.",
       "acceptanceCriteria": "Gates G0-G5 aprobados."
     },
     {
@@ -716,8 +860,8 @@
       "name": "S5 — Certificación y publicación",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
-      "description": "Separar preparación, aprobación y publicación oficial.",
+      "status": "alcanzado",
+      "description": "Proceso de revisión, aprobación, publicación y corrección construido y probado.",
       "acceptanceCriteria": "Versión inmutable publicada."
     },
     {
@@ -725,7 +869,7 @@
       "name": "S6 — Consulta y asistente",
       "estimatedDate": "",
       "actualDate": "",
-      "status": "pendiente",
+      "status": "actual",
       "description": "Responder preguntas desde cifras certificadas.",
       "acceptanceCriteria": "28 preguntas doradas y guardrails aprobados."
     },
@@ -759,86 +903,136 @@
   ],
   "activity": [
     {
-      "id": "marketing-approved-development",
-      "date": "2026-08-20",
-      "type": "avance",
-      "title": "Alcance de Fase 1 aprobado e inicio de desarrollo",
-      "description": "Marketing/Insights aprobó la definición de Fase 1 y el equipo Intelia inició las fundaciones verificables.",
-      "clientMeaning": "El proyecto dejó la etapa de definición y ya está construyendo la plataforma.",
-      "origin": "Intelia",
-      "visibleToClient": true
-    },
-    {
-      "id": "marketing-activity-definition",
-      "date": "2026-08-14",
+      "id": "marketing-aug28-calculation",
+      "date": "2026-08-28 10:49 UTC-6",
       "type": "entrega",
-      "title": "Paquete de definición de Fase 1 completado",
-      "description": "Se completó la documentación integral de la solución y se verificó contra los archivos reales de Nielsen, Dichter & Neira y el reporte de referencia.",
-      "clientMeaning": "El proyecto ya tiene definido qué se construirá, con qué datos y cómo se aceptará, reduciendo el riesgo de retrabajo.",
+      "title": "El motor del reporte mensual quedó completo",
+      "description": "La plataforma calcula las 16 métricas de negocio definidas y pasó más de 480 verificaciones automatizadas.",
+      "clientMeaning": "El sistema ya puede calcular de forma consistente las cifras del reporte mensual.",
       "origin": "Claude Code",
       "visibleToClient": true
     },
     {
-      "id": "marketing-activity-next",
-      "date": "2026-08-18",
-      "type": "decisión",
-      "title": "Siguiente paso: aprobar la definición e iniciar construcción",
-      "description": "El paquete documental está listo para revisión de Marketing/Insights; después deben resolverse las decisiones técnicas corporativas y la sesión UI/UX.",
-      "clientMeaning": "La siguiente decisión del equipo permite congelar el alcance y comenzar el desarrollo.",
+      "id": "marketing-aug28-comparison",
+      "date": "2026-08-28",
+      "type": "avance",
+      "title": "El reporte completo se comparó contra junio 2026",
+      "description": "6 de 11 elementos revisados coinciden exactamente, sin diferencias; 5 siguen pendientes por motivos técnicos puntuales.",
+      "clientMeaning": "La comparación confirma resultados limpios en todo lo evaluado y deja identificadas las piezas restantes.",
+      "origin": "Claude Code",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-aug28-governance",
+      "date": "2026-08-28",
+      "type": "entrega",
+      "title": "Proceso oficial de aprobación y publicación construido",
+      "description": "El ciclo de revisión, aprobación o devolución, publicación oficial y corrección posterior ya fue probado de punta a punta.",
+      "clientMeaning": "El reporte podrá convertirse en una versión oficial sin perder el histórico cuando se confirmen sus referencias.",
+      "origin": "Claude Code",
+      "visibleToClient": true
+    },
+    {
+      "id": "marketing-aug28-review",
+      "date": "2026-08-28",
+      "type": "validación",
+      "title": "Revisión técnica independiente completada",
+      "description": "Una revisión adversarial detectó y corrigió casos de coordinación entre acciones simultáneas antes de exponer el sistema.",
+      "clientMeaning": "Se agregó una capa adicional de calidad antes de avanzar hacia usuarios reales.",
       "origin": "Claude Code",
       "visibleToClient": true
     }
   ],
   "questions": [
     {
-      "id": "marketing-question-001",
+      "id": "marketing-aug28-q1",
       "author": "Intelia",
-      "message": "¿Marketing/Insights aprueba el paquete de definición de Fase 1?",
-      "date": "2026-08-18",
-      "status": "respondido",
-      "answer": "Cerrado durante la aprobación de la Fase 1; no es un bloqueo actual.",
+      "message": "¿Qué categorías deben incluirse en la participación de mercado de BIA?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
     },
     {
-      "id": "marketing-question-002",
+      "id": "marketing-aug28-q2",
       "author": "Intelia",
-      "message": "¿Cuál será la nube, identidad corporativa, política de IA y retención aprobadas?",
-      "date": "2026-08-18",
-      "status": "respondido",
-      "answer": "Cerrado durante la aprobación de la Fase 1; no es un bloqueo actual.",
+      "message": "¿En qué moneda debe mostrarse el acumulado anual?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
     },
     {
-      "id": "marketing-question-003",
+      "id": "marketing-aug28-q3",
       "author": "Intelia",
-      "message": "¿El archivo StoreLive de junio es el archivo completo o un extracto?",
-      "date": "2026-08-18",
-      "status": "respondido",
-      "answer": "Cerrado durante la aprobación de la Fase 1; no es un bloqueo actual.",
+      "message": "¿Qué referencia usar cuando el total del proveedor difiere de su desglose por redondeo?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
     },
     {
-      "id": "marketing-question-004",
+      "id": "marketing-aug28-q4",
       "author": "Intelia",
-      "message": "¿La página 15 del reporte debe decir Nielsen Mayo 2025 o Junio 2026?",
-      "date": "2026-08-18",
-      "status": "respondido",
-      "answer": "Cerrado durante la aprobación de la Fase 1; no es un bloqueo actual.",
+      "message": "¿Es correcta la equivalencia entre los nombres de mercado de las fuentes?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
     },
     {
-      "id": "marketing-question-005",
+      "id": "marketing-aug28-q5",
       "author": "Intelia",
-      "message": "¿Existe el PowerPoint original y cuáles son los formatos finales de exportación?",
-      "date": "2026-08-18",
-      "status": "respondido",
-      "answer": "Cerrado durante la aprobación de la Fase 1; no es un bloqueo actual.",
+      "message": "¿El archivo de junio con cobertura parcial es la versión definitiva?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
       "answeredAt": "",
-      "requiresClientDecision": false
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-aug28-q6",
+      "author": "Intelia",
+      "message": "¿Cómo deben tratarse los puntos de venta sin zona y formato?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-aug28-q7",
+      "author": "Intelia",
+      "message": "¿Podemos fijar los valores exactos de junio 2026 con todos sus decimales?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-aug28-q8",
+      "author": "Intelia",
+      "message": "¿Se aprueba formalmente el paquete de definición de Fase 1?",
+      "date": "2026-08-28",
+      "status": "requiere decisión",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
+    },
+    {
+      "id": "marketing-aug28-q9",
+      "author": "Intelia",
+      "message": "¿Qué proveedor de identidad, nube, política de IA y retención se utilizarán?",
+      "date": "2026-08-28",
+      "status": "sin responder",
+      "answer": "",
+      "answeredAt": "",
+      "requiresClientDecision": true
     }
   ],
   "files": [
@@ -1059,22 +1253,22 @@
       {
         "name": "Control del ciclo mensual",
         "description": "Organiza el periodo, fuentes esperadas, responsables y estado general.",
-        "status": "Existente"
+        "status": "Existente y verificado"
       },
       {
         "name": "Recepción y versionado de fuentes",
         "description": "Recibe las cinco fuentes, conserva originales y detecta duplicados o cambios.",
-        "status": "Existente"
+        "status": "Existente y verificado"
       },
       {
         "name": "Reglas y homologación",
         "description": "Convierte el conocimiento operativo de Insights en reglas versionadas para fabricantes, marcas, SKU, zonas y formatos.",
-        "status": "Existente"
+        "status": "Existente y verificado"
       },
       {
         "name": "Calidad y excepciones",
         "description": "Explica faltantes, cambios y datos que no pueden certificarse; nunca convierte un faltante en cero.",
-        "status": "Existente"
+        "status": "Existente y verificado"
       },
       {
         "name": "Motor de indicadores",
@@ -1089,7 +1283,7 @@
       {
         "name": "Certificación, aprobación y publicación",
         "description": "Separa preparación, revisión humana y publicación de una versión oficial inmutable.",
-        "status": "Propuesto"
+        "status": "Construido parcialmente / en desarrollo"
       },
       {
         "name": "Tablero de consulta",
@@ -1099,7 +1293,7 @@
       {
         "name": "Asistente conversacional e insights",
         "description": "Interpretará preguntas y sugerirá hallazgos usando únicamente información publicada y evidencia autorizada.",
-        "status": "Propuesto"
+        "status": "Construido parcialmente / en desarrollo"
       },
       {
         "name": "Entregables mensuales",
@@ -1219,7 +1413,7 @@
       "Las 113 cifras comparadas coinciden a la precisión publicada.",
       "La certificación formal, publicación, tablero y asistente siguen siendo las siguientes etapas."
     ],
-    "currentState": "La base técnica de recepción, transformación, homologación y cálculo ya está construida y fue verificada contra archivos reales. El reporte final certificado, la publicación oficial, el tablero visual y el asistente conversacional todavía están en construcción o propuestos.",
+    "currentState": "La base técnica, la ingesta de las cinco fuentes, el motor de 16 métricas y el proceso de aprobación/publicación ya están construidos y verificados. La comparación del reporte de junio confirma 6 de 11 elementos sin diferencias; la certificación formal, el tablero visual, el asistente y los entregables todavía están en construcción o pendientes de confirmación.",
     "glossary": [
       {
         "term": "Ciclo mensual",
