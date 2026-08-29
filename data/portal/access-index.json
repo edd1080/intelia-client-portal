@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T23:23:00.000Z",
+  "generatedAt": "2026-08-28T12:00:00.000Z",
   "access": [
     {
       "token": "bia-hn-compras-ai-dpiox-biabrands-co_oXg1uyGMQn3bGvLD",
@@ -442,6 +442,18 @@
       "projectId": "rectzxbKFBWaL58V8",
       "baseId": "appM9RFgoYSE9AiPM",
       "accessRecordId": "recMWsBuSEbW8zLPy",
+      "clientName": "BIA Honduras",
+      "projectName": "BIA Market Intelligence Core"
+    },
+    {
+      "token": "intelligence-core-alderi-solis-gmail-com_wnaTr1uhMixgFESMl47Gm94R",
+      "email": "alderi.solis@gmail.com",
+      "stakeholder": "alderi.solis",
+      "projectKey": "bia-hn-mkt-intelligence-core-tzxbKF",
+      "publicSlug": "intelligence-core",
+      "projectId": "rectzxbKFBWaL58V8",
+      "baseId": "appM9RFgoYSE9AiPM",
+      "accessRecordId": "snapshot-access-alderi-solis",
       "clientName": "BIA Honduras",
       "projectName": "BIA Market Intelligence Core"
     }
